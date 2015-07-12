@@ -12,12 +12,12 @@ public class MainActivity extends Activity
 
 	public MainActivity()
 	{
-		_myoArRenderView = new MyoArRenderView(this);
 	}
 	
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		_myoArRenderView = new MyoArRenderView(this);
 
 		makeWindowFixedFullscreen();
 		
