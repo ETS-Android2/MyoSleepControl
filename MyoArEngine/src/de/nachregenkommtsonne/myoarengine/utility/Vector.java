@@ -95,9 +95,21 @@ public class Vector
 
 	public void normalize()
 	{
-		float squareLength = _values[0] * _values[0] 
+		float length = getLength();
+    div(length);
+	}
+
+  public float getLength()
+  {
+    float squareLength = _values[0] * _values[0] 
 				+ _values[1] * _values[1]
 				+ _values[2] * _values[2];
-		div((float) Math.sqrt(squareLength));
-	}
+		float length = (float) Math.sqrt(squareLength);
+    return length;
+  }
+
+  public boolean isValid()
+  { 
+    return ! (Float.isNaN(_values[0]) || Float.isNaN(_values[1]) || Float.isNaN(_values[2]));
+  }
 }

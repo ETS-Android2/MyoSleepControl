@@ -57,14 +57,14 @@ public class MyoArRenderView extends GLSurfaceView
   @SuppressLint("ClickableViewAccessibility")
   public boolean onTouchEvent(MotionEvent event)
   {
-    int action = event.getAction();
-    switch (action)
+    switch (event.getAction())
     {
     case MotionEvent.ACTION_DOWN:
+      
       initialX = event.getX(0);
       initialY = event.getY(0);
+      
       return true;
-
       
     case MotionEvent.ACTION_MOVE:
       float currentX = event.getX(0);
@@ -73,14 +73,17 @@ public class MyoArRenderView extends GLSurfaceView
       float relativeX = initialX - currentX;
       float relativeY = initialY - currentY;
      
-      _myoArRenderer.move(new Vector(relativeX / 1000.0f, relativeY/ 1000.0f, 0.0f));
+      _myoArRenderer.setMovementVector(new Vector(relativeX / 1000.0f, relativeY / 1000.0f, 0.0f));
+      
       return true;
       
     case MotionEvent.ACTION_UP:
+      
+      _myoArRenderer.setMovementVector(new Vector());
+      
       return true;
     }
 
     return super.onTouchEvent(event);
   }
-
 }

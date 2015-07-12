@@ -5,6 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.hardware.SensorManager;
 import android.opengl.GLU;
+import android.opengl.Matrix;
 import android.opengl.GLSurfaceView.Renderer;
 import de.nachregenkommtsonne.myoarengine.utility.Vector;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
@@ -16,6 +17,7 @@ public class MyoArRenderer implements Renderer
 	private int _height = 0;
 	private float[] _rotationMatrix = new float[16];
 	private Vector _position;
+	private Vector _movementVector;
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
@@ -26,6 +28,7 @@ public class MyoArRenderer implements Renderer
 		_gravitationalVector = gravitationalVector;
 		_magneticVector = magneticVector;
 		_position = new Vector();
+		_movementVector = new Vector(0.0f, 0.0f, 0.0f);
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
@@ -68,13 +71,23 @@ public class MyoArRenderer implements Renderer
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
 
+		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
+		Vector upVector = new Vector(0.0f, 0.0f, 1.0f);
+		Vector left = xVector.cross(upVector);
+		//Vector forward = left.cross(upVector);
+		left.normalize();
+		left.mult(_movementVector.getLength());
+		
+		if (left.isValid())
+		  _position.add(left);
+		
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
 		dummyWorldRenderer.render(gl);
 	}
 	
-	public void move(Vector vector)
+	public void setMovementVector(Vector vector)
 	{
-	  _position.add(vector);
+	  _movementVector = vector;
 	}
 }
