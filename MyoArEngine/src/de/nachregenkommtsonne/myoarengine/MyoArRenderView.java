@@ -8,9 +8,10 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import de.nachregenkommtsonne.myoarengine.utility.Vector;
+import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
@@ -113,10 +114,10 @@ public class MyoArRenderView extends GLSurfaceView
 				if (_width == 0 || _height == 0)
 					return;
 
-				Vector gavitationalVector = _gravitationalVector.getAvg();
+				Vector gavitationalVector = _gravitationalVector.getAverage();
 				gavitationalVector.normalize();
 
-				Vector magneticVector = _magneticVector.getAvg();
+				Vector magneticVector = _magneticVector.getAverage();
 				magneticVector.normalize();
 
 				SensorManager.getRotationMatrix(_rotationMatrix, null,
@@ -146,23 +147,8 @@ public class MyoArRenderView extends GLSurfaceView
 
 		setRenderer(_myoArRenderer);
 
-		_gravitationalEventListener = new SensorEventListener()
-		{
-			public void onSensorChanged(SensorEvent event)
-			{
-				_gravitationalVector.add(new Vector(event.values));
-			}
-			public void onAccuracyChanged(Sensor sensor, int accuracy){}
-		};
-
-		_magneticEventListener = new SensorEventListener()
-		{
-			public void onSensorChanged(SensorEvent event)
-			{
-				_magneticVector.add(new Vector(event.values));
-			}
-			public void onAccuracyChanged(Sensor sensor, int accuracy){}
-		};
+		_gravitationalEventListener = new AveragingSensorEventListener(_gravitationalVector);
+		_magneticEventListener = new AveragingSensorEventListener(_magneticVector);
 		
 		SensorManager sensorService = (SensorManager) getContext()
 				.getSystemService(Context.SENSOR_SERVICE);
@@ -177,7 +163,7 @@ public class MyoArRenderView extends GLSurfaceView
 		sensorService.registerListener(_magneticEventListener, magneticFieldSensor,
 				SensorManager.SENSOR_DELAY_GAME);
 
-	}
+	} // ctor end
 
 	@Override
 	public void onResume()
