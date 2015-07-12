@@ -5,7 +5,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.hardware.SensorManager;
 import android.opengl.GLU;
-import android.opengl.Matrix;
 import android.opengl.GLSurfaceView.Renderer;
 import de.nachregenkommtsonne.myoarengine.utility.Vector;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
@@ -74,7 +73,7 @@ public class MyoArRenderer implements Renderer
 		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
 		Vector upVector = new Vector(0.0f, 0.0f, 1.0f);
 		Vector left = xVector.cross(upVector);
-		//Vector forward = left.cross(upVector);
+		
 		left.normalize();
 		left.mult(_movementVector.getLength());
 		
