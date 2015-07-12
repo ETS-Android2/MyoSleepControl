@@ -9,13 +9,13 @@ import android.opengl.GLSurfaceView.Renderer;
 import de.nachregenkommtsonne.myoarengine.utility.Vector;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 
-final class MyoArRenderer implements Renderer
+public class MyoArRenderer implements Renderer
 {
-	final DummyWorldRenderer dummyWorldRenderer = new DummyWorldRenderer();
-	int _width = 0;
-	int _height = 0;
-	static final int matrix_size = 16;
-	float[] _rotationMatrix = new float[matrix_size];
+	private DummyWorldRenderer dummyWorldRenderer = new DummyWorldRenderer();
+	private int _width = 0;
+	private int _height = 0;
+	private float[] _rotationMatrix = new float[16];
+	private Vector _position;
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
@@ -23,9 +23,9 @@ final class MyoArRenderer implements Renderer
 	public MyoArRenderer(VectorAverager gravitationalVector,
 			VectorAverager magneticVector)
 	{
-		super();
 		_gravitationalVector = gravitationalVector;
 		_magneticVector = magneticVector;
+		_position = new Vector();
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
@@ -68,7 +68,13 @@ final class MyoArRenderer implements Renderer
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
 
+		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
 		dummyWorldRenderer.render(gl);
+	}
+	
+	public void move(Vector vector)
+	{
+	  _position.add(vector);
 	}
 }
