@@ -10,13 +10,18 @@ public class MainActivity extends Activity
 {
 	private MyoArRenderView _myoArRenderView;
 
+	public MainActivity()
+	{
+		_myoArRenderView = new MyoArRenderView(this);
+	}
+	
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
 		makeWindowFixedFullscreen();
-
-		_myoArRenderView = new MyoArRenderView(this);
+		
+		_myoArRenderView.initialize();
 		setContentView(_myoArRenderView);
 	}
 
