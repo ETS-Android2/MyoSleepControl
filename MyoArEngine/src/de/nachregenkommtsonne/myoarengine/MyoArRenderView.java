@@ -1,10 +1,5 @@
 package de.nachregenkommtsonne.myoarengine;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -38,59 +33,7 @@ public class MyoArRenderView extends GLSurfaceView
 		_gravitationalVector = new VectorAverager(25);
 		_magneticVector = new VectorAverager(25);
 
-		final int numVertices = 2 * 201 * 2 * 2;
-		ByteBuffer vbb = ByteBuffer.allocateDirect(numVertices * 3 * 4);
-		vbb.order(ByteOrder.nativeOrder());
-		final FloatBuffer vertices = vbb.asFloatBuffer();
-
-		ByteBuffer cbb = ByteBuffer.allocateDirect(numVertices * 4 * 4);
-		cbb.order(ByteOrder.nativeOrder());
-		final FloatBuffer colorBuffer = cbb.asFloatBuffer();
-
-		ByteBuffer ibb = ByteBuffer.allocateDirect(numVertices * 2);
-		ibb.order(ByteOrder.nativeOrder());
-		final ShortBuffer indexBuffer = ibb.asShortBuffer();
-
-		float ebene = -9.0f;
-		short num = 0;
-		for (int i = -100; i <= 100; i++)
-		{
-			vertices.put(new Vector(-100.0f, i, ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(100.0f, i, ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(i, -100.0f, ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(i, 100.0f, ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(-100.0f, i, -ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(100.0f, i, -ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(i, -100.0f, -ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-
-			vertices.put(new Vector(i, 100.0f, -ebene).getValues());
-			colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-			indexBuffer.put(num++);
-		}
-
-		vertices.position(0);
-		indexBuffer.position(0);
-		colorBuffer.position(0);
+		final DummyWorldRenderer dummyWorldRenderer = new DummyWorldRenderer();
 
 		_myoArRenderer = new Renderer()
 		{
@@ -134,14 +77,8 @@ public class MyoArRenderView extends GLSurfaceView
 				gl.glLoadIdentity();
 				gl.glLoadMatrixf(_rotationMatrix, 0);
 
-				gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-				gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
-				gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertices);
-				gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
-				gl.glDrawElements(GL10.GL_LINES, numVertices, GL10.GL_UNSIGNED_SHORT,
-						indexBuffer);
-
+				dummyWorldRenderer.render(gl);
 			}
 		};
 
@@ -163,13 +100,11 @@ public class MyoArRenderView extends GLSurfaceView
 		sensorService.registerListener(_magneticEventListener, magneticFieldSensor,
 				SensorManager.SENSOR_DELAY_GAME);
 
-	} // ctor end
+	}
 
-	@Override
 	public void onResume()
 	{
 		super.onResume();
-
 	}
 
 	public void onPause()
