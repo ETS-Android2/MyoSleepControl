@@ -73,7 +73,7 @@ public class MyoArRenderView extends GLSurfaceView
       float relativeX = initialX - currentX;
       float relativeY = initialY - currentY;
      
-      _myoArRenderer.setMovementVector(new Vector(relativeX / 1000.0f, relativeY / 1000.0f, 0.0f));
+      _myoArRenderer.setMovementVector(new Vector(relativeX / 1000.0f, relativeY / -1000.0f, 0.0f));
       
       return true;
       

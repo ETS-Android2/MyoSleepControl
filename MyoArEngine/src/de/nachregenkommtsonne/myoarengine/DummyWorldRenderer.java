@@ -73,8 +73,12 @@ public class DummyWorldRenderer
 	
 	}
 	
-	void render(GL10 gl)
+	void render(GL10 gl, Vector vector)
 	{
+    _vertices.put(new Vector().getValues());
+    _vertices.put(vector.getValues());
+	  _vertices.position(0);
+	  
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
@@ -82,6 +86,10 @@ public class DummyWorldRenderer
 		gl.glColorPointer(4, GL10.GL_FLOAT, 0, _colorBuffer);
 		gl.glDrawElements(GL10.GL_LINES, _numVertices, GL10.GL_UNSIGNED_SHORT,
 				_indexBuffer);
+		
+		
+
+		
 	}
 
 }

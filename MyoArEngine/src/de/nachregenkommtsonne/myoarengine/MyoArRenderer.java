@@ -70,19 +70,62 @@ public class MyoArRenderer implements Renderer
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
 
-		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
-		Vector upVector = new Vector(0.0f, 0.0f, 1.0f);
-		Vector left = xVector.cross(upVector);
+		float movementX = _movementVector.getX();
+		float movementY = _movementVector.getY();
 		
-		left.normalize();
-		left.mult(_movementVector.getLength());
+		Vector upVector = new Vector(0.0f, 0.0f, 1.0f);
+
+		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
+    Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
+    Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
+    
+    
+    Vector ebenenSchnittpunkt = zVector.cross(upVector); // x
+    Vector ebenenSchnittpunktUp = ebenenSchnittpunkt.cross(zVector); // y
+
+    Vector inWorldDisplayMovementVector = xVector.mult(movementX).add(yVector.mult(movementY)); // v = a*x + b*y
+    
+    Vector p1 = inWorldDisplayMovementVector.cross(ebenenSchnittpunkt);
+    Vector p2 = ebenenSchnittpunktUp.cross(ebenenSchnittpunkt);
+    
+    float b = p1.getX() / p2.getX();
+
+    Vector p3 = inWorldDisplayMovementVector.cross(ebenenSchnittpunktUp);
+    Vector p4 = ebenenSchnittpunkt.cross(ebenenSchnittpunktUp);
+    
+    float a = p3.getX() / p4.getX();
+
+    
+    
+    Vector forwardVector = ebenenSchnittpunkt.cross(upVector);
+    Vector inWorldMovementVector = ebenenSchnittpunkt.mult(a).add(forwardVector.mult(b));
+    
+    
+    
+
+    
+    
+    
+
+    Vector left = inWorldMovementVector.normalize();
+    left = left.mult(_movementVector.getLength());
+    
+    
+    
+    /*Vector inWorldMovementVector = xVector.mult(movementX).add(yVector.mult(movementY));
+
+		Vector left = inWorldMovementVector.cross(upVector);
+		left = left.cross(upVector);
+		
+		left = left.normalize();
+		left = left.mult(_movementVector.getLength());*/
 		
 		if (left.isValid())
-		  _position.add(left);
+		  _position = _position.add(left);
 		
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
-		dummyWorldRenderer.render(gl);
+		dummyWorldRenderer.render(gl, inWorldMovementVector);
 	}
 	
 	public void setMovementVector(Vector vector)
