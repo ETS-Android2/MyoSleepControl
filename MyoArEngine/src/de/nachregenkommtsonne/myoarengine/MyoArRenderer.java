@@ -16,7 +16,7 @@ public class MyoArRenderer implements Renderer
 	private int _height = 0;
 	private float[] _rotationMatrix = new float[16];
 	private Vector _position;
-	private Vector _movementVector;
+	private Vector _displayVector;
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
@@ -27,7 +27,7 @@ public class MyoArRenderer implements Renderer
 		_gravitationalVector = gravitationalVector;
 		_magneticVector = magneticVector;
 		_position = new Vector();
-		_movementVector = new Vector(0.0f, 0.0f, 0.0f);
+		_displayVector = new Vector(0.0f, 0.0f, 0.0f);
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
@@ -70,8 +70,8 @@ public class MyoArRenderer implements Renderer
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
 
-		float movementX = _movementVector.getX();
-		float movementY = _movementVector.getY();
+		float displayX = _displayVector.getX();
+		float displayY = _displayVector.getY();
 		
 		Vector upVector = new Vector(0.0f, 0.0f, 1.0f);
 
@@ -79,47 +79,27 @@ public class MyoArRenderer implements Renderer
     Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
     Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
     
-    
-    Vector ebenenSchnittpunkt = zVector.cross(upVector); // x
-    Vector ebenenSchnittpunktUp = ebenenSchnittpunkt.cross(zVector); // y
+    Vector displayPlaneXVector = zVector.cross(upVector);
+    Vector displayPlaneYVector = displayPlaneXVector.cross(zVector);
 
-    Vector inWorldDisplayMovementVector = xVector.mult(movementX).add(yVector.mult(movementY)); // v = a*x + b*y
+    Vector inWorldDisplayVector = xVector.mult(displayX).add(yVector.mult(displayY));
     
-    Vector p1 = inWorldDisplayMovementVector.cross(ebenenSchnittpunkt);
-    Vector p2 = ebenenSchnittpunktUp.cross(ebenenSchnittpunkt);
+    Vector p1 = inWorldDisplayVector.cross(displayPlaneXVector);
+    Vector p2 = displayPlaneYVector.cross(displayPlaneXVector);
     
     float b = p1.getX() / p2.getX();
 
-    Vector p3 = inWorldDisplayMovementVector.cross(ebenenSchnittpunktUp);
-    Vector p4 = ebenenSchnittpunkt.cross(ebenenSchnittpunktUp);
+    Vector p3 = inWorldDisplayVector.cross(displayPlaneYVector);
+    Vector p4 = displayPlaneXVector.cross(displayPlaneYVector);
     
     float a = p3.getX() / p4.getX();
-
     
-    
-    Vector forwardVector = ebenenSchnittpunkt.cross(upVector);
-    Vector inWorldMovementVector = ebenenSchnittpunkt.mult(a).add(forwardVector.mult(b));
-    
-    
-    
-
-    
-    
-    
+    Vector forwardVector = displayPlaneXVector.cross(upVector);
+    Vector inWorldMovementVector = displayPlaneXVector.mult(a).add(forwardVector.mult(b));
 
     Vector left = inWorldMovementVector.normalize();
-    left = left.mult(_movementVector.getLength());
+    left = left.mult(_displayVector.getLength());
     
-    
-    
-    /*Vector inWorldMovementVector = xVector.mult(movementX).add(yVector.mult(movementY));
-
-		Vector left = inWorldMovementVector.cross(upVector);
-		left = left.cross(upVector);
-		
-		left = left.normalize();
-		left = left.mult(_movementVector.getLength());*/
-		
 		if (left.isValid())
 		  _position = _position.add(left);
 		
@@ -130,6 +110,6 @@ public class MyoArRenderer implements Renderer
 	
 	public void setMovementVector(Vector vector)
 	{
-	  _movementVector = vector;
+	  _displayVector = vector;
 	}
 }
