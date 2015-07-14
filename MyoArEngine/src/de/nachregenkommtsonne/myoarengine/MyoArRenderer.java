@@ -6,6 +6,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.hardware.SensorManager;
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
+import de.nachregenkommtsonne.myoarengine.utility.MovementCalculator;
 import de.nachregenkommtsonne.myoarengine.utility.Vector;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 
@@ -69,45 +70,21 @@ public class MyoArRenderer implements Renderer
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
-
-		float displayX = _displayVector.getX();
-		float displayY = _displayVector.getY();
 		
-		Vector upVector = new Vector(0.0f, 0.0f, 1.0f);
-
 		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
     Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
     Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
     
-    Vector displayPlaneXVector = zVector.cross(upVector);
-    Vector displayPlaneYVector = displayPlaneXVector.cross(zVector);
-
-    Vector inWorldDisplayVector = xVector.mult(displayX).add(yVector.mult(displayY));
+    Vector delta = new MovementCalculator().getMovementDelta(_displayVector, xVector, yVector, zVector);
     
-    Vector p1 = inWorldDisplayVector.cross(displayPlaneXVector);
-    Vector p2 = displayPlaneYVector.cross(displayPlaneXVector);
-    
-    float b = p1.getX() / p2.getX();
-
-    Vector p3 = inWorldDisplayVector.cross(displayPlaneYVector);
-    Vector p4 = displayPlaneXVector.cross(displayPlaneYVector);
-    
-    float a = p3.getX() / p4.getX();
-    
-    Vector forwardVector = displayPlaneXVector.cross(upVector);
-    Vector inWorldMovementVector = displayPlaneXVector.mult(a).add(forwardVector.mult(b));
-
-    Vector left = inWorldMovementVector.normalize();
-    left = left.mult(_displayVector.getLength());
-    
-		if (left.isValid())
-		  _position = _position.add(left);
+		if (delta.isValid())
+		  _position = _position.add(delta);
 		
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
-		dummyWorldRenderer.render(gl, inWorldMovementVector);
+		dummyWorldRenderer.render(gl, new Vector());
 	}
-	
+
 	public void setMovementVector(Vector vector)
 	{
 	  _displayVector = vector;

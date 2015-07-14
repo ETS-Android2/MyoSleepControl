@@ -70,7 +70,6 @@ public class DummyWorldRenderer
 		_vertices.position(0);
 		_indexBuffer.position(0);
 		_colorBuffer.position(0);
-	
 	}
 	
 	void render(GL10 gl, Vector vector)
@@ -86,10 +85,5 @@ public class DummyWorldRenderer
 		gl.glColorPointer(4, GL10.GL_FLOAT, 0, _colorBuffer);
 		gl.glDrawElements(GL10.GL_LINES, _numVertices, GL10.GL_UNSIGNED_SHORT,
 				_indexBuffer);
-		
-		
-
-		
 	}
-
 }

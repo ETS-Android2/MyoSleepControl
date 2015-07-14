@@ -1,5 +1,7 @@
 package de.nachregenkommtsonne.myoarengine.utility;
 
+import java.util.Locale;
+
 public class Vector
 {
   private float[] _values = new float[3];
@@ -92,5 +94,25 @@ public class Vector
   public boolean isValid()
   {
     return !(Float.isNaN(_values[0]) || Float.isNaN(_values[1]) || Float.isNaN(_values[2]));
+  }
+
+  @Override
+  public boolean equals(Object object)
+  {
+    if (object instanceof Vector)
+    {
+      Vector vector = (Vector) object;
+
+      return vector.getX() == _values[0] && vector.getY() == _values[1] && vector.getZ() == _values[2];
+    }
+
+    return false;
+  }
+  
+  @Override
+  public String toString()
+  {
+    // TODO Auto-generated method stub
+    return String.format(Locale.ENGLISH,"%f, %f, %f", _values[0], _values[1], _values[2]);
   }
 }
