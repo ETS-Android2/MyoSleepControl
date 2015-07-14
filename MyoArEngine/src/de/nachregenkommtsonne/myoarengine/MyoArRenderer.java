@@ -80,13 +80,21 @@ public class MyoArRenderer implements Renderer
 		if (delta.isValid())
 		  _position = _position.add(delta);
 		
+    
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
-		dummyWorldRenderer.render(gl, new Vector());
+		dummyWorldRenderer.render(gl, _matrix);
+    dummyWorldRenderer.render2(gl, _matrix);
 	}
 
 	public void setMovementVector(Vector vector)
 	{
 	  _displayVector = vector;
 	}
+
+	float[] _matrix;
+  public void orientationData(float[] matrix)
+  {
+    _matrix = matrix;
+  }
 }

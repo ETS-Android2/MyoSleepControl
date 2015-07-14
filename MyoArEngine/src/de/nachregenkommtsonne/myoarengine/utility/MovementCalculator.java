@@ -8,10 +8,10 @@ public class MovementCalculator
   
   public Vector getMovementDelta(Vector displayVector, Vector xVector, Vector yVector, Vector zVector)
   {
+    Vector inWorldDisplayVector = xVector.mult(displayVector.getX()).add(yVector.mult(displayVector.getY()));
+    
     Vector displayPlaneXVector = new Vector(zVector.getY(), -zVector.getX(), 0.0f);
     Vector displayPlaneYVector = displayPlaneXVector.cross(zVector);
-
-    Vector inWorldDisplayVector = xVector.mult(displayVector.getX()).add(yVector.mult(displayVector.getY()));
 
     Vector p1 = inWorldDisplayVector.cross(displayPlaneXVector);
     Vector p2 = displayPlaneYVector.cross(displayPlaneXVector);

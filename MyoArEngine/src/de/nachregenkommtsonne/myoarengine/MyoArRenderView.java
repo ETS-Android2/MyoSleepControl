@@ -86,4 +86,9 @@ public class MyoArRenderView extends GLSurfaceView
 
     return super.onTouchEvent(event);
   }
+
+  public void orientationData(float[] matrix)
+  {
+    _myoArRenderer.orientationData(matrix);
+  }
 }
