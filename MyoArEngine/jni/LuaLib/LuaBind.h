@@ -1,8 +1,12 @@
 #pragma once
+
+//#define __cplusplus 201103L
+
 #include <vector>
 #include <functional>
 #include <string>
 #include "global.h"
+
 
 class FunctionHelper
 {

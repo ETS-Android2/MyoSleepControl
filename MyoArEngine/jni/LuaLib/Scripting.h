@@ -3,6 +3,7 @@
 #include <vector>
 #include <functional>
 #include <map>
+#include <string>
 #include <setjmp.h>
 
 #include "UIElement.h"
@@ -50,7 +51,7 @@ private:
 	const char *luaError;
 	jmp_buf jumpBuffer;
 
-	vector<UIElement *> m_uiElements;		
+	std::vector<UIElement *> m_uiElements;
 	UITextField *m_focus;
 
 	static int LUA_FUNCTION lua_atPanicFunctionProxy(lua_State *L){return Scripting::theLuaEngine->lua_atPanicFunction(L);}

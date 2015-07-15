@@ -1,7 +1,5 @@
-APP_STL                 := stlport_static
-#NDK_TOOLCHAIN_VERSION := 4.8
-
-# gnustl_static gnustl_shared   c++_static c++_shared 
-
 APP_STL:= gnustl_static
-#LOCAL_CFLAGS := -D__GXX_EXPERIMENTAL_CXX0X__
+#APP_PLATFORM := android-21
+
+#C:\Users\j39f3fs\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include
+#C:\Users\j39f3fs\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\include

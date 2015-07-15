@@ -10,9 +10,7 @@ LOCAL_MODULE := MyoArEngine
 LOCAL_SRC_FILES := MyoArEngine.cpp UIElement.cpp Scripting.cpp UIButton.cpp UIImage.cpp UILabel.cpp UITextField.cpp
 
 LOCAL_STATIC_LIBRARIES := liblua
-#LIB_PATH := $(LOCAL_PATH)/../../libs/
-#LOCAL_LDLIBS += $(LIB_PATH) -llua
 
-LOCAL_CPPFLAGS := -fexceptions -std=c++11 --rtti -fPIC
+LOCAL_CPPFLAGS := -std=c++11 --rtti
 
 include $(BUILD_STATIC_LIBRARY)
