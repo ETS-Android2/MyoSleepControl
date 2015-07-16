@@ -51,7 +51,9 @@ template<class nestedClassType>
 /* static */ void LuaBinding<nestedClassType>::Init(lua_State *L, std::string createFunctionName) // for every lua context
 {
 	//new metatable
-	luaL_newmetatable(L, className.c_str());
+
+	const char *tableName = className.c_str();
+	luaL_newmetatable(L, tableName);
 	lua_pushcfunction(L, &LuaBinding<nestedClassType>::index);
 	lua_setfield(L, -2, "__index");
 	lua_pop(L, 1);

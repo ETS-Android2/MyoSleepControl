@@ -5,6 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.hardware.SensorManager;
 import android.opengl.GLU;
+import android.util.Log;
 import android.opengl.GLSurfaceView.Renderer;
 import de.nachregenkommtsonne.myoarengine.utility.MovementCalculator;
 import de.nachregenkommtsonne.myoarengine.utility.Vector;
@@ -85,6 +86,9 @@ public class MyoArRenderer implements Renderer
 
 		dummyWorldRenderer.render(gl, _matrix);
     dummyWorldRenderer.render2(gl, _matrix);
+    
+    String s = new C().getMessage(null);
+    Log.e("", s);
 	}
 
 	public void setMovementVector(Vector vector)
