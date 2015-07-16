@@ -22,7 +22,7 @@
 					<folderInfo id="com.android.toolchain.gcc.818319832.1453254790" name="/" resourcePath="">
 						<toolChain id="com.android.toolchain.gcc.1866541607" name="Android GCC" superClass="com.android.toolchain.gcc">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform.45835465" isAbstract="false" superClass="com.android.targetPlatform"/>
-							<builder arguments="NDK_DEBUG=1" command="ndk-build" id="com.android.builder.1751199942" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Android Builder" superClass="com.android.builder"/>
+							<builder arguments="" command="ndk-build" id="com.android.builder.1751199942" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Android Builder" superClass="com.android.builder"/>
 							<tool id="com.android.gcc.compiler.191166873" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
 								<option id="com.android.gcc.option.includePath.791065762" superClass="com.android.gcc.option.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:\Users\j39f3fs\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include&quot;"/>
