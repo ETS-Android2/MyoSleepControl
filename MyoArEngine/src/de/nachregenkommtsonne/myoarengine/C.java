@@ -4,7 +4,7 @@ public class C
 {
 
   static {
-    System.loadLibrary("AirGap");
+    System.loadLibrary("MyoArEngine");
   }
   
 
