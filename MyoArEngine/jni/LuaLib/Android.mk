@@ -22,7 +22,10 @@ include $(CLEAR_VARS)
 LOCAL_CFLAGS += -std=c99
 
 LOCAL_MODULE    := AirGap
-LOCAL_SRC_FILES := AirGapMain.cpp
+LOCAL_SRC_FILES := MyoArEngine.cpp
+
+LOCAL_LDLIBS := -lGLESv2
+
 
 LOCAL_EXPORT_CFLAGS := -DANDROID=1
 
