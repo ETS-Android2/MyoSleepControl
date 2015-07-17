@@ -66,7 +66,7 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 		Dimension dim = GetAbsoluteDimensions();
 
 	    glEnableClientState(GL_VERTEX_ARRAY);
-	    glEnableClientState(GL_COLOR_ARRAY);
+	    //glEnableClientState(GL_COLOR_ARRAY);
 
 	    short vertices[] = {
 	    		(short) dim.x, (short) dim.y,
@@ -77,16 +77,16 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 
 	    glVertexPointer(2, GL_SHORT, 0, vertices);
 
-	    float colores[] = {
+	    /*float colores[] = {
 	    		1.0f, 1.0f, 1.0f, 1.0f,
 	    		1.0f, 1.0f, 1.0f, 1.0f,
 	    		1.0f, 1.0f, 1.0f, 1.0f,
 	    		1.0f, 1.0f, 1.0f, 1.0f
 	    };
 
-	    glColorPointer(4, GL_FLOAT, 0, colores);
+	    glColorPointer(4, GL_FLOAT, 0, colores);*/
 
-	    //glDrawElements(GL_LINES, _numVerticesBase, GL_UNSIGNED_SHORT, _indexBufferBase);
+	    glDrawElements(GL_LINES, _numVerticesBase, GL_UNSIGNED_SHORT, _indexBufferBase);
 
 
 
