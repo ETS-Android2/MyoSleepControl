@@ -34,6 +34,7 @@ public class MyoArRenderer implements Renderer
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
+	   new C().onSurfaceCreated();
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height)
@@ -45,6 +46,9 @@ public class MyoArRenderer implements Renderer
 
 		gl.glEnable(GL10.GL_POINT_SMOOTH);
 		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
+		
+    new C().onSurfaceChanged(width, height);
+
 	}
 
 	public void onDrawFrame(GL10 gl)
@@ -87,8 +91,7 @@ public class MyoArRenderer implements Renderer
 		dummyWorldRenderer.render(gl, _matrix);
     dummyWorldRenderer.render2(gl, _matrix);
     
-    String s = new C().getMessage(null);
-    Log.e("", s);
+    new C().onDrawFrame();
 	}
 
 	public void setMovementVector(Vector vector)

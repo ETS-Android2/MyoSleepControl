@@ -1,4 +1,8 @@
 #include "UILabel.h"
+#include <GLES/gl.h>
+
+//#include <GLES2/gl2ext.h>
+//#include <GLES2/gl2platform.h>
 
 void UILabel::Init(lua_State *L, std::function<void (UIElement *)> func)
 {
@@ -61,6 +65,35 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 	{
 		Dimension dim = GetAbsoluteDimensions();
 
+	    glEnableClientState(GL_VERTEX_ARRAY);
+	    glEnableClientState(GL_COLOR_ARRAY);
+
+	    short vertices[] = {
+	    		(short) dim.x, (short) dim.y,
+	    		(short) dim.x + (short) dim.width, (short) dim.y,
+	    		(short) dim.x + (short) dim.width, (short) dim.y + (short) dim.height,
+	    		(short) dim.x, (short) dim.y + (short) dim.height
+	    };
+
+	    glVertexPointer(2, GL_SHORT, 0, vertices);
+
+	    float colores[] = {
+	    		1.0f, 1.0f, 1.0f, 1.0f,
+	    		1.0f, 1.0f, 1.0f, 1.0f,
+	    		1.0f, 1.0f, 1.0f, 1.0f,
+	    		1.0f, 1.0f, 1.0f, 1.0f
+	    };
+
+	    glColorPointer(4, GL_FLOAT, 0, colores);
+
+	    //glDrawElements(GL_LINES, _numVerticesBase, GL_UNSIGNED_SHORT, _indexBufferBase);
+
+
+
+
+
+
+		//old code
 		/*glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 		glBegin(GL_QUADS);
@@ -102,6 +135,8 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 
 		//end
 		glDisable(GL_STENCIL_TEST);*/
+
+
 	}
 }
 

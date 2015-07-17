@@ -75,7 +75,7 @@ int Scripting::lua_atPanicFunction(lua_State *L)
 	return 1;
 }
 
-void Scripting::RunScript(const char *file)
+void Scripting::RunScript(const char *script)
 {
 	lua_atpanic(luaState, &Scripting::lua_atPanicFunctionProxy);
 
@@ -83,7 +83,7 @@ void Scripting::RunScript(const char *file)
 
 	if (r == 0)
 	{
-		if (luaL_loadfile(luaState, file)) {
+		if (luaL_loadstring (luaState, script)) {
 			luaError = lua_tostring(luaState, -1);
 			lua_pop(luaState, 1);
 		}

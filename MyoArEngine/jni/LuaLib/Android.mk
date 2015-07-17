@@ -30,7 +30,7 @@ LOCAL_MODULE    := MyoArEngine
 LOCAL_SRC_FILES := MyoArEngine.cpp UIElement.cpp Scripting.cpp UIButton.cpp UIImage.cpp UILabel.cpp UITextField.cpp
 
 LOCAL_STATIC_LIBRARIES := liblua
-LOCAL_LDLIBS := -lGLESv2
+LOCAL_LDLIBS := -lGLESv1_CM
 
 
 LOCAL_EXPORT_CFLAGS := -DANDROID=1

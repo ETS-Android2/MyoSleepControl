@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-onBuild=true
+inEditor=false
 org.eclipse.cdt.codan.checkers.errnoreturn=Warning
 org.eclipse.cdt.codan.checkers.errnoreturn.params={implicit\=>false}
 org.eclipse.cdt.codan.checkers.errreturnvalue=Error

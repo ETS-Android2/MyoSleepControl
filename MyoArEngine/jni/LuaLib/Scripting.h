@@ -18,7 +18,7 @@ public:
 	~Scripting(void);
 
 	void Init();
-	void RunScript(const char *file);
+	void RunScript(const char *script);
 
 	bool HasError();
 	const char *GetError();
