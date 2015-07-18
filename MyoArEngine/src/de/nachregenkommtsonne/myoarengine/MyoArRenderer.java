@@ -91,6 +91,17 @@ public class MyoArRenderer implements Renderer
 		dummyWorldRenderer.render(gl, _matrix);
     dummyWorldRenderer.render2(gl, _matrix);
     
+    gl.glDisable(GL10.GL_DEPTH_TEST);
+    gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
+
+    gl.glLoadIdentity();
+
+    gl.glMatrixMode(GL10.GL_PROJECTION);
+  	gl.glLoadIdentity();
+  	gl.glOrthof(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f); // {0,0} ist unten links
+
+  	gl.glMatrixMode(GL10.GL_MODELVIEW);
+    
     new C().onDrawFrame();
 	}
 

@@ -25,11 +25,11 @@
 							<builder arguments="" command="ndk-build" id="com.android.builder.1751199942" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Android Builder" superClass="com.android.builder"/>
 							<tool id="com.android.gcc.compiler.191166873" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
 								<option id="com.android.gcc.option.includePath.791065762" superClass="com.android.gcc.option.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\Users\j39f3fs\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\j39f3fs\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\j39f3fs\android-ndk-r10e\sources\cxx-stl\system\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\j39f3fs\android-ndk-r10e\platforms\android-21\arch-arm\usr\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\j39f3fs\android-ndk-r10e\toolchains\arm-linux-androideabi-4.8\prebuilt\windows-x86_64\lib\gcc\arm-linux-androideabi\4.8\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\android-sdk\android-ndk-r8c\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\android-sdk\android-ndk-r8c\sources\cxx-stl\gnu-libstdc++\4.8\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\android-sdk\android-ndk-r8c\sources\cxx-stl\system\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\android-sdk\android-ndk-r8c\platforms\android-21\arch-arm\usr\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\android-sdk\android-ndk-r8c\toolchains\arm-linux-androideabi-4.8\prebuilt\windows-x86_64\lib\gcc\arm-linux-androideabi\4.8\include&quot;"/>
 								</option>
 								<inputType id="com.android.gcc.inputType.1209096850" superClass="com.android.gcc.inputType"/>
 							</tool>
@@ -46,8 +46,10 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="MyoArEngine.null.1936142662" name="MyoArEngine"/>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/MyoArEngine"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/MyoArEngine"/>
+		</configuration>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
@@ -67,4 +69,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>
