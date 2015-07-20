@@ -1,10 +1,13 @@
 #include <jni.h>
 #include <GLES2/gl2.h>
 
-#include <jni.h>
 #include "Scripting.h"
+#include "env.h"
 
 Scripting *_scripting = nullptr;
+
+
+JNIEnv * global_env;
 
 extern "C" {
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreated(

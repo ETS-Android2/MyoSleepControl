@@ -25,7 +25,7 @@ public class MyoArRenderView extends GLSurfaceView
     _gravitationalVector = new VectorAverager(15);
     _magneticVector = new VectorAverager(15);
 
-    _myoArRenderer = new MyoArRenderer(_gravitationalVector, _magneticVector);
+    _myoArRenderer = new MyoArRenderer(_gravitationalVector, _magneticVector, this.getContext());
   }
 
   public void initialize()

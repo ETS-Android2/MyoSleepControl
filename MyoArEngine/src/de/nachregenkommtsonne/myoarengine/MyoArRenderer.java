@@ -3,10 +3,14 @@ package de.nachregenkommtsonne.myoarengine;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.SensorManager;
+import android.opengl.GLES20;
 import android.opengl.GLU;
-import android.util.Log;
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.GLUtils;
 import de.nachregenkommtsonne.myoarengine.utility.MovementCalculator;
 import de.nachregenkommtsonne.myoarengine.utility.Vector;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
@@ -19,22 +23,41 @@ public class MyoArRenderer implements Renderer
 	private float[] _rotationMatrix = new float[16];
 	private Vector _position;
 	private Vector _displayVector;
+	private Context _context;
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
 
 	public MyoArRenderer(VectorAverager gravitationalVector,
-			VectorAverager magneticVector)
+			VectorAverager magneticVector, Context context)
 	{
 		_gravitationalVector = gravitationalVector;
 		_magneticVector = magneticVector;
 		_position = new Vector();
 		_displayVector = new Vector(0.0f, 0.0f, 0.0f);
+		_context = context;
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
-	   new C().onSurfaceCreated();
+		gl.glEnable(GL10.GL_TEXTURE_2D);
+
+		final Bitmap bitmap = BitmapFactory.decodeResource(_context.getResources(),	R.drawable.font);
+
+		int[] textur = new int[1];
+		gl.glGenTextures(1, textur, 0);
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textur[0]);
+
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+
+		bitmap.recycle();
+
+		gl.glDisable(GL10.GL_TEXTURE_2D);
+
+		new C().onSurfaceCreated();
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height)
@@ -46,8 +69,8 @@ public class MyoArRenderer implements Renderer
 
 		gl.glEnable(GL10.GL_POINT_SMOOTH);
 		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
-		
-    new C().onSurfaceChanged(width, height);
+
+		new C().onSurfaceChanged(width, height);
 
 	}
 
@@ -75,44 +98,49 @@ public class MyoArRenderer implements Renderer
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
-		
-		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
-    Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
-    Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
-    
-    Vector delta = new MovementCalculator().getMovementDelta(_displayVector, xVector, yVector, zVector);
-    
+
+		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4],
+				_rotationMatrix[8]);
+		Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5],
+				_rotationMatrix[9]);
+		Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6],
+				_rotationMatrix[10]);
+
+		Vector delta = new MovementCalculator().getMovementDelta(_displayVector,
+				xVector, yVector, zVector);
+
 		if (delta.isValid())
-		  _position = _position.add(delta);
-		
-    
+			_position = _position.add(delta);
+
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
 		dummyWorldRenderer.render(gl, _matrix);
-    dummyWorldRenderer.render2(gl, _matrix);
-    
-    gl.glDisable(GL10.GL_DEPTH_TEST);
-    gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
+		dummyWorldRenderer.render2(gl, _matrix);
 
-    gl.glLoadIdentity();
+		gl.glDisable(GL10.GL_DEPTH_TEST);
+		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
 
-    gl.glMatrixMode(GL10.GL_PROJECTION);
-  	gl.glLoadIdentity();
-  	gl.glOrthof(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f); // {0,0} ist unten links
+		gl.glLoadIdentity();
 
-  	gl.glMatrixMode(GL10.GL_MODELVIEW);
-    
-    new C().onDrawFrame();
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glOrthof(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f); // {0,0} ist unten
+																													// links
+
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+
+		new C().onDrawFrame();
 	}
 
 	public void setMovementVector(Vector vector)
 	{
-	  _displayVector = vector;
+		_displayVector = vector;
 	}
 
 	float[] _matrix;
-  public void orientationData(float[] matrix)
-  {
-    _matrix = matrix;
-  }
+
+	public void orientationData(float[] matrix)
+	{
+		_matrix = matrix;
+	}
 }

@@ -1,5 +1,7 @@
 #include "UILabel.h"
 #include <GLES/gl.h>
+#include "GlHelper.h"
+
 
 //#include <GLES2/gl2ext.h>
 //#include <GLES2/gl2platform.h>
@@ -65,84 +67,37 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 	{
 		Dimension dim = GetAbsoluteDimensions();
 
-	    glEnableClientState(GL_VERTEX_ARRAY);
-	    glEnableClientState(GL_COLOR_ARRAY);
+		//glEnableClientState(GL_VERTEX_ARRAY);
 
-	    short vertices[] = {
-	    		(short) dim.x, (short) dim.y,
-	    		(short) dim.x + (short) dim.width, (short) dim.y,
-	    		(short) dim.x + (short) dim.width, (short) dim.y + (short) dim.height,
-	    		(short) dim.x, (short) dim.y + (short) dim.height
-	    };
-
-	    glVertexPointer(2, GL_SHORT, 0, vertices);
-
-	    float colores[] = {
-	    		1.0f, 1.0f, 1.0f, 1.0f,
-	    		1.0f, 1.0f, 1.0f, 1.0f,
-	    		1.0f, 1.0f, 1.0f, 1.0f,
-	    		1.0f, 1.0f, 1.0f, 1.0f
-	    };
-
-	    glColorPointer(4, GL_FLOAT, 0, colores);
-
-	    unsigned short indices[] =
-	    {
-	    		0,1,2,2,3,0
-	    };
-
-	    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
-
-	    glDisableClientState(GL_COLOR_ARRAY);
+	    GlHelper *glHelper = new GlHelper();
 
 
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-
-
-		//old code
-		/*glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-		glBegin(GL_QUADS);
-
-		glVertex2i(dim.x, dim.y);
-		glVertex2i(dim.x + dim.width, dim.y);
-		glVertex2i(dim.x + dim.width, dim.y + dim.height);
-		glVertex2i(dim.x, dim.y + dim.height);
-
-		glEnd();
+		glEnable(GL_TEXTURE_2D);
+	    glHelper->DrawQuad(dim);
+		glDisable(GL_TEXTURE_2D);
 
 		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
 
-		//stencil
 		glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
+
 		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 		glColorMask(false, false, false, false);
 
-		//draw
-		glBegin(GL_QUADS);
-
-		glVertex2i(dim.x, dim.y);
-		glVertex2i(dim.x + dim.width, dim.y);
-		glVertex2i(dim.x + dim.width, dim.y + dim.height);
-		glVertex2i(dim.x, dim.y + dim.height);
-
-		glEnd();
+	    glHelper->DrawQuad(dim);
 
 		glColorMask(true, true, true, true);
 		glStencilFunc(GL_EQUAL, 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
-		//text
-		glRasterPos2i(dim.x, dim.y + 10);
-		glBitmap(0, 0, 0, 0, 0, m_scroll, NULL);
-		glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char *)_str.c_str());
+		glEnable(GL_TEXTURE_2D);
+		glHelper->DrawText((const unsigned char *)_str.c_str(), dim.x, dim.y + 10);
+		glDisable(GL_TEXTURE_2D);
 
-		//end
-		glDisable(GL_STENCIL_TEST);*/
-
-
+		glDisable(GL_STENCIL_TEST);
 	}
 }
 
