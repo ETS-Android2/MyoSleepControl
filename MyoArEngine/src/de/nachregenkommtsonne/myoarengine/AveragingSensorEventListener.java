@@ -3,7 +3,7 @@ package de.nachregenkommtsonne.myoarengine;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import de.nachregenkommtsonne.myoarengine.utility.Vector;
+import de.nachregenkommtsonne.myoarengine.utility.Vector3D;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 
 public final class AveragingSensorEventListener implements
@@ -18,7 +18,7 @@ public final class AveragingSensorEventListener implements
 
 	public void onSensorChanged(SensorEvent event)
 	{
-		_vectorAverager.add(new Vector(event.values));
+		_vectorAverager.add(new Vector3D(event.values));
 	}
 
 	public void onAccuracyChanged(Sensor sensor, int accuracy){}

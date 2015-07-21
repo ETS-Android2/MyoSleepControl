@@ -2,16 +2,16 @@ package de.nachregenkommtsonne.myoarengine.utility;
 
 public class VectorAverager
 {
-  private Vector[] _values;
+  private Vector3D[] _values;
 
   public VectorAverager(int count)
   {
-    _values = new Vector[count];
+    _values = new Vector3D[count];
   }
 
-  public Vector getAverage()
+  public Vector3D getAverage()
   {
-    Vector vector = new Vector();
+    Vector3D vector = new Vector3D();
     for (int i = 0; i < _values.length; i++)
     {
       if (_values[i] != null)
@@ -20,7 +20,7 @@ public class VectorAverager
     return vector.div((float) _values.length);
   }
 
-  public void add(Vector vector)
+  public void add(Vector3D vector)
   {
     for (int i = 0; i < _values.length - 1; i++)
     {

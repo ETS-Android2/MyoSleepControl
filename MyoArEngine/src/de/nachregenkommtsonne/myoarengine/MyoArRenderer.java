@@ -12,7 +12,7 @@ import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLUtils;
 import de.nachregenkommtsonne.myoarengine.utility.MovementCalculator;
-import de.nachregenkommtsonne.myoarengine.utility.Vector;
+import de.nachregenkommtsonne.myoarengine.utility.Vector3D;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 
 public class MyoArRenderer implements Renderer
@@ -21,8 +21,8 @@ public class MyoArRenderer implements Renderer
 	private int _width = 0;
 	private int _height = 0;
 	private float[] _rotationMatrix = new float[16];
-	private Vector _position;
-	private Vector _displayVector;
+	private Vector3D _position;
+	private Vector3D _displayVector;
 	private Context _context;
 
 	private VectorAverager _gravitationalVector;
@@ -33,17 +33,26 @@ public class MyoArRenderer implements Renderer
 	{
 		_gravitationalVector = gravitationalVector;
 		_magneticVector = magneticVector;
-		_position = new Vector();
-		_displayVector = new Vector(0.0f, 0.0f, 0.0f);
+		_position = new Vector3D();
+		_displayVector = new Vector3D(0.0f, 0.0f, 0.0f);
 		_context = context;
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
-		int[] textur = new int[2];
-		gl.glGenTextures(2, textur, 0);
+		/*int texIDAscii = */ loadTexture(gl, R.drawable.font);
+		/*int texIDRasen = */ loadTexture(gl, R.drawable.rasen);
+		/*int texIDSky = */   loadTexture(gl, R.drawable.sky);
+		
+		new C().onSurfaceCreated();
+	}
+	
+	private int loadTexture(GL10 gl, int resID)
+	{
+		int[] textur = new int[1];
+		gl.glGenTextures(1, textur, 0);
 
-		final Bitmap bitmap = BitmapFactory.decodeResource(_context.getResources(),	R.drawable.font);
+		final Bitmap bitmap = BitmapFactory.decodeResource(_context.getResources(),	resID);
 
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textur[0]);
 
@@ -53,19 +62,8 @@ public class MyoArRenderer implements Renderer
 		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 
 		bitmap.recycle();
-
-		final Bitmap bitmap2 = BitmapFactory.decodeResource(_context.getResources(),	R.drawable.rasen);
-
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, textur[1]);
-
-		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
-
-		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap2, 0);
-
-		bitmap2.recycle();
-
-		new C().onSurfaceCreated();
+		
+		return textur[0];
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height)
@@ -86,10 +84,10 @@ public class MyoArRenderer implements Renderer
 		if (_width == 0 || _height == 0)
 			return;
 
-		Vector gavitationalVector = _gravitationalVector.getAverage();
+		Vector3D gavitationalVector = _gravitationalVector.getAverage();
 		gavitationalVector.normalize();
 
-		Vector magneticVector = _magneticVector.getAverage();
+		Vector3D magneticVector = _magneticVector.getAverage();
 		magneticVector.normalize();
 
 		SensorManager.getRotationMatrix(_rotationMatrix, null,
@@ -107,11 +105,11 @@ public class MyoArRenderer implements Renderer
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
 
-		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
-		Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
-		Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
+		Vector3D xVector = new Vector3D(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
+		Vector3D yVector = new Vector3D(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
+		Vector3D zVector = new Vector3D(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
 
-		Vector delta = new MovementCalculator().getMovementDelta(_displayVector,
+		Vector3D delta = new MovementCalculator().getMovementDelta(_displayVector,
 				xVector, yVector, zVector);
 
 		if (delta.isValid())
@@ -134,7 +132,7 @@ public class MyoArRenderer implements Renderer
 		new C().onDrawFrame();
 	}
 
-	public void setMovementVector(Vector vector)
+	public void setMovementVector(Vector3D vector)
 	{
 		_displayVector = vector;
 	}

@@ -1,6 +1,6 @@
 package de.nachregenkommtsonne.myoarengine;
 
-import de.nachregenkommtsonne.myoarengine.utility.Vector;
+import de.nachregenkommtsonne.myoarengine.utility.Vector3D;
 import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -73,13 +73,13 @@ public class MyoArRenderView extends GLSurfaceView
       float relativeX = initialX - currentX;
       float relativeY = initialY - currentY;
      
-      _myoArRenderer.setMovementVector(new Vector(relativeX / 1000.0f, relativeY / -1000.0f, 0.0f));
+      _myoArRenderer.setMovementVector(new Vector3D(relativeX / 1000.0f, relativeY / -1000.0f, 0.0f));
       
       return true;
       
     case MotionEvent.ACTION_UP:
       
-      _myoArRenderer.setMovementVector(new Vector());
+      _myoArRenderer.setMovementVector(new Vector3D());
       
       return true;
     }

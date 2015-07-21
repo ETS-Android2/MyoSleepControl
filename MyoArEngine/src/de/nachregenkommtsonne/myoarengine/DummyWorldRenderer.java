@@ -7,7 +7,8 @@ import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import de.nachregenkommtsonne.myoarengine.utility.Vector;
+import de.nachregenkommtsonne.myoarengine.utility.Vector2D;
+import de.nachregenkommtsonne.myoarengine.utility.Vector3D;
 
 public class DummyWorldRenderer
 {
@@ -23,22 +24,57 @@ public class DummyWorldRenderer
 
   void render(GL10 gl, float[] _matrix)
   {
-  	DrawQuad(gl, 
-  			new Vector(100.0f, 100.0f, -9.0f),
-  			new Vector(100.0f, -100.0f, -9.0f),
-  			new Vector(-100.0f, -100.0f, -9.0f),
-  			new Vector(-100.0f, 100.0f, -9.0f));
+  	//ground
+  	DrawQuad(gl, 2,
+  			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(0.f, 0.f),
+  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(25.f, 0.f),
+  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(25.f, 25.f),
+  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(0.f, 25.f));
 
-  	DrawQuad(gl, 
-  			new Vector(100.0f, 100.0f, 9.0f),
-  			new Vector(100.0f, -100.0f, 9.0f),
-  			new Vector(-100.0f, -100.0f, 9.0f),
-  			new Vector(-100.0f, 100.0f, 9.0f));
+  	//sky
+  	DrawQuad(gl, 3,
+  			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
+  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
+  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
+  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
+
+  	//4 sky sides
+  	// x = 100
+  	DrawQuad(gl, 3,
+  			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
+  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
+  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(.0f, .75f),
+  			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(.0f, .25f));
+
+  	// y = -100
+  	DrawQuad(gl, 3,
+  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(.25f, 1.f),
+  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
+  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
+  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(.75f, 1.f));
+
+  	//x = -100
+  	DrawQuad(gl, 3,
+  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(1.f, .25f),
+  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(1.f, .75f),
+  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
+  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
+
+  	//y = 100
+  	DrawQuad(gl, 3,
+  			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
+  			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(.25f, .0f),
+  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(.75f, .0f),
+  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
 
   }
 
-	private void DrawQuad(GL10 gl, Vector vector1, Vector vector2, Vector vector3,
-			Vector vector4)
+	private void DrawQuad(
+			GL10 gl, int texID, 
+			Vector3D vector1, Vector2D texVector1,
+			Vector3D vector2, Vector2D texVector2,
+			Vector3D vector3, Vector2D texVector3,
+			Vector3D vector4, Vector2D texVector4)
 	{
 		ByteBuffer vertexByteBuffer = ByteBuffer.allocateDirect(4*3 *4);
 		vertexByteBuffer.order(ByteOrder.nativeOrder());
@@ -57,18 +93,10 @@ public class DummyWorldRenderer
     vertices.put(vector3.getValues());
     vertices.put(vector4.getValues());
 
-
-    textures.put(0.f);
-    textures.put(0.f);
-
-    textures.put(25.f);
-    textures.put(0.f);
-
-    textures.put(25.f);
-    textures.put(25.f);
-
-    textures.put(0.f);
-    textures.put(25.f);
+    textures.put(texVector1.getValues());
+    textures.put(texVector2.getValues());
+    textures.put(texVector3.getValues());
+    textures.put(texVector4.getValues());
 
     indices.put((short)0);
     indices.put((short)1);
@@ -82,7 +110,7 @@ public class DummyWorldRenderer
     indices.position(0);
     
     gl.glEnable(GL10.GL_TEXTURE_2D);
-    gl.glBindTexture(GL10.GL_TEXTURE_2D, 2);
+    gl.glBindTexture(GL10.GL_TEXTURE_2D, texID);
 
     gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
     gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertices);

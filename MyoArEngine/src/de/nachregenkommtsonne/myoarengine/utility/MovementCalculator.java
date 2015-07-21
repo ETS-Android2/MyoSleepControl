@@ -6,22 +6,22 @@ public class MovementCalculator
   {
   }
   
-  public Vector getMovementDelta(Vector displayVector, Vector xVector, Vector yVector, Vector zVector)
+  public Vector3D getMovementDelta(Vector3D displayVector, Vector3D xVector, Vector3D yVector, Vector3D zVector)
   {
-    Vector inWorldDisplayVector = xVector.mult(displayVector.getX()).add(yVector.mult(displayVector.getY()));
+    Vector3D inWorldDisplayVector = xVector.mult(displayVector.getX()).add(yVector.mult(displayVector.getY()));
     
-    Vector displayPlaneXVector = new Vector(zVector.getY(), -zVector.getX(), 0.0f);
-    Vector displayPlaneYVector = displayPlaneXVector.cross(zVector);
+    Vector3D displayPlaneXVector = new Vector3D(zVector.getY(), -zVector.getX(), 0.0f);
+    Vector3D displayPlaneYVector = displayPlaneXVector.cross(zVector);
 
-    Vector p1 = inWorldDisplayVector.cross(displayPlaneXVector);
-    Vector p2 = displayPlaneYVector.cross(displayPlaneXVector);
-    Vector p3 = inWorldDisplayVector.cross(displayPlaneYVector);
+    Vector3D p1 = inWorldDisplayVector.cross(displayPlaneXVector);
+    Vector3D p2 = displayPlaneYVector.cross(displayPlaneXVector);
+    Vector3D p3 = inWorldDisplayVector.cross(displayPlaneYVector);
 
     float b = p1.getX() / p2.getX();
     float a = p3.getX() / -p2.getX();
 
-    Vector forwardVector = new Vector(-zVector.getX(), -zVector.getY(), -0.0f);
-    Vector delta = displayPlaneXVector.mult(a).add(forwardVector.mult(b));
+    Vector3D forwardVector = new Vector3D(-zVector.getX(), -zVector.getY(), -0.0f);
+    Vector3D delta = displayPlaneXVector.mult(a).add(forwardVector.mult(b));
     
     return delta;
   }
