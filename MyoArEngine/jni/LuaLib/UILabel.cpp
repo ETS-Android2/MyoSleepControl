@@ -60,14 +60,14 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 {
 	if (_visible)
 	{
-		GlHelper *glHelper = new GlHelper();
-
 		Dimension dim = GetAbsoluteDimensions();
+
+		GlHelper *glHelper = new GlHelper();
 
 	    glHelper->DrawQuad(&dim);
 
-		glEnable(GL_STENCIL_TEST);
 		glClear(GL_STENCIL_BUFFER_BIT);
+		glEnable(GL_STENCIL_TEST);
 
 		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);

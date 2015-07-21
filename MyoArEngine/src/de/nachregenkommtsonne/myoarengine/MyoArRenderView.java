@@ -26,6 +26,8 @@ public class MyoArRenderView extends GLSurfaceView
     _magneticVector = new VectorAverager(15);
 
     _myoArRenderer = new MyoArRenderer(_gravitationalVector, _magneticVector, this.getContext());
+    
+    setEGLConfigChooser(8, 8, 8, 8, 16, 8);
   }
 
   public void initialize()
