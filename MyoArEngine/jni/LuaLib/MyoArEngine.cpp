@@ -23,7 +23,7 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onDrawFrame(
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreated(
 		JNIEnv * env, jobject jObj) {
 
-	/*_scripting = Scripting::GetInstance();
+	_scripting = Scripting::GetInstance();
 	_scripting->Init();
 
 	_scripting->RunScript(" \
@@ -33,7 +33,7 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreate
 	Label:SetAnchor(\"ANCHOR_BOTTOM_LEFT\", \"ANCHOR_BOTTOM_LEFT\"); \
 	Label:SetText(\"testtest\"); \
 	Label:Show(); \
-");*/
+");
 }
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceChanged(
@@ -43,7 +43,7 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceChange
 	s.cx = width;
 	s.cy = height;
 
-	//_scripting->SetUiSize(s);
+	_scripting->SetUiSize(s);
 }
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onDrawFrame(
@@ -52,5 +52,5 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onDrawFrame(
 	//glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 	//glClear(GL_COLOR_BUFFER_BIT);
 
-	//_scripting->RenderHUD();
+	_scripting->RenderHUD();
 }

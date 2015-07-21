@@ -53,7 +53,7 @@ void GlHelper::DrawQuadWithTexture(Dimension *dim, int texID, DimensionF *texDim
 	glVertexPointer(2, GL_SHORT, 0, vertices);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glTexCoordPointer(2, GL_FLOAT, 8, texCoords);
+	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
 

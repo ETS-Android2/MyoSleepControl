@@ -40,12 +40,11 @@ public class MyoArRenderer implements Renderer
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
-//		gl.glEnable(GL10.GL_TEXTURE_2D);
+		int[] textur = new int[2];
+		gl.glGenTextures(2, textur, 0);
 
 		final Bitmap bitmap = BitmapFactory.decodeResource(_context.getResources(),	R.drawable.font);
 
-		int[] textur = new int[1];
-		gl.glGenTextures(1, textur, 0);
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textur[0]);
 
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
@@ -55,9 +54,17 @@ public class MyoArRenderer implements Renderer
 
 		bitmap.recycle();
 
-//		gl.glDisable(GL10.GL_TEXTURE_2D);
-//		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		
+		final Bitmap bitmap2 = BitmapFactory.decodeResource(_context.getResources(),	R.drawable.rasen);
+
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textur[1]);
+
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap2, 0);
+
+		bitmap2.recycle();
+
 		new C().onSurfaceCreated();
 	}
 
@@ -88,7 +95,7 @@ public class MyoArRenderer implements Renderer
 		SensorManager.getRotationMatrix(_rotationMatrix, null,
 				gavitationalVector.getValues(), magneticVector.getValues());
 
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		gl.glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
 
@@ -100,12 +107,9 @@ public class MyoArRenderer implements Renderer
 		gl.glLoadIdentity();
 		gl.glLoadMatrixf(_rotationMatrix, 0);
 
-		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4],
-				_rotationMatrix[8]);
-		Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5],
-				_rotationMatrix[9]);
-		Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6],
-				_rotationMatrix[10]);
+		Vector xVector = new Vector(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
+		Vector yVector = new Vector(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
+		Vector zVector = new Vector(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
 
 		Vector delta = new MovementCalculator().getMovementDelta(_displayVector,
 				xVector, yVector, zVector);
@@ -113,10 +117,10 @@ public class MyoArRenderer implements Renderer
 		if (delta.isValid())
 			_position = _position.add(delta);
 
-		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
+		//gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
 		dummyWorldRenderer.render(gl, _matrix);
-		dummyWorldRenderer.render2(gl, _matrix);
+		//dummyWorldRenderer.render2(gl, _matrix);
 
 		gl.glDisable(GL10.GL_DEPTH_TEST);
 		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
@@ -125,9 +129,7 @@ public class MyoArRenderer implements Renderer
 
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glOrthof(0.0f, (float)_width, 0.0f, (float)_height, -1.0f, 1.0f); // {0,0} ist unten
-																													// links
-
+		gl.glOrthof(0.0f, (float)_width, 0.0f, (float)_height, -1.0f, 1.0f); // {0,0} ist unten links
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 
 		new C().onDrawFrame();
