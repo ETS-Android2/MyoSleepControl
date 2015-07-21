@@ -7,7 +7,11 @@ class GlHelper {
 public:
 	GlHelper();
 
-	void DrawQuad(Dimension dim);
+	void DrawQuad(Dimension *dim);
+	void DrawQuadWithTexture(Dimension *dim, int texID, Dimension *texDim);
+
+
+	//void DrawQuad(Dimension dim);
 	void DrawText(const unsigned char *text, int x, int y);
 };
 

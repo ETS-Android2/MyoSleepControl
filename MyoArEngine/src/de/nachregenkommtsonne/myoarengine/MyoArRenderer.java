@@ -55,8 +55,9 @@ public class MyoArRenderer implements Renderer
 
 		bitmap.recycle();
 
-		gl.glDisable(GL10.GL_TEXTURE_2D);
-
+//		gl.glDisable(GL10.GL_TEXTURE_2D);
+		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		
 		new C().onSurfaceCreated();
 	}
 
