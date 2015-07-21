@@ -31,7 +31,7 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreate
 	Label:SetSize(450, 200); \
 	Label:SetPosition(10, 10); \
 	Label:SetAnchor(\"ANCHOR_BOTTOM_LEFT\", \"ANCHOR_BOTTOM_LEFT\"); \
-	Label:SetText(\"testtest\"); \
+	Label:SetText(\"testtest testtest test test test\"); \
 	Label:Show(); \
 ");
 }

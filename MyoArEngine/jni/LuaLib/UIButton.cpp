@@ -1,4 +1,5 @@
 #include "UIButton.h"
+#include "GlHelper.h"
 
 void UIButton::Init(lua_State *L, std::function<void (UIElement *)> func)
 {
@@ -32,10 +33,12 @@ UIButton::~UIButton(void)
 {
 	if (_visible)
 	{
+		GlHelper *glHelper = new GlHelper();
 		Dimension dim = GetAbsoluteDimensions();
 
 		//glColor4f(0.2f, 0.2f, 0.2f, 1.0f);
 
+	    glHelper->DrawQuad(&dim);
 		//glBegin(GL_QUADS);
 
 		/*glVertex2i(dim.x, dim.y);
@@ -44,8 +47,9 @@ UIButton::~UIButton(void)
 		glVertex2i(dim.x, dim.y + dim.height);
 
 		glEnd();
+*/
 
-
+	    /*
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 		//stencil;

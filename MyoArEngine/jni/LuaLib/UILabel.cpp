@@ -2,10 +2,6 @@
 #include <GLES/gl.h>
 #include "GlHelper.h"
 
-
-//#include <GLES2/gl2ext.h>
-//#include <GLES2/gl2platform.h>
-
 void UILabel::Init(lua_State *L, std::function<void (UIElement *)> func)
 {
 	typedef LuaBinding<UILabel> LuaBinding;
@@ -26,7 +22,6 @@ void UILabel::Init(lua_State *L, std::function<void (UIElement *)> func)
 UILabel::UILabel(void)
 {
 }
-
 
 UILabel::~UILabel(void)
 {
@@ -65,14 +60,14 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 {
 	if (_visible)
 	{
-		Dimension dim = GetAbsoluteDimensions();
-
 		GlHelper *glHelper = new GlHelper();
+
+		Dimension dim = GetAbsoluteDimensions();
 
 	    glHelper->DrawQuad(&dim);
 
-		glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
+		glClear(GL_STENCIL_BUFFER_BIT);
 
 		glStencilFunc(GL_ALWAYS, 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);

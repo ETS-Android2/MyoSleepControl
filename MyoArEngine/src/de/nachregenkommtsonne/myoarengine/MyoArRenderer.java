@@ -115,9 +115,10 @@ public class MyoArRenderer implements Renderer
 		if (delta.isValid())
 			_position = _position.add(delta);
 
+		dummyWorldRenderer.renderSkyBox(gl);
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
+		dummyWorldRenderer.renderWorld(gl, _matrix);
 
-		dummyWorldRenderer.render(gl, _matrix);
 
 		gl.glDisable(GL10.GL_DEPTH_TEST);
 		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);

@@ -22,15 +22,8 @@ public class DummyWorldRenderer
   {
   }
 
-  void render(GL10 gl, float[] _matrix)
+  void renderSkyBox(GL10 gl)
   {
-  	//ground
-  	DrawQuad(gl, 2,
-  			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(0.f, 0.f),
-  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(25.f, 0.f),
-  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(25.f, 25.f),
-  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(0.f, 25.f));
-
   	//sky
   	DrawQuad(gl, 3,
   			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
@@ -66,7 +59,6 @@ public class DummyWorldRenderer
   			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(.25f, .0f),
   			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(.75f, .0f),
   			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
-
   }
 
 	private void DrawQuad(
@@ -123,5 +115,15 @@ public class DummyWorldRenderer
     gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
     gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     gl.glDisable(GL10.GL_TEXTURE_2D);
+	}
+
+	public void renderWorld(GL10 gl, float[] _matrix)
+	{
+  	//ground
+  	DrawQuad(gl, 2,
+  			new Vector3D(10000.0f, 10000.0f, -1.0f), new Vector2D(0.f, 0.f),
+  			new Vector3D(10000.0f, -10000.0f, -1.0f), new Vector2D(2500.f, 0.f),
+  			new Vector3D(-10000.0f, -10000.0f, -1.0f), new Vector2D(2500.f, 2500.f),
+  			new Vector3D(-10000.0f, 10000.0f, -1.0f), new Vector2D(0.f, 2500.f));
 	}
 }
