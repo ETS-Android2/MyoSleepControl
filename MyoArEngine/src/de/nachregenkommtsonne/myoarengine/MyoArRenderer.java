@@ -95,7 +95,7 @@ public class MyoArRenderer implements Renderer
 		SensorManager.getRotationMatrix(_rotationMatrix, null,
 				gavitationalVector.getValues(), magneticVector.getValues());
 
-		gl.glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
+		gl.glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
 
@@ -117,10 +117,9 @@ public class MyoArRenderer implements Renderer
 		if (delta.isValid())
 			_position = _position.add(delta);
 
-		//gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
+		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 
 		dummyWorldRenderer.render(gl, _matrix);
-		//dummyWorldRenderer.render2(gl, _matrix);
 
 		gl.glDisable(GL10.GL_DEPTH_TEST);
 		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);

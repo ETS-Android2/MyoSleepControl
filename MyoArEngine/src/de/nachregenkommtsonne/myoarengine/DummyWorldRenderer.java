@@ -11,9 +11,7 @@ import de.nachregenkommtsonne.myoarengine.utility.Vector;
 
 public class DummyWorldRenderer
 {
-  //int _numVerticesBase = 2 * 201 * 2 * 2;
   FloatBuffer _verticesBase;
-  // FloatBuffer _colorBuffer;
   ShortBuffer _indexBufferBase;
 
   FloatBuffer _verticesArm;
@@ -21,174 +19,23 @@ public class DummyWorldRenderer
 
   public DummyWorldRenderer()
   {
-/*    ByteBuffer vbb = ByteBuffer.allocateDirect(_numVerticesBase * 3 * 4);
-    vbb.order(ByteOrder.nativeOrder());
-    _verticesBase = vbb.asFloatBuffer();
-
-    // ByteBuffer cbb = ByteBuffer.allocateDirect(_numVertices * 4 * 4);
-    // cbb.order(ByteOrder.nativeOrder());
-    // _colorBuffer = cbb.asFloatBuffer();
-
-    ByteBuffer ibb = ByteBuffer.allocateDirect(_numVerticesBase * 2);
-    ibb.order(ByteOrder.nativeOrder());
-    _indexBufferBase = ibb.asShortBuffer();
-
-    float ebene = -9.0f;
-    short num = 0;
-    for (int i = -100; i <= 100; i++)
-    {
-      _verticesBase.put(new Vector(-100.0f, i, ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(100.0f, i, ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(i, -100.0f, ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(i, 100.0f, ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(-100.0f, i, -ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(100.0f, i, -ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(i, -100.0f, -ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-
-      _verticesBase.put(new Vector(i, 100.0f, -ebene).getValues());
-      // _colorBuffer.put(new float[] { 1.0f, 0.0f, 0.0f, 1.0f });
-      _indexBufferBase.put(num++);
-    }
-
-    _verticesBase.position(0);
-    // _colorBuffer.position(0);
-    _indexBufferBase.position(0);
-
-    ByteBuffer vbb2 = ByteBuffer.allocateDirect(8 * 3 * 4);
-    vbb2.order(ByteOrder.nativeOrder());
-    _verticesArm = vbb2.asFloatBuffer();
-
-    ByteBuffer ibb2 = ByteBuffer.allocateDirect(24 * 2);
-    ibb2.order(ByteOrder.nativeOrder());
-    _indexBufferArm = ibb2.asShortBuffer();
-
-    _verticesArm.put(new Vector(-1.0f, -1.0f, -1.0f).getValues());
-    _verticesArm.put(new Vector(-1.0f, 1.0f, -1.0f).getValues());
-    _verticesArm.put(new Vector(1.0f, 1.0f, -1.0f).getValues());
-    _verticesArm.put(new Vector(1.0f, -1.0f, -1.0f).getValues());
-
-    _verticesArm.put(new Vector(-1.0f, -1.0f, 1.0f).getValues());
-    _verticesArm.put(new Vector(-1.0f, 1.0f, 1.0f).getValues());
-    _verticesArm.put(new Vector(1.0f, 1.0f, 1.0f).getValues());
-    _verticesArm.put(new Vector(1.0f, -1.0f, 1.0f).getValues());
-
-    _indexBufferArm.put((short) 0);
-    _indexBufferArm.put((short) 1);
-
-    _indexBufferArm.put((short) 1);
-    _indexBufferArm.put((short) 2);
-
-    _indexBufferArm.put((short) 2);
-    _indexBufferArm.put((short) 3);
-
-    _indexBufferArm.put((short) 3);
-    _indexBufferArm.put((short) 0);
-
-    _indexBufferArm.put((short) 4);
-    _indexBufferArm.put((short) 5);
-
-    _indexBufferArm.put((short) 5);
-    _indexBufferArm.put((short) 6);
-
-    _indexBufferArm.put((short) 6);
-    _indexBufferArm.put((short) 7);
-
-    _indexBufferArm.put((short) 7);
-    _indexBufferArm.put((short) 4);
-
-    _indexBufferArm.put((short) 0);
-    _indexBufferArm.put((short) 4);
-
-    _indexBufferArm.put((short) 1);
-    _indexBufferArm.put((short) 5);
-
-    _indexBufferArm.put((short) 2);
-    _indexBufferArm.put((short) 6);
-
-    _indexBufferArm.put((short) 3);
-    _indexBufferArm.put((short) 7);
-
-    _verticesArm.position(0);
-    _indexBufferArm.position(0);
-    */
   }
 
   void render(GL10 gl, float[] _matrix)
   {
   	DrawQuad(gl, 
-  			new Vector(10.0f, 10.0f, -9.0f),
-  			new Vector(10.0f, -10.0f, -9.0f),
-  			new Vector(-10.0f, -10.0f, -9.0f),
-  			new Vector(-10.0f, 10.0f, -9.0f));
+  			new Vector(100.0f, 100.0f, -9.0f),
+  			new Vector(100.0f, -100.0f, -9.0f),
+  			new Vector(-100.0f, -100.0f, -9.0f),
+  			new Vector(-100.0f, 100.0f, -9.0f));
 
   	DrawQuad(gl, 
-  			new Vector(10.0f, 10.0f, 9.0f),
-  			new Vector(10.0f, -10.0f, 9.0f),
-  			new Vector(-10.0f, -10.0f, 9.0f),
-  			new Vector(-10.0f, 10.0f, 9.0f));
+  			new Vector(100.0f, 100.0f, 9.0f),
+  			new Vector(100.0f, -100.0f, 9.0f),
+  			new Vector(-100.0f, -100.0f, 9.0f),
+  			new Vector(-100.0f, 100.0f, 9.0f));
 
-		//gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-    // gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-		//gl.glDisable(GL10.GL_TEXTURE_2D);
-
-/*  	gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-    gl.glVertexPointer(3, GL10.GL_FLOAT, 0, _verticesBase);
-    // gl.glColorPointer(4, GL10.GL_FLOAT, 0, _colorBuffer);
-    gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-    gl.glBindTexture(GL10.GL_TEXTURE_2D, 0);
-    gl.glDrawElements(GL10.GL_LINES, _numVerticesBase, GL10.GL_UNSIGNED_SHORT, _indexBufferBase);
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, 1);
-
-    gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-
-    //gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		//gl.glEnable(GL10.GL_TEXTURE_2D);
-  */
   }
-/*
-  void render2(GL10 gl, float[] _matrix)
-  {
-    if (_matrix != null)
-    {
-      gl.glPushMatrix();
-      
-     
-      
-      gl.glMultMatrixf(_matrix, 0);
-
-      // gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-      // gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-
-    	gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-      gl.glVertexPointer(3, GL10.GL_FLOAT, 0, _verticesArm);
-      // gl.glColorPointer(4, GL10.GL_FLOAT, 0, _colorBuffer);
-      gl.glDrawElements(GL10.GL_LINES, 24, GL10.GL_UNSIGNED_SHORT, _indexBufferArm);
-      gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-
-      gl.glPopMatrix();
-    }
-  }*/
 
 	private void DrawQuad(GL10 gl, Vector vector1, Vector vector2, Vector vector3,
 			Vector vector4)
@@ -204,8 +51,6 @@ public class DummyWorldRenderer
     ByteBuffer indexByteBuffer = ByteBuffer.allocateDirect(6 * 2);
     indexByteBuffer.order(ByteOrder.nativeOrder());
     ShortBuffer indices = indexByteBuffer.asShortBuffer();
-  	
-    
     
     vertices.put(vector1.getValues());
     vertices.put(vector2.getValues());
@@ -216,14 +61,14 @@ public class DummyWorldRenderer
     textures.put(0.f);
     textures.put(0.f);
 
-    textures.put(1.f);
+    textures.put(25.f);
     textures.put(0.f);
 
-    textures.put(1.f);
-    textures.put(1.f);
+    textures.put(25.f);
+    textures.put(25.f);
 
     textures.put(0.f);
-    textures.put(1.f);
+    textures.put(25.f);
 
     indices.put((short)0);
     indices.put((short)1);
@@ -236,19 +81,19 @@ public class DummyWorldRenderer
     textures.position(0);
     indices.position(0);
     
-//    gl.glEnable(GL10.GL_TEXTURE_2D);
-//    gl.glBindTexture(GL10.GL_TEXTURE_2D, 2);
+    gl.glEnable(GL10.GL_TEXTURE_2D);
+    gl.glBindTexture(GL10.GL_TEXTURE_2D, 2);
 
     gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
     gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertices);
     
-//    gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-//    gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textures); 
+    gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+    gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textures); 
 		
     gl.glDrawElements(GL10.GL_TRIANGLES, 6, GL10.GL_UNSIGNED_SHORT, indices);
 
     gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-//    gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+    gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     gl.glDisable(GL10.GL_TEXTURE_2D);
 	}
 }
