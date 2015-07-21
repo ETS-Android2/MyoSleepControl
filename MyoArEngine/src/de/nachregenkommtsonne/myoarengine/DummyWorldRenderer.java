@@ -134,12 +134,23 @@ public class DummyWorldRenderer
 
   void render(GL10 gl, float[] _matrix)
   {
-    gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		//gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     // gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		//gl.glDisable(GL10.GL_TEXTURE_2D);
 
+  	gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
     gl.glVertexPointer(3, GL10.GL_FLOAT, 0, _verticesBase);
     // gl.glColorPointer(4, GL10.GL_FLOAT, 0, _colorBuffer);
+    gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+    gl.glBindTexture(GL10.GL_TEXTURE_2D, 0);
     gl.glDrawElements(GL10.GL_LINES, _numVerticesBase, GL10.GL_UNSIGNED_SHORT, _indexBufferBase);
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, 1);
+
+    gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+
+    //gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		//gl.glEnable(GL10.GL_TEXTURE_2D);
   }
 
   void render2(GL10 gl, float[] _matrix)
@@ -155,9 +166,12 @@ public class DummyWorldRenderer
       // gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
       // gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
+    	gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
       gl.glVertexPointer(3, GL10.GL_FLOAT, 0, _verticesArm);
       // gl.glColorPointer(4, GL10.GL_FLOAT, 0, _colorBuffer);
       gl.glDrawElements(GL10.GL_LINES, 24, GL10.GL_UNSIGNED_SHORT, _indexBufferArm);
+      gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+
       gl.glPopMatrix();
     }
   }

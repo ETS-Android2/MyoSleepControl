@@ -8,10 +8,7 @@ public:
 	GlHelper();
 
 	void DrawQuad(Dimension *dim);
-	void DrawQuadWithTexture(Dimension *dim, int texID, Dimension *texDim);
-
-
-	//void DrawQuad(Dimension dim);
+	void DrawQuadWithTexture(Dimension *dim, int texID, DimensionF *texDim);
 	void DrawText(const unsigned char *text, int x, int y);
 };
 

@@ -40,7 +40,7 @@ public class MyoArRenderer implements Renderer
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
-		gl.glEnable(GL10.GL_TEXTURE_2D);
+//		gl.glEnable(GL10.GL_TEXTURE_2D);
 
 		final Bitmap bitmap = BitmapFactory.decodeResource(_context.getResources(),	R.drawable.font);
 
@@ -56,7 +56,7 @@ public class MyoArRenderer implements Renderer
 		bitmap.recycle();
 
 //		gl.glDisable(GL10.GL_TEXTURE_2D);
-		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+//		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		
 		new C().onSurfaceCreated();
 	}
@@ -72,7 +72,6 @@ public class MyoArRenderer implements Renderer
 		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
 
 		new C().onSurfaceChanged(width, height);
-
 	}
 
 	public void onDrawFrame(GL10 gl)
@@ -91,6 +90,7 @@ public class MyoArRenderer implements Renderer
 
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
 
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
@@ -125,7 +125,7 @@ public class MyoArRenderer implements Renderer
 
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glOrthof(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f); // {0,0} ist unten
+		gl.glOrthof(0.0f, (float)_width, 0.0f, (float)_height, -1.0f, 1.0f); // {0,0} ist unten
 																													// links
 
 		gl.glMatrixMode(GL10.GL_MODELVIEW);

@@ -5,7 +5,6 @@
 GlHelper::GlHelper() {
 }
 
-
 void GlHelper::DrawQuad(Dimension *dim)
 {
 	short vertices[] = {
@@ -19,13 +18,16 @@ void GlHelper::DrawQuad(Dimension *dim)
     		0,1,2,2,3,0
     };
 
-	glVertexPointer(2, GL_SHORT, 0, vertices);
+	glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_SHORT, 0, vertices);
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void GlHelper::DrawQuadWithTexture(Dimension *dim, int texID, Dimension *texDim)
+void GlHelper::DrawQuadWithTexture(Dimension *dim, int texID, DimensionF *texDim)
 {
-
 	short vertices[] = {
 	    		(short)  dim->x, (short) dim->y,
 	    		(short) (dim->x + dim->width), (short) dim->y,
@@ -34,92 +36,62 @@ void GlHelper::DrawQuadWithTexture(Dimension *dim, int texID, Dimension *texDim)
 	    };
 
 	float texCoords[] = {
-			0.f, 0.f,
-			0.f, 1.f,
-			1.f, 1.f,
-			1.f, 1.f,
-			1.f, 0.f,
-			0.f, 0.f
-	};
+	    		texDim->x, texDim->y + texDim->height,
+	    		texDim->x + texDim->width, texDim->y + texDim->height,
+	    		texDim->x + texDim->width, texDim->y,
+	    		texDim->x, texDim->y,
+	    };
 
     unsigned short indices[] = {
     		0,1,2,2,3,0
     };
 
+    glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texID);
 
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_SHORT, 0, vertices);
-    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glTexCoordPointer(2, GL_FLOAT, 8, texCoords);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_TEXTURE_2D);
 }
 
-/*void GlHelper::DrawQuad(Dimension dim)
-{
-    //glEnableClientState(GL_COLOR_ARRAY);
-
-    short vertices[] = {
-    		(short) dim.x, (short) dim.y,
-    		(short) (dim.x + dim.width), (short) dim.y,
-    		(short) (dim.x + dim.width), (short) (dim.y + dim.height),
-    		(short) dim.x, (short) (dim.y + dim.height)
-    };
-
-    glVertexPointer(2, GL_SHORT, 0, vertices);
-
-	float texCoords[] = {
-			0.f, 0.f,
-			0.f, 1.f,
-			1.f, 1.f,
-			1.f, 1.f,
-			1.f, 0.f,
-			0.f, 0.f
-	};
-
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glTexCoordPointer(2, GL_FLOAT, 8, texCoords);
-
-    unsigned short indices[] =
-    {
-    		0,1,2,2,3,0
-    };
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
-
-   //glDisableClientState(GL_COLOR_ARRAY);
-}*/
-
-void GlHelper::DrawText(const unsigned char *text, int x, int y)
+void GlHelper::DrawText(const unsigned char *text, int posx, int posy)
 {
 	int texID = 1;
 
-	//glEnable(GL_TEXTURE_2D);
-    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//	glBindTexture(GL_TEXTURE_2D, texID);
-//	glFrontFace(GL_CW);
+	for (int i = 0; i < strlen((const char *)text); i++)
+	{
+		int n = text[i];
 
-	Dimension dim;
-	dim.x = 100;
-	dim.y = 100;
-	dim.height = 100;
-	dim.width = 100;
+		if (n < ' ')
+			n = '?';
+		if (n > '~')
+			n = '?';
 
+		n = n - ' ';
 
-	float texCoords[] = {
-			0.f, 0.f,
-			0.f, 100.f,
-			100.f, 100.f,
-			100.f, 100.f,
-			100.f, 0.f,
-			0.f, 0.f
-	};
+		int col = n % 25;
+		int row = n / 25;
 
-//	glTexCoordPointer(2, GL_FLOAT, 8, texCoords);
+		Dimension dim;
+		dim.x = posx + i * 20;
+		dim.y = posy;
+		dim.height = 37;
+		dim.width = 20;
 
-	this->DrawQuadWithTexture(&dim, texID, &dim);
+		DimensionF texDim;
+		texDim.x = 20.f / 512.f * col;
+		texDim.y = 37.f / 256.f * row;
+		texDim.width  = 20.f / 512.f;
+		texDim.height = 37.f / 256.f;
 
-//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//	glDisable(GL_TEXTURE_2D);
-
+		this->DrawQuadWithTexture(&dim, texID, &texDim);
+	}
 }

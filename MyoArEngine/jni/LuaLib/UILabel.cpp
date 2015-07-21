@@ -67,18 +67,9 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 	{
 		Dimension dim = GetAbsoluteDimensions();
 
-		//glEnableClientState(GL_VERTEX_ARRAY);
+		GlHelper *glHelper = new GlHelper();
 
-	    GlHelper *glHelper = new GlHelper();
-
-
-//		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-		glEnable(GL_TEXTURE_2D);
-	    glHelper->DrawQuadWithTexture(&dim, 1, &dim);
-		glDisable(GL_TEXTURE_2D);
-
-//		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+	    glHelper->DrawQuad(&dim);
 
 		glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
@@ -93,9 +84,7 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 		glStencilFunc(GL_EQUAL, 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
-		glEnable(GL_TEXTURE_2D);
-		glHelper->DrawText((const unsigned char *)_str.c_str(), dim.x, dim.y + 10);
-		glDisable(GL_TEXTURE_2D);
+		glHelper->DrawText((const unsigned char *)_str.c_str(), dim.x, dim.y + dim.height - 37);
 
 		glDisable(GL_STENCIL_TEST);
 	}
