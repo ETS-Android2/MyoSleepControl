@@ -46,7 +46,7 @@ public class MyoArRenderer implements Renderer
 		
 		String script = _context.getResources().getString(R.string.script);
 		
-		C.onSurfaceCreated(script, texIDAscii, texIDRasen, texIDSky);
+		LuaHud.onSurfaceCreated(script, texIDAscii, texIDRasen, texIDSky);
 	}
 	
 	private int loadTexture(GL10 gl, int resID)
@@ -78,7 +78,7 @@ public class MyoArRenderer implements Renderer
 		gl.glEnable(GL10.GL_POINT_SMOOTH);
 		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
 
-		C.onSurfaceChanged(width, height);
+		LuaHud.onSurfaceChanged(width, height);
 	}
 
 	public void onDrawFrame(GL10 gl)
@@ -135,7 +135,7 @@ public class MyoArRenderer implements Renderer
 		gl.glRotatef(-90, 0, 0, 1);
 		gl.glTranslatef(-_height, 0, 0);
 		
-		C.onDrawFrame();
+		LuaHud.onDrawFrame();
 	}
 
 	public void setMovementVector(Vector3D vector)

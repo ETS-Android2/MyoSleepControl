@@ -1,9 +1,9 @@
 package de.nachregenkommtsonne.myoarengine;
 
-public class C
+public class LuaHud
 {
   static {
-    System.loadLibrary("MyoArEngine");
+    System.loadLibrary("LuaHud");
   }
 
   public static native void onSurfaceCreated(String script, int texIDAscii, int texIDRasen, int texIDSky);

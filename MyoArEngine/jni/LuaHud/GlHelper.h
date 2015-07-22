@@ -1,5 +1,5 @@
-#ifndef LUALIB_GLHELPER_H_
-#define LUALIB_GLHELPER_H_
+#ifndef LUAHUD_GLHELPER_H_
+#define LUAHUD_GLHELPER_H_
 
 #include "uielement.h"
 
@@ -12,4 +12,4 @@ public:
 	void DrawText(const unsigned char *text, int x, int y);
 };
 
-#endif /* LUALIB_GLHELPER_H_ */
+#endif /* LUAHUD_GLHELPER_H_ */
