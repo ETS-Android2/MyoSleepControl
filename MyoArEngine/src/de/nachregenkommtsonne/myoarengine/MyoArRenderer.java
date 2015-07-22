@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.SensorManager;
 import android.opengl.GLES20;
-import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLUtils;
 import de.nachregenkommtsonne.myoarengine.utility.MovementCalculator;
@@ -17,7 +16,6 @@ import de.nachregenkommtsonne.myoarengine.utility.VectorAverager;
 
 public class MyoArRenderer implements Renderer
 {
-	private DummyWorldRenderer dummyWorldRenderer = new DummyWorldRenderer();
 	private int _width = 0;
 	private int _height = 0;
 	private float[] _rotationMatrix = new float[16];
@@ -61,7 +59,7 @@ public class MyoArRenderer implements Renderer
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textur[0]);
 
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
-    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
 
 		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 
@@ -74,11 +72,6 @@ public class MyoArRenderer implements Renderer
 	{
 		_width = width;
 		_height = height;
-
-		gl.glViewport(0, 0, width, height);
-
-		gl.glEnable(GL10.GL_POINT_SMOOTH);
-		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
 
 		_nativeMyoArRenderer.onSurfaceChanged(width, height);
 	}
@@ -97,18 +90,6 @@ public class MyoArRenderer implements Renderer
 		SensorManager.getRotationMatrix(_rotationMatrix, null,
 				gavitationalVector.getValues(), magneticVector.getValues());
 
-		gl.glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
-
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glLoadIdentity();
-		GLU.gluPerspective(gl, 90.0f, (float) _width / _height, 0.1f, 200.0f);
-
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glLoadIdentity();
-		gl.glLoadMatrixf(_rotationMatrix, 0);
-
 		Vector3D xVector = new Vector3D(_rotationMatrix[0], _rotationMatrix[4], _rotationMatrix[8]);
 		Vector3D yVector = new Vector3D(_rotationMatrix[1], _rotationMatrix[5], _rotationMatrix[9]);
 		Vector3D zVector = new Vector3D(_rotationMatrix[2], _rotationMatrix[6], _rotationMatrix[10]);
@@ -119,27 +100,13 @@ public class MyoArRenderer implements Renderer
 		if (delta.isValid())
 			_position = _position.add(delta);
 
-		//dummyWorldRenderer.renderSkyBox(gl);
-		_nativeMyoArRenderer.drawSkyBox();
-		
-		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
-		dummyWorldRenderer.renderWorld(gl, _matrix);
-		_nativeMyoArRenderer.drawWorld();
-
-		gl.glDisable(GL10.GL_DEPTH_TEST);
-		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
-
-		gl.glLoadIdentity();
-
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glLoadIdentity();
-		gl.glOrthof(0.0f, (float)_width, 0.0f, (float)_height, -1.0f, 1.0f); // {0,0} ist unten links
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-
-		gl.glRotatef(-90, 0, 0, 1);
-		gl.glTranslatef(-_height, 0, 0);
-		
-		_nativeMyoArRenderer.onDrawHud();
+		_nativeMyoArRenderer.draw(
+				_position.getX(), _position.getY(), _position.getZ(),
+				_rotationMatrix[0], _rotationMatrix[1], _rotationMatrix[2], _rotationMatrix[3],
+				_rotationMatrix[4], _rotationMatrix[5], _rotationMatrix[6], _rotationMatrix[7],
+				_rotationMatrix[8], _rotationMatrix[9], _rotationMatrix[10], _rotationMatrix[11],
+				_rotationMatrix[12], _rotationMatrix[13], _rotationMatrix[14], _rotationMatrix[15]
+				);
 	}
 
 	public void setMovementVector(Vector3D vector)

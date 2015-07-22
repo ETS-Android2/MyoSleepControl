@@ -27,17 +27,15 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRender
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_onSurfaceChanged(
 		JNIEnv * env, jobject thiz, jint width, jint height)
 {
-
 	_size.cx = width;
 	_size.cy = height;
 
-	_scripting->SetUiSize(_size);
-}
+	glViewport(0, 0, _size.cx, _size.cy);
 
-JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_onDrawHud(
-		JNIEnv * env, jobject thiz)
-{
-	_scripting->RenderHUD();
+	glEnable(GL_POINT_SMOOTH);
+	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+
+	_scripting->SetUiSize(_size);
 }
 
 void drawQuad(int texID, float *vertices, float *textures)
@@ -60,11 +58,39 @@ void drawQuad(int texID, float *vertices, float *textures)
     glDisable(GL_TEXTURE_2D);
 }
 
-JNIEXPORT void JNICALL
-Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawSkyBox(
-	JNIEnv * env, jobject thiz)
+void perspectiveGL( float fovY, float aspect, float zNear, float zFar )
 {
-  	//sky
+    float fW, fH;
+
+    fH = 1.0f * zNear;
+    fW = fH * aspect;
+
+    glFrustumf( -fW, fW, -fH, fH, zNear, zFar );
+}
+
+JNIEXPORT void JNICALL
+Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_draw(
+	JNIEnv * env, jobject thiz,
+	jfloat x, jfloat y, jfloat z,
+	jfloat r1, jfloat r2, jfloat r3, jfloat r4,
+	jfloat r5, jfloat r6, jfloat r7, jfloat r8,
+	jfloat r9, jfloat r10, jfloat r11, jfloat r12,
+	jfloat r13, jfloat r14, jfloat r15, jfloat r16)
+{
+	float rotationMatrix[] = {r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16};
+
+	glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	perspectiveGL(90.0f, (float)  _size.cx / _size.cy, 0.1f, 200.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(rotationMatrix);
+
+	//sky
 	float vertices1[] = {
 			100.0f, 100.0f, 49.0f,
 			100.0f, -100.0f, 49.0f,
@@ -78,11 +104,10 @@ Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawSkyBox(
 			.75f, .25f
 	};
 
-  	drawQuad(3, vertices1, textures1);
+	drawQuad(_texIDSky, vertices1, textures1);
 
-  	//4 sky sides
-  	// x = 100
-
+	//4 sky sides
+	// x = 100
 	float vertices2[] = {
 			100.0f, 100.0f, 49.0f,
 			100.0f, -100.0f, 49.0f,
@@ -96,10 +121,9 @@ Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawSkyBox(
 			.0f, .25f
 	};
 
-	drawQuad(3, vertices2, textures2);
+	drawQuad(_texIDSky, vertices2, textures2);
 
-  	// y = -100
-
+	// y = -100
 	float vertices3[] = {
 			100.0f, -100.0f, -1.0f,
 			100.0f, -100.0f, 49.0f,
@@ -113,13 +137,9 @@ Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawSkyBox(
 			.75f, 1.f
 	};
 
-	drawQuad(3, vertices3, textures3);
-//  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(.25f, 1.f),
-//  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
-//  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
-//  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(.75f, 1.f));
+	drawQuad(_texIDSky, vertices3, textures3);
 
-  	//x = -100
+	//x = -100
 	float vertices4[] = {
 			-100.0f, 100.0f, -1.0f,
 			-100.0f, -100.0f, -1.0f,
@@ -133,13 +153,9 @@ Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawSkyBox(
 			.75f, .25f
 	};
 
-	drawQuad(3, vertices4, textures4);
-//  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(1.f, .25f),
-//  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(1.f, .75f),
-//  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
-//  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
+	drawQuad(_texIDSky, vertices4, textures4);
 
-  	//y = 100
+	//y = 100
 	float vertices5[] = {
 			100.0f, 100.0f, 49.0f,
 			100.0f, 100.0f, -1.0f,
@@ -153,16 +169,38 @@ Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawSkyBox(
 			.75f, .25f
 	};
 
-	drawQuad(3, vertices5, textures5);
- // 			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
- // 			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(.25f, .0f),
- // 			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(.75f, .0f),
- // 			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
-}
+	drawQuad(_texIDSky, vertices5, textures5);
 
-JNIEXPORT void JNICALL
-Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_drawWorld(
-	JNIEnv * env, jobject thiz)
-{
 
+	glTranslatef(x, y, z);
+
+	float vertices[] = {
+			10000.0f, 10000.0f, -1.0f,
+			10000.0f, -10000.0f, -1.0f,
+			-10000.0f, -10000.0f, -1.0f,
+			-10000.0f, 10000.0f, -1.0f};
+
+	float textures[] = {
+			0.f, 0.f,
+			2500.f, 0.f,
+			2500.f, 2500.f,
+			0.f, 2500.f
+	};
+
+	drawQuad(_texIDRasen, vertices, textures);
+
+	glDisable(GL_DEPTH_TEST);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glLoadIdentity();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrthof(0.0f, (float)_size.cx, 0.0f, (float)_size.cy, -1.0f, 1.0f); // {0,0} ist unten links
+	glMatrixMode(GL_MODELVIEW);
+
+	glRotatef(-90, 0, 0, 1);
+	glTranslatef(-_size.cy, 0, 0);
+
+	_scripting->RenderHUD();
 }
