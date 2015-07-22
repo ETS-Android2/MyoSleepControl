@@ -6,6 +6,7 @@
 #include <functional>
 #include <string>
 #include "global.h"
+#include <lua.hpp>
 
 
 class FunctionHelper

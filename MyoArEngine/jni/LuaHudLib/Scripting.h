@@ -9,6 +9,7 @@
 #include "UIElement.h"
 #include "UITextField.h"
 #include "global.h"
+#include <lua.hpp>
 
 using namespace std;
 

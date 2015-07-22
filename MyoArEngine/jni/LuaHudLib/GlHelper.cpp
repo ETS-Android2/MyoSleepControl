@@ -1,6 +1,5 @@
 #include "GlHelper.h"
 #include <GLES/gl.h>
-#include "env.h"
 
 GlHelper::GlHelper() {
 }

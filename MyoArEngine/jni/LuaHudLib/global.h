@@ -16,8 +16,6 @@ public:
 	int y;
 };
 
-#include <lua.hpp>
-
 #define GLUT_KEY_LEFT 0
 #define GLUT_KEY_RIGHT 0
 #define GLUT_KEY_UP 0

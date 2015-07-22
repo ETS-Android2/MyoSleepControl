@@ -2,6 +2,7 @@
 #include "uielement.h"
 #include "LuaBind.h"
 #include "global.h"
+#include <lua.hpp>
 
 class UITextField :
 	public UIElement

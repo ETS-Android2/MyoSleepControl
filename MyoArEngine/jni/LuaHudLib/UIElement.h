@@ -5,6 +5,7 @@
 #include <set>
 #include <string>
 #include "global.h"
+#include <lua.hpp>
 
 enum class AnchorPosition
 {
