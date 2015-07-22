@@ -132,6 +132,9 @@ public class MyoArRenderer implements Renderer
 		gl.glOrthof(0.0f, (float)_width, 0.0f, (float)_height, -1.0f, 1.0f); // {0,0} ist unten links
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 
+		gl.glRotatef(-90, 0, 0, 1);
+		gl.glTranslatef(-_height, 0, 0);
+		
 		C.onDrawFrame();
 	}
 
