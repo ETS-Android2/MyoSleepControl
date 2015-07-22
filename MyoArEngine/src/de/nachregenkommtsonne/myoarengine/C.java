@@ -6,7 +6,7 @@ public class C
     System.loadLibrary("MyoArEngine");
   }
 
-  public native void onSurfaceCreated();
-  public native void onSurfaceChanged(int width, int height);
-  public native void onDrawFrame();
+  public static native void onSurfaceCreated();
+  public static native void onSurfaceChanged(int width, int height);
+  public static native void onDrawFrame();
 }

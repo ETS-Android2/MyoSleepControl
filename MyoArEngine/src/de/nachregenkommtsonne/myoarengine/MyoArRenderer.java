@@ -44,7 +44,7 @@ public class MyoArRenderer implements Renderer
 		/*int texIDRasen = */ loadTexture(gl, R.drawable.rasen);
 		/*int texIDSky = */   loadTexture(gl, R.drawable.sky);
 		
-		new C().onSurfaceCreated();
+		C.onSurfaceCreated();
 	}
 	
 	private int loadTexture(GL10 gl, int resID)
@@ -76,7 +76,7 @@ public class MyoArRenderer implements Renderer
 		gl.glEnable(GL10.GL_POINT_SMOOTH);
 		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
 
-		new C().onSurfaceChanged(width, height);
+		C.onSurfaceChanged(width, height);
 	}
 
 	public void onDrawFrame(GL10 gl)
@@ -130,7 +130,7 @@ public class MyoArRenderer implements Renderer
 		gl.glOrthof(0.0f, (float)_width, 0.0f, (float)_height, -1.0f, 1.0f); // {0,0} ist unten links
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 
-		new C().onDrawFrame();
+		C.onDrawFrame();
 	}
 
 	public void setMovementVector(Vector3D vector)

@@ -6,5 +6,102 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_main">Myology</string>
     <string name="hello_world">Hello world!</string>
+    <string name="script">
+--[[
+
+Command Interface [OK]
+Gitter toggle
+Erstelle Kugel / Farbauswahl
+FPS anzeige
+
+
+	--lua funktionen für
+
+	--transparenz einstellen
+	--g punkt verschieben
+	--mipmapping an/aus
+	--skymap
+	
+]]--
+
+
+function InitializeLayout()
+	--SetEventHandler(OnGlobalEvent);
+	--RegisterEvent("EVENT_GLOBAL_LOG");
+
+	--Command View
+	TextField = CreateTextField();
+	TextField:SetText("10");
+	TextField:SetPosition(10, 10);
+	TextField:SetAnchor("ANCHOR_BOTTOM_LEFT", "ANCHOR_BOTTOM_LEFT");
+	TextField:SetSize(60, 20);
+	TextField:SetIsMultiLine(false);
+	TextField:Show();
+	TextField:SetEventHandler(OnEvent);
+	TextField:RegisterEvent("EVENT_TEXT_SUBMIT");
+
+	Button = CreateButton();
+	Button:SetText("Generieren");
+	Button:SetPosition(10, 0);
+	Button:SetAnchor("ANCHOR_TOP_LEFT", "ANCHOR_TOP_RIGHT", TextField);
+	Button:SetSize(100, 20);
+	Button:SetEventHandler(OnEvent);
+	Button:RegisterEvent("EVENT_BUTTON_CLICK");
+	Button:Show();
+
+	ButtonToggleGrid = CreateButton();
+	ButtonToggleGrid:SetText("Gitter Zeigen");
+	ButtonToggleGrid:SetPosition(0, 10);
+	ButtonToggleGrid:SetAnchor("ANCHOR_BOTTOM_LEFT", "ANCHOR_TOP_LEFT", TextField);
+	ButtonToggleGrid:SetSize(170, 20);
+	ButtonToggleGrid:SetEventHandler(OnEvent);
+	ButtonToggleGrid:RegisterEvent("EVENT_BUTTON_CLICK");
+	ButtonToggleGrid:Show();
+
+	ButtonToggleMovement = CreateButton();
+	ButtonToggleMovement:SetText("Einfrieren");
+	ButtonToggleMovement:SetPosition(0, 10);
+	ButtonToggleMovement:SetAnchor("ANCHOR_BOTTOM_LEFT", "ANCHOR_TOP_LEFT", ButtonToggleGrid);
+	ButtonToggleMovement:SetSize(170, 20);
+	ButtonToggleMovement:SetEventHandler(OnEvent);
+	ButtonToggleMovement:RegisterEvent("EVENT_BUTTON_CLICK");
+	ButtonToggleMovement:Show();
+
+	
+	Label = CreateLabel();
+	Label:SetSize(450, 200);
+	Label:SetPosition(0, 10);
+	Label:SetAnchor("ANCHOR_BOTTOM_LEFT", "ANCHOR_TOP_LEFT", TextField);
+	Label:Show();
+	Label:SetText("Test Label");
+	
+	
+	
+end
+
+
+function OnEvent(source, event)
+	if (source == Button and event == "EVENT_BUTTON_CLICK") then
+		Label:SetText("GenerateSpheres")
+		--GenerateSpheres(TextField:GetText());
+	elseif (source == ButtonToggleGrid and event == "EVENT_BUTTON_CLICK") then
+		Label:SetText("ToggleRenderer")
+		--ToggleRenderer();
+	elseif (source == ButtonToggleMovement and event == "EVENT_BUTTON_CLICK") then
+		Label:SetText("ToggleMovement")
+		--ToggleMovement();
+	end
+end
+
+
+
+function OnGlobalEvent(event, arg1)
+	if (event == "EVENT_GLOBAL_LOG") then
+		Label:SetText(Label:GetText() .. arg1);
+	end
+end
+
+InitializeLayout();
+</string>
 
 </resources>

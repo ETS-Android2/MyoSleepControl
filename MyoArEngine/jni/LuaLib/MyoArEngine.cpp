@@ -11,17 +11,17 @@ JNIEnv * global_env;
 
 extern "C" {
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreated(
-		JNIEnv * env, jobject jObj);
+		JNIEnv * env);
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceChanged(
-		JNIEnv * env, jobject jObj, jint width, jint height);
+		JNIEnv * env, jint width, jint height);
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onDrawFrame(
-		JNIEnv * env, jobject jObj);
+		JNIEnv * env);
 }
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreated(
-		JNIEnv * env, jobject jObj) {
+		JNIEnv * env) {
 
 	_scripting = Scripting::GetInstance();
 	_scripting->Init();
@@ -33,11 +33,13 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceCreate
 	Label:SetAnchor(\"ANCHOR_BOTTOM_LEFT\", \"ANCHOR_BOTTOM_LEFT\"); \
 	Label:SetText(\"testtest testtest test test test\"); \
 	Label:Show(); \
+			\
+			\
 ");
 }
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceChanged(
-		JNIEnv * env, jobject jObj, jint width, jint height) {
+		JNIEnv * env, jint width, jint height) {
 
 	SIZE s;
 	s.cx = width;
@@ -47,7 +49,7 @@ JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onSurfaceChange
 }
 
 JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_C_onDrawFrame(
-		JNIEnv * env, jobject jObj) {
+		JNIEnv * env) {
 
 	//glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 	//glClear(GL_COLOR_BUFFER_BIT);

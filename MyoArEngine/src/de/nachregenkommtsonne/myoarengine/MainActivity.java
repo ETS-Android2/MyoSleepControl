@@ -35,6 +35,8 @@ public class MainActivity extends Activity
 		setContentView(_myoArRenderView);
 		
     initMyo();
+    
+    
 	}
 
 	private void makeWindowFixedFullscreen()
