@@ -22,45 +22,6 @@ public class DummyWorldRenderer
   {
   }
 
-  void renderSkyBox(GL10 gl)
-  {
-  	//sky
-  	DrawQuad(gl, 3,
-  			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
-  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
-  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
-  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
-
-  	//4 sky sides
-  	// x = 100
-  	DrawQuad(gl, 3,
-  			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
-  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
-  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(.0f, .75f),
-  			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(.0f, .25f));
-
-  	// y = -100
-  	DrawQuad(gl, 3,
-  			new Vector3D(100.0f, -100.0f, -1.0f), new Vector2D(.25f, 1.f),
-  			new Vector3D(100.0f, -100.0f, 49.0f), new Vector2D(.25f, .75f),
-  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
-  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(.75f, 1.f));
-
-  	//x = -100
-  	DrawQuad(gl, 3,
-  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(1.f, .25f),
-  			new Vector3D(-100.0f, -100.0f, -1.0f), new Vector2D(1.f, .75f),
-  			new Vector3D(-100.0f, -100.0f, 49.0f), new Vector2D(.75f, .75f),
-  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
-
-  	//y = 100
-  	DrawQuad(gl, 3,
-  			new Vector3D(100.0f, 100.0f, 49.0f), new Vector2D(.25f, .25f),
-  			new Vector3D(100.0f, 100.0f, -1.0f), new Vector2D(.25f, .0f),
-  			new Vector3D(-100.0f, 100.0f, -1.0f), new Vector2D(.75f, .0f),
-  			new Vector3D(-100.0f, 100.0f, 49.0f), new Vector2D(.75f, .25f));
-  }
-
   private void DrawQuad(
 			GL10 gl, int texID, 
 			Vector3D vector1, Vector2D texVector1,

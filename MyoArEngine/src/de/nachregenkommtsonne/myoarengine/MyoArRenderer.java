@@ -119,7 +119,7 @@ public class MyoArRenderer implements Renderer
 		if (delta.isValid())
 			_position = _position.add(delta);
 
-		dummyWorldRenderer.renderSkyBox(gl);
+		//dummyWorldRenderer.renderSkyBox(gl);
 		_nativeMyoArRenderer.drawSkyBox();
 		
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
