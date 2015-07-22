@@ -24,6 +24,7 @@ public class MyoArRenderer implements Renderer
 	private Vector3D _position;
 	private Vector3D _displayVector;
 	private Context _context;
+	private NativeMyoArRenderer _nativeMyoArRenderer;
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
@@ -36,6 +37,7 @@ public class MyoArRenderer implements Renderer
 		_position = new Vector3D();
 		_displayVector = new Vector3D(0.0f, 0.0f, 0.0f);
 		_context = context;
+		_nativeMyoArRenderer = new NativeMyoArRenderer();
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
@@ -46,7 +48,7 @@ public class MyoArRenderer implements Renderer
 		
 		String script = _context.getResources().getString(R.string.script);
 		
-		LuaHud.onSurfaceCreated(script, texIDAscii, texIDRasen, texIDSky);
+		_nativeMyoArRenderer.onSurfaceCreated(script, texIDAscii, texIDRasen, texIDSky);
 	}
 	
 	private int loadTexture(GL10 gl, int resID)
@@ -78,7 +80,7 @@ public class MyoArRenderer implements Renderer
 		gl.glEnable(GL10.GL_POINT_SMOOTH);
 		gl.glHint(GL10.GL_POINT_SMOOTH_HINT, GL10.GL_NICEST);
 
-		LuaHud.onSurfaceChanged(width, height);
+		_nativeMyoArRenderer.onSurfaceChanged(width, height);
 	}
 
 	public void onDrawFrame(GL10 gl)
@@ -118,9 +120,11 @@ public class MyoArRenderer implements Renderer
 			_position = _position.add(delta);
 
 		dummyWorldRenderer.renderSkyBox(gl);
+		_nativeMyoArRenderer.drawSkyBox();
+		
 		gl.glTranslatef(_position.getX(), _position.getY(), _position.getZ());
 		dummyWorldRenderer.renderWorld(gl, _matrix);
-
+		_nativeMyoArRenderer.drawWorld();
 
 		gl.glDisable(GL10.GL_DEPTH_TEST);
 		gl.glClear(GL10.GL_DEPTH_BUFFER_BIT);
@@ -135,7 +139,7 @@ public class MyoArRenderer implements Renderer
 		gl.glRotatef(-90, 0, 0, 1);
 		gl.glTranslatef(-_height, 0, 0);
 		
-		LuaHud.onDrawFrame();
+		_nativeMyoArRenderer.onDrawHud();
 	}
 
 	public void setMovementVector(Vector3D vector)

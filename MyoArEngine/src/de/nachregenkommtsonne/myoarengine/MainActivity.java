@@ -87,14 +87,8 @@ public class MainActivity extends Activity
       }
       public void onOrientationData(Myo arg0, long arg1, Quaternion q)
       {
-        //double pitch = Quaternion.pitch(quat);
-        //double roll = Quaternion.roll(quat);
-        //double yaw = Quaternion.yaw(quat);
-        
         float[] matrix = new float[16];
-
-
-        
+         
         matrix[0] = (float) (1 - 2 * (q.y() * q.y() + q.z() * q.z()));
         matrix[1] = (float) (2 * (q.x() * q.y() + q.z() * q.w()));
         matrix[2] = (float) (2 * (q.x() * q.z() - q.y() * q.w()));

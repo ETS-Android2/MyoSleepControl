@@ -11,7 +11,7 @@ LOCAL_MODULE    := LuaHudLib
 LOCAL_SRC_FILES := GlHelper.cpp UIElement.cpp Scripting.cpp UIButton.cpp UIImage.cpp UILabel.cpp UITextField.cpp
 
 LOCAL_STATIC_LIBRARIES := libLuaLib
-LOCAL_LDLIBS := -lGLESv1_CM -landroid
+#LOCAL_LDLIBS := -lGLESv1_CM -landroid
 
 
 LOCAL_EXPORT_CFLAGS := -DANDROID=1
