@@ -17,7 +17,7 @@ class Scripting
 public:
 	~Scripting(void);
 
-	void Init();
+	void Init(int asciiTexId);
 	void RunScript(const char *script);
 
 	bool HasError();

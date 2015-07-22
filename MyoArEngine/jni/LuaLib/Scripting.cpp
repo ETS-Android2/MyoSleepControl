@@ -42,7 +42,7 @@ void Scripting::SetUiSize(SIZE size)
 	}
 }
 
-void Scripting::Init(void)
+void Scripting::Init(int asciiTexId)
 {
 	m_uiElements.clear();
 

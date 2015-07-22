@@ -40,11 +40,13 @@ public class MyoArRenderer implements Renderer
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
 	{
-		/*int texIDAscii = */ loadTexture(gl, R.drawable.font);
-		/*int texIDRasen = */ loadTexture(gl, R.drawable.rasen);
-		/*int texIDSky = */   loadTexture(gl, R.drawable.sky);
+		int texIDAscii = loadTexture(gl, R.drawable.font);
+		int texIDRasen = loadTexture(gl, R.drawable.rasen);
+		int texIDSky = loadTexture(gl, R.drawable.sky);
 		
-		C.onSurfaceCreated();
+		String script = _context.getResources().getString(R.string.script);
+		
+		C.onSurfaceCreated(script, texIDAscii, texIDRasen, texIDSky);
 	}
 	
 	private int loadTexture(GL10 gl, int resID)
