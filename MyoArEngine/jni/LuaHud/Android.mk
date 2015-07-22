@@ -1,7 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-#LOCAL_CFLAGS += -std=c99
 LOCAL_CPPFLAGS := -std=c++11
 LOCAL_CPP_FEATURES := rtti exceptions
 

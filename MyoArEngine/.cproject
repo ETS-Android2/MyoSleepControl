@@ -12,27 +12,18 @@
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.android.toolchain.gcc.818319832" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.android.toolchain.gcc.818319832.1453254790" name="/" resourcePath="">
-						<toolChain id="com.android.toolchain.gcc.1866541607" name="Android GCC" superClass="com.android.toolchain.gcc">
-							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform.45835465" isAbstract="false" superClass="com.android.targetPlatform"/>
-							<builder arguments="" command="ndk-build" id="com.android.builder.1751199942" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Android Builder" superClass="com.android.builder"/>
-							<tool id="com.android.gcc.compiler.191166873" name="Android GCC Compiler" superClass="com.android.gcc.compiler">
-								<option id="com.android.gcc.option.includePath.791065762" superClass="com.android.gcc.option.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\dev\android\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\libs\armeabi\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\dev\android\android-ndk-r10e\sources\cxx-stl\gnu-libstdc++\4.8\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\dev\android\android-ndk-r10e\sources\cxx-stl\system\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\dev\android\android-ndk-r10e\platforms\android-21\arch-arm\usr\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\dev\android\android-ndk-r10e\toolchains\arm-linux-androideabi-4.8\prebuilt\windows-x86_64\lib\gcc\arm-linux-androideabi\4.8\include&quot;"/>
-								</option>
-								<inputType id="com.android.gcc.inputType.1209096850" superClass="com.android.gcc.inputType"/>
-							</tool>
+						<toolChain id="com.android.toolchain.gcc.2116294274" name="Android GCC" superClass="com.android.toolchain.gcc">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.android.targetPlatform.185238132" isAbstract="false" superClass="com.android.targetPlatform"/>
+							<builder id="com.android.builder.1992146972" managedBuildOn="false" name="Android Builder.Default" superClass="com.android.builder"/>
+							<tool id="com.android.gcc.compiler.314776261" name="Android GCC Compiler" superClass="com.android.gcc.compiler"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
@@ -70,4 +61,5 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

@@ -9,7 +9,7 @@ LOCAL_SRC_FILES += lobject.c lopcodes.c loslib.c lparser.c lstate.c lstring.c ls
 LOCAL_SRC_FILES += ltable.c ltablib.c ltm.c lundump.c lvm.c lzio.c lcorolib.c lctype.c
 LOCAL_SRC_FILES += lutf8lib.c
 
-LOCAL_LDLIBS := -ld -lm
+#LOCAL_LDLIBS := -ld -lm
 
 LOCAL_CFLAGS := -fno-PIC
 
