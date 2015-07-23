@@ -9,7 +9,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../LuaHudLib
 LOCAL_C_INCLUDES += ${ANDROID_NDK}/sources/cxx-stl/gnu-libstdc++/4.8/include
 
 LOCAL_MODULE    := MyoArRenderer
-LOCAL_SRC_FILES := MyoArRenderBridge.cpp MyoArRenderer.cpp
+LOCAL_SRC_FILES := MyoArRenderBridge.cpp MyoArRenderer.cpp ModelRenderer.cpp Model.cpp
 
 LOCAL_STATIC_LIBRARIES := libLuaHudLib
 LOCAL_LDLIBS := -lGLESv1_CM -landroid
