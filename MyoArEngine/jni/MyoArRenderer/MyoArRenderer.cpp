@@ -48,6 +48,7 @@ void MyoArRenderer::DrawSkyBox()
 
 void MyoArRenderer::InitializePerspective(float *rotationMatrix)
 {
+	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
@@ -67,12 +68,14 @@ void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float
 	InitializePerspective(rotationMatrix);
 	DrawSkyBox();
 
-	_myoWeaponRenderer->Render(_weaponModel, myoRotationMatrix);
-
+	glPushMatrix();
 	glTranslatef(x, y, z);
 	DrawWorld();
 
 	_unitRenderer->Render(_zombieUnit);
+	glPopMatrix();
+
+	_myoWeaponRenderer->Render(_weaponModel, myoRotationMatrix);
 
 	InitializeHudPerspective();
 	_scripting->RenderHUD();
