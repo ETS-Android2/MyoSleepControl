@@ -16,9 +16,8 @@ void MyoWeaponRenderer::Render(Model *model, float *myoRotationMatrix) {
 	{
 		glMultMatrixf(myoRotationMatrix);
 
-		glScalef(-0.1f, -0.1f, -0.1f);
+		glScalef(0.1f, 0.1f, 0.1f);
 		glTranslatef(10.0f, 0.0f, 0.0f);
-
 
 		_modelRenderer->RenderModel(model);
 	}
