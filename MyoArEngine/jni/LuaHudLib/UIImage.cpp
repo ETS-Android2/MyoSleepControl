@@ -18,9 +18,7 @@ void UIImage::Init(lua_State *L, std::function<void (UIElement *)> func)
 
 UIImage::UIImage(void)
 {
-
 }
-
 
 UIImage::~UIImage(void)
 {

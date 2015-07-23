@@ -19,9 +19,6 @@ void MyoArRenderer::InitializeViewport(SIZE size)
 
 	glViewport(0, 0, _size.cx, _size.cy);
 
-	glEnable(GL_POINT_SMOOTH);
-	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-
 	_scripting->SetUiSize(size);
 }
 
