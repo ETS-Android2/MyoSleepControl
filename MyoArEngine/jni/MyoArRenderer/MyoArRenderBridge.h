@@ -5,15 +5,15 @@
 extern "C"
 {
 	JNIEXPORT void JNICALL
-	Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_onSurfaceCreated(
+	Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_onSurfaceCreated(
 		JNIEnv * env, jobject thiz, jstring script, jint texIDAscii, jint texIDRasen, jint texIDSky);
 
 	JNIEXPORT void JNICALL
-	Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_onSurfaceChanged(
+	Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_onSurfaceChanged(
 		JNIEnv * env, jobject thiz, jint width, jint height);
 
 	JNIEXPORT void JNICALL
-	Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_draw(
+	Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 		JNIEnv * env, jobject thiz,
 		jfloat x, jfloat y, jfloat z,
 		jfloat r1, jfloat r2, jfloat r3, jfloat r4,

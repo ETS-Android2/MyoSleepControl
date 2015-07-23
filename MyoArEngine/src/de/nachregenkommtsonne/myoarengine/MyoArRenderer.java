@@ -22,7 +22,7 @@ public class MyoArRenderer implements Renderer
 	private Vector3D _position;
 	private Vector3D _displayVector;
 	private Context _context;
-	private NativeMyoArRenderer _nativeMyoArRenderer;
+	private MyoArRenderBridge _nativeMyoArRenderer;
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
@@ -35,7 +35,7 @@ public class MyoArRenderer implements Renderer
 		_position = new Vector3D();
 		_displayVector = new Vector3D(0.0f, 0.0f, 0.0f);
 		_context = context;
-		_nativeMyoArRenderer = new NativeMyoArRenderer();
+		_nativeMyoArRenderer = new MyoArRenderBridge();
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)

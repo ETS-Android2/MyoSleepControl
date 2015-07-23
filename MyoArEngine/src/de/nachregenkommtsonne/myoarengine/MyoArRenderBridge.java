@@ -1,6 +1,6 @@
 package de.nachregenkommtsonne.myoarengine;
 
-public class NativeMyoArRenderer {
+public class MyoArRenderBridge {
 	static {
 		System.loadLibrary("MyoArRenderer");
 	}

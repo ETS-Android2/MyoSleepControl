@@ -2,39 +2,40 @@
 #include <GLES/gl.h>
 #include <GLES2/gl2.h>
 
-#include "NativeMyoArRenderer.h"
+#include "MyoArRenderBridge.h"
 #include "Scripting.h"
 #include "GlHelper.h"
-#include "DummyWorld.h"
+#include "MyoArRenderer.h"
 
-DummyWorld *_dummyWorld;
-Scripting *_scripting = nullptr;
+MyoArRenderer *_myoArRenderer;
 
-JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_onSurfaceCreated(
+JNIEXPORT void JNICALL
+Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_onSurfaceCreated(
 		JNIEnv * env, jobject thiz, jstring script, jint texIDAscii, jint texIDRasen, jint texIDSky)
 {
-	_dummyWorld = new DummyWorld(texIDSky, texIDRasen);
-	_scripting = Scripting::GetInstance();
-	_scripting->Init(texIDAscii);
+	Scripting *scripting = Scripting::GetInstance();
+	scripting->Init(texIDAscii);
 
 	const char *nativeString = env->GetStringUTFChars(script, JNI_FALSE);
-	_scripting->RunScript(nativeString);
-	 env->ReleaseStringUTFChars(script, nativeString);
+	scripting->RunScript(nativeString);
+	env->ReleaseStringUTFChars(script, nativeString);
+
+	_myoArRenderer = new MyoArRenderer(texIDSky, texIDRasen, scripting);
 }
 
-JNIEXPORT void JNICALL Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_onSurfaceChanged(
+JNIEXPORT void JNICALL
+Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_onSurfaceChanged(
 		JNIEnv * env, jobject thiz, jint width, jint height)
 {
 	SIZE size;
 	size.cx = width;
 	size.cy = height;
 
-	_dummyWorld->InitializeViewport(size);
-	_scripting->SetUiSize(size);
+	_myoArRenderer->InitializeViewport(size);
 }
 
 JNIEXPORT void JNICALL
-Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_draw(
+Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 	JNIEnv * env, jobject thiz,
 	jfloat x, jfloat y, jfloat z,
 	jfloat r1, jfloat r2, jfloat r3, jfloat r4,
@@ -44,6 +45,5 @@ Java_de_nachregenkommtsonne_myoarengine_NativeMyoArRenderer_draw(
 {
 	float rotationMatrix[] = {r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16};
 
-	_dummyWorld->Draw(x, y, z, rotationMatrix);
-	_scripting->RenderHUD();
+	_myoArRenderer->Draw(x, y, z, rotationMatrix);
 }
