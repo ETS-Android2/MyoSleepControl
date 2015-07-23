@@ -11,7 +11,7 @@ LOCAL_C_INCLUDES += ${ANDROID_NDK}/sources/cxx-stl/gnu-libstdc++/4.8/include
 LOCAL_MODULE    := MyoArRenderer
 LOCAL_SRC_FILES := MyoArRenderBridge.cpp MyoArRenderer.cpp
 LOCAL_SRC_FILES += ModelRenderer.cpp Model.cpp ModelFactory.cpp
-LOCAL_SRC_FILES += Unit.cpp UnitRenderer.cpp
+LOCAL_SRC_FILES += Unit.cpp UnitRenderer.cpp MyoWeaponRenderer.cpp
 
 
 LOCAL_STATIC_LIBRARIES := libLuaHudLib

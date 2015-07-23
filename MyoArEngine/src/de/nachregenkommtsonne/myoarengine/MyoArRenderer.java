@@ -3,6 +3,8 @@ package de.nachregenkommtsonne.myoarengine;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.thalmic.myo.Quaternion;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +28,7 @@ public class MyoArRenderer implements Renderer
 
 	private VectorAverager _gravitationalVector;
 	private VectorAverager _magneticVector;
+	private Quaternion _quaternion;
 
 	public MyoArRenderer(VectorAverager gravitationalVector,
 			VectorAverager magneticVector, Context context)
@@ -36,6 +39,7 @@ public class MyoArRenderer implements Renderer
 		_displayVector = new Vector3D(0.0f, 0.0f, 0.0f);
 		_context = context;
 		_nativeMyoArRenderer = new MyoArRenderBridge();
+		_quaternion = new Quaternion();
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config)
@@ -105,8 +109,9 @@ public class MyoArRenderer implements Renderer
 				_rotationMatrix[0], _rotationMatrix[1], _rotationMatrix[2], _rotationMatrix[3],
 				_rotationMatrix[4], _rotationMatrix[5], _rotationMatrix[6], _rotationMatrix[7],
 				_rotationMatrix[8], _rotationMatrix[9], _rotationMatrix[10], _rotationMatrix[11],
-				_rotationMatrix[12], _rotationMatrix[13], _rotationMatrix[14], _rotationMatrix[15]
-				);
+				_rotationMatrix[12], _rotationMatrix[13], _rotationMatrix[14], _rotationMatrix[15],
+				(float)_quaternion.x(), (float)_quaternion.y(), (float)_quaternion.z(), (float)_quaternion.w());
+
 	}
 
 	public void setMovementVector(Vector3D vector)
@@ -114,10 +119,10 @@ public class MyoArRenderer implements Renderer
 		_displayVector = vector;
 	}
 
-	float[] _matrix;
 
-	public void orientationData(float[] matrix)
+
+	public void orientationData(Quaternion quaternion)
 	{
-		_matrix = matrix;
+		_quaternion = quaternion;
 	}
 }

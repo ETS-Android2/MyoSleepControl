@@ -14,12 +14,15 @@ MyoArRenderer::MyoArRenderer(ModelFactory *modelFactory, Scripting *scripting) {
 
 	_modelRenderer = new ModelRenderer();
 	_unitRenderer = new UnitRenderer(_modelRenderer);
+	_myoWeaponRenderer = new MyoWeaponRenderer(_modelRenderer);
 
 	_skyModel = modelFactory->CreateSkyModel();
 	_floorModel = modelFactory->CreateFloorModel();
 	_zombieModel = modelFactory->CreateZombieModel();
+	_weaponModel = modelFactory->CreateWeaponModel();
 
 	_zombieUnit = new Unit(_zombieModel, 5.0f, 5.0f, 0.0f);
+
 
 	//TODO: 3 Waffen: Schwert, Zauberstab, Feuerwaffe
 	//Mehr Einheiten
@@ -55,7 +58,7 @@ void MyoArRenderer::InitializePerspective(float *rotationMatrix)
 	glLoadMatrixf(rotationMatrix);
 }
 
-void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix)
+void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix)
 {
 	glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -63,6 +66,8 @@ void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix)
 
 	InitializePerspective(rotationMatrix);
 	DrawSkyBox();
+
+	_myoWeaponRenderer->Render(_weaponModel, myoRotationMatrix);
 
 	glTranslatef(x, y, z);
 	DrawWorld();

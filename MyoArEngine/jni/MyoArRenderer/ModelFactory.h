@@ -12,4 +12,5 @@ public:
 	Model *CreateSkyModel();
 	Model *CreateFloorModel();
 	Model *CreateZombieModel();
+	Model *CreateWeaponModel();
 };

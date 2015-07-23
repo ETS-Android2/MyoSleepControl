@@ -119,3 +119,44 @@ Model *ModelFactory::CreateZombieModel()
 
 	return new Model(0, vertices, textures, indices, 36);
 }
+
+Model *ModelFactory::CreateWeaponModel()
+{
+	float vertices[] = {
+			-1.0f, -1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+
+			-1.0f, -1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f, -1.0f,  1.0f,
+	};
+
+	float textures[] = {
+			0.0f, 0.0f,
+			0.0f, 0.0f,
+			0.0f, 0.0f,
+			0.0f, 0.0f,
+
+			0.0f, 0.0f,
+			0.0f, 0.0f,
+			0.0f, 0.0f,
+			0.0f, 0.0f,
+};
+
+	unsigned short indices[] = {
+			0,1,2, 2,3,0,
+			4,5,6, 6,7,4,
+
+			0,1,5, 5,4,0,
+			3,4,7, 7,6,3,
+
+			0,3,7, 7,4,0,
+			1,2,6, 6,5,1
+	};
+
+
+	return new Model(_texIDRasen, vertices, textures, indices, 36);
+}

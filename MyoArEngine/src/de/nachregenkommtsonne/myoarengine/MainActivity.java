@@ -15,138 +15,113 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+import de.nachregenkommtsonne.myoarengine.utility.SettingsEditor;
 
 public class MainActivity extends Activity
 {
 	private MyoArRenderView _myoArRenderView;
+	private SettingsEditor _settingsEditor;
 
-	public MainActivity()
-	{
+	public MainActivity() {
+		_settingsEditor = new SettingsEditor();
 	}
 
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		_settingsEditor.onCreate(this);
+
 		_myoArRenderView = new MyoArRenderView(this);
 
 		makeWindowFixedFullscreen();
-		
+
 		_myoArRenderView.initialize();
 		setContentView(_myoArRenderView);
-		
-    initMyo();
+
+		initMyo();
 	}
 
 	@Override
-	public void onWindowFocusChanged(boolean hasFocus)
-	{
+	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		if (hasFocus) {
 			_myoArRenderView.setSystemUiVisibility(
-              View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-              | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-              | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-              | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-              | View.SYSTEM_UI_FLAG_FULLSCREEN
-              | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+					View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+		}
 
 	}
-	
-	private void makeWindowFixedFullscreen()
-	{
+
+	private void makeWindowFixedFullscreen() {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		Window window = getWindow();
 		window.requestFeature(Window.FEATURE_NO_TITLE);
-		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	}
 
-  private void initMyo()
-  {
-    Hub hub = Hub.getInstance();
-    if (!hub.init(this, this.getPackageName()))
-    {
-      throw new RuntimeException("Error initializing Myo hub");
-    }
+	private void initMyo() {
+		Hub hub = Hub.getInstance();
+		if (!hub.init(this, this.getPackageName())) {
+			throw new RuntimeException("Error initializing Myo hub");
+		}
 
-    hub.setSendUsageData(false);
-    hub.addListener(new DeviceListener()
-    {
-      public void onUnlock(Myo arg0, long arg1)
-      {
-        Toast.makeText(MainActivity.this, "onUnlock", Toast.LENGTH_SHORT).show();
-      }
-      public void onRssi(Myo arg0, long arg1, int arg2)
-      {
-      }
-      public void onPose(Myo arg0, long arg1, Pose arg2)
-      {
-        Toast.makeText(MainActivity.this, "onPose", Toast.LENGTH_SHORT).show();
-      }
-      public void onOrientationData(Myo arg0, long arg1, Quaternion q)
-      {
-        float[] matrix = new float[16];
-         
-        matrix[0] = (float) (1 - 2 * (q.y() * q.y() + q.z() * q.z()));
-        matrix[1] = (float) (2 * (q.x() * q.y() + q.z() * q.w()));
-        matrix[2] = (float) (2 * (q.x() * q.z() - q.y() * q.w()));
-        matrix[3] = 0;
+		hub.setSendUsageData(false);
+		hub.addListener(new DeviceListener() {
+			public void onUnlock(Myo arg0, long arg1) {
+				//Toast.makeText(MainActivity.this, "onUnlock", Toast.LENGTH_SHORT).show();
+			}
 
-        // Second Column
-        matrix[4] = (float) (2 * (q.x() * q.y() - q.z() * q.w()));
-        matrix[5] = (float) (1 - 2 * (q.x() * q.x() + q.z() * q.z()));
-        matrix[6] = (float) (2 * (q.z() * q.y() + q.x() * q.w()));
-        matrix[7] = 0;
+			public void onRssi(Myo arg0, long arg1, int arg2) {
+			}
 
-        // Third Column
-        matrix[8] = (float) (2 * (q.x() * q.z() + q.y() * q.w()));
-        matrix[9] = (float) (2 * (q.y() * q.z() - q.x() * q.w()));
-        matrix[10] = (float) (1 - 2 * (q.x() * q.x() + q.y() * q.y()));
-        matrix[11] = 0;
+			public void onPose(Myo arg0, long arg1, Pose arg2) {
+				//Toast.makeText(MainActivity.this, "onPose", Toast.LENGTH_SHORT).show();
+			}
 
-        // Fourth Column
-        matrix[12] = 0;
-        matrix[13] = 0;
-        matrix[14] = 0;
-        matrix[15] = 1;
-        
-        _myoArRenderView.orientationData(matrix);
-      }
-      public void onLock(Myo arg0, long arg1)
-      {
-        Toast.makeText(MainActivity.this, "onLock", Toast.LENGTH_SHORT).show();
-      }
-      public void onGyroscopeData(Myo arg0, long arg1, Vector3 arg2)
-      {
-      }
-      public void onDisconnect(Myo arg0, long arg1)
-      {
-      }
-      public void onDetach(Myo arg0, long arg1)
-      {
-      }
-      public void onConnect(Myo arg0, long arg1)
-      {
-        Toast.makeText(MainActivity.this, "onConnect", Toast.LENGTH_SHORT).show();
-      }
-      public void onAttach(Myo arg0, long arg1)
-      {
-        Toast.makeText(MainActivity.this, "onAttach", Toast.LENGTH_SHORT).show();
-      }
-      public void onArmUnsync(Myo arg0, long arg1)
-      {
-        Toast.makeText(MainActivity.this, "onArmUnsync", Toast.LENGTH_SHORT).show();
-      }
-      public void onArmSync(Myo arg0, long arg1, Arm arg2, XDirection arg3)
-      {
-        Toast.makeText(MainActivity.this, "onArmSync", Toast.LENGTH_SHORT).show();
-      }
-      public void onAccelerometerData(Myo arg0, long arg1, Vector3 arg2)
-      {
-      }
-    });
-    hub.attachToAdjacentMyo();
-  }
+			public void onOrientationData(Myo arg0, long arg1, Quaternion q) {
+				_myoArRenderView.orientationData(q);
+			}
+
+			public void onLock(Myo arg0, long arg1) {
+				//Toast.makeText(MainActivity.this, "onLock", Toast.LENGTH_SHORT).show();
+			}
+
+			public void onGyroscopeData(Myo arg0, long arg1, Vector3 arg2) {
+			}
+
+			public void onDisconnect(Myo arg0, long arg1) {
+			}
+
+			public void onDetach(Myo arg0, long arg1) {
+			}
+
+			public void onConnect(Myo arg0, long arg1) {
+				_settingsEditor.saveMac(arg0.getMacAddress());
+			}
+
+			public void onAttach(Myo arg0, long arg1) {
+				//Toast.makeText(MainActivity.this, "onAttach", Toast.LENGTH_SHORT).show();
+			}
+
+			public void onArmUnsync(Myo arg0, long arg1) {
+				//Toast.makeText(MainActivity.this, "onArmUnsync", Toast.LENGTH_SHORT).show();
+			}
+
+			public void onArmSync(Myo arg0, long arg1, Arm arg2, XDirection arg3) {
+				//Toast.makeText(MainActivity.this, "onArmSync", Toast.LENGTH_SHORT).show();
+			}
+
+			public void onAccelerometerData(Myo arg0, long arg1, Vector3 arg2) {
+			}
+		});
+
+		String macAddress = _settingsEditor.getMac();
+		if (macAddress != null) {
+			hub.attachByMacAddress(macAddress);
+		} else {
+			hub.attachToAdjacentMyo();
+		}
+	}
 }

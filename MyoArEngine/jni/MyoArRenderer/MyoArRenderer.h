@@ -6,16 +6,22 @@
 #include "ModelFactory.h"
 #include "Unit.h"
 #include "UnitRenderer.h"
+#include "MyoWeaponRenderer.h"
 
 class MyoArRenderer {
 private:
 	SIZE _size;
 	Scripting *_scripting;
+
 	ModelRenderer *_modelRenderer;
 	UnitRenderer *_unitRenderer;
+	MyoWeaponRenderer *_myoWeaponRenderer;
+
 	Model *_skyModel;
 	Model *_floorModel;
 	Model *_zombieModel;
+	Model *_weaponModel;
+
 	Unit *_zombieUnit;
 
 	void DrawSkyBox();
@@ -28,5 +34,5 @@ public:
 	virtual ~MyoArRenderer();
 
 	void InitializeViewport(SIZE size);
-	void Draw(float x, float y, float z, float *rotationMatrix);
+	void Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix);
 };
