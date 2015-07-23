@@ -6,15 +6,26 @@
 #include "Model.h"
 #include "ModelRenderer.h"
 #include "ModelFactory.h"
+#include "Unit.h"
+#include "UnitRenderer.h"
 
 MyoArRenderer::MyoArRenderer(ModelFactory *modelFactory, Scripting *scripting) {
 	_scripting = scripting;
 
 	_modelRenderer = new ModelRenderer();
+	_unitRenderer = new UnitRenderer(_modelRenderer);
 
 	_skyModel = modelFactory->CreateSkyModel();
 	_floorModel = modelFactory->CreateFloorModel();
+	_zombieModel = modelFactory->CreateZombieModel();
+
+	_zombieUnit = new Unit(_zombieModel, 5.0f, 5.0f, 0.0f);
+
+	//TODO: 3 Waffen: Schwert, Zauberstab, Feuerwaffe
+	//Mehr Einheiten
+	//Highscore
 }
+
 MyoArRenderer::~MyoArRenderer() {
 }
 
@@ -55,6 +66,8 @@ void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix)
 
 	glTranslatef(x, y, z);
 	DrawWorld();
+
+	_unitRenderer->Render(_zombieUnit);
 
 	InitializeHudPerspective();
 	_scripting->RenderHUD();
