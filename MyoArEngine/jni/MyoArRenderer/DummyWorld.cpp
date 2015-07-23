@@ -23,10 +23,8 @@ void DummyWorld::InitializeViewport(SIZE size)
 
 }
 
-void drawQuad(int texID, float *vertices, float *textures)
+void drawTriangles(int texID, float *vertices, float *textures, unsigned short *indices, unsigned int numVertices)
 {
-	unsigned short indices[] = {0,1,2,2,3,0};
-
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texID);
 
@@ -36,11 +34,18 @@ void drawQuad(int texID, float *vertices, float *textures)
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glTexCoordPointer(2, GL_FLOAT, 0, textures);
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+    glDrawElements(GL_TRIANGLES, numVertices, GL_UNSIGNED_SHORT, indices);
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisable(GL_TEXTURE_2D);
+}
+
+void drawQuad(int texID, float *vertices, float *textures)
+{
+	unsigned short indices[] = {0,1,2,2,3,0};
+
+	drawTriangles(texID, vertices, textures, indices, 6);
 }
 
 void perspectiveGL( float fovY, float aspect, float zNear, float zFar )
