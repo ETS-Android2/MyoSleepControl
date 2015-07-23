@@ -9,7 +9,6 @@ Model::Model(int textureID,
 {
 	_textureID = textureID;
 
-
 	_indices = new unsigned short[numIndices];
 
 	int maxIndex = 0;
@@ -20,8 +19,6 @@ Model::Model(int textureID,
 		_indices[i] = indices[i];
 	}
 
-	//_indices = indices;
-
 	maxIndex++;
 
 	_vertices = new float[maxIndex * 3];
@@ -29,7 +26,6 @@ Model::Model(int textureID,
 
 	memcpy(_vertices, vertices, sizeof(float) * maxIndex * 3);
 	memcpy(_textureCoords, textureCoords, sizeof(float) * maxIndex * 2);
-
 
 	_numIndices = numIndices;
 }

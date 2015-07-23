@@ -6,6 +6,7 @@
 #include "Scripting.h"
 #include "GlHelper.h"
 #include "MyoArRenderer.h"
+#include "ModelFactory.h"
 
 MyoArRenderer *_myoArRenderer;
 
@@ -20,7 +21,9 @@ Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_onSurfaceCreated(
 	scripting->RunScript(nativeString);
 	env->ReleaseStringUTFChars(script, nativeString);
 
-	_myoArRenderer = new MyoArRenderer(texIDSky, texIDRasen, scripting);
+	ModelFactory *modelFactory = new ModelFactory(texIDSky, texIDRasen);
+	_myoArRenderer = new MyoArRenderer(modelFactory, scripting);
+	delete modelFactory;
 }
 
 JNIEXPORT void JNICALL

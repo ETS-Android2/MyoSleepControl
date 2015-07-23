@@ -8,6 +8,4 @@ public:
 	virtual ~ModelRenderer();
 
 	void RenderModel(Model *model);
-
 };
-

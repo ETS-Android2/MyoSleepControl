@@ -1,12 +1,13 @@
 #pragma once
+
 #include "Scripting.h"
 #include "Model.h"
 #include "ModelRenderer.h"
+#include "ModelFactory.h"
 
 class MyoArRenderer {
 private:
 	SIZE _size;
-	int _texIDSky, _texIDRasen;
 	Scripting *_scripting;
 	ModelRenderer *_modelRenderer;
 	Model *_skyModel;
@@ -18,7 +19,7 @@ private:
 	void InitializeHudPerspective();
 
 public:
-	MyoArRenderer(int texIDSky, int texIDRasen, Scripting *scripting);
+	MyoArRenderer(ModelFactory *modelFactory, Scripting *scripting);
 	virtual ~MyoArRenderer();
 
 	void InitializeViewport(SIZE size);
