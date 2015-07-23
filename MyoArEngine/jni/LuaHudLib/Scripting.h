@@ -34,7 +34,7 @@ public:
 
 	void SetUiSize(SIZE rect);
 
-	void PostLogEvent(char *);
+	void PostLogEvent(const char *);
 
 	static Scripting *GetInstance();
 private:

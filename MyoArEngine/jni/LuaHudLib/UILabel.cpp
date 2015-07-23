@@ -82,6 +82,8 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 		glHelper->DrawText((const unsigned char *)_str.c_str(), dim.x, dim.y + dim.height - 37);
 
 		glDisable(GL_STENCIL_TEST);
+
+		delete glHelper;
 	}
 }
 

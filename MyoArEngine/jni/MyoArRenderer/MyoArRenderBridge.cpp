@@ -10,12 +10,27 @@
 
 MyoArRenderer *_myoArRenderer;
 
+float _playerX;
+float _playerY;
+
 JNIEXPORT void JNICALL
 Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_onSurfaceCreated(
 		JNIEnv * env, jobject thiz, jstring script, jint texIDAscii, jint texIDRasen, jint texIDSky)
 {
 	Scripting *scripting = Scripting::GetInstance();
 	scripting->Init(texIDAscii);
+
+	scripting->InstallFunction("GetPlayerPosition", []
+	(lua_State *L) -> int
+	{
+		if (_myoArRenderer == nullptr)
+			return 0;
+
+		lua_pushnumber(L, _playerX);
+		lua_pushnumber(L, _playerY);
+
+		return 2;
+	});
 
 	const char *nativeString = env->GetStringUTFChars(script, JNI_FALSE);
 	scripting->RunScript(nativeString);
@@ -78,5 +93,9 @@ Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 	        1.0f
 	 };
 
-	_myoArRenderer->Draw(x, y, z, rotationMatrix, myoRotationMatrix);
+	 _playerX = x;
+	 _playerY = y;
+
+	 _myoArRenderer->UpdateState(x, y, z, rotationMatrix, myoRotationMatrix);
+	 _myoArRenderer->Draw(x, y, z, rotationMatrix, myoRotationMatrix);
 }

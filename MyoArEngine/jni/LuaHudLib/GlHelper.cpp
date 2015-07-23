@@ -64,11 +64,23 @@ void GlHelper::DrawQuadWithTexture(Dimension *dim, int texID, DimensionF *texDim
 void GlHelper::DrawText(const unsigned char *text, int posx, int posy)
 {
 	int texID = 1;
+	int j = 0;
+	int k = 0;
 
-	for (int i = 0; i < strlen((const char *)text); i++)
+	for (int i = 0; i < strlen((const char *)text); i++, k++)
 	{
 		int n = text[i];
 
+		if (n == '\n')
+		{
+			j++;
+			k = 0;
+		}
+		if (k % 60 == 59)
+		{
+			j++;
+			k = 0;
+		}
 		if (n < ' ')
 			n = '?';
 		if (n > '~')
@@ -80,8 +92,8 @@ void GlHelper::DrawText(const unsigned char *text, int posx, int posy)
 		int row = n / 25;
 
 		Dimension dim;
-		dim.x = posx + i * 20;
-		dim.y = posy;
+		dim.x = posx + k * 20;
+		dim.y = posy - j * 37;
 		dim.height = 37;
 		dim.width = 20;
 

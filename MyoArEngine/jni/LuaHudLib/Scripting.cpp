@@ -8,6 +8,7 @@
 #include "LuaBind.h"
 #include <functional>
 #include "global.h"
+#include "GlHelper.h"
 
 Scripting::Scripting(void)
 	:_uiSize(), m_focus(nullptr)
@@ -108,10 +109,11 @@ void Scripting::RenderHUD()
 {
 	if (HasError())
 	{
-		//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
-		//glRasterPos2f(20.0f, this->_uiSize.cy -30.0f);
+		GlHelper *glHelper = new GlHelper();
 
-		//glutBitmapString(GLUT_BITMAP_HELVETICA_10, (const unsigned char *)GetError());
+		glHelper->DrawText((const unsigned char *)GetError(), 20.0f, _uiSize.cx - 60.0f);
+
+		delete glHelper;
 	}
 
 	for (UIElement *var : this->m_uiElements)
@@ -244,7 +246,7 @@ int Scripting::lua_RegisterEvent(lua_State *L)
 	return 0;
 }
 
-void Scripting::PostLogEvent(char *text)
+void Scripting::PostLogEvent(const char *text)
 {
 	if (this->m_luaEventHandlerId != -1)
 	{

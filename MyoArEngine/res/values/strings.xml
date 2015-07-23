@@ -7,6 +7,7 @@
     <string name="title_activity_main">Myology</string>
     <string name="hello_world">Hello world!</string>
     <string name="script">
+        
 TestLabel = CreateLabel();
 TestLabel:SetSize(450, 200);
 TestLabel:SetPosition(10, 10);
@@ -15,14 +16,14 @@ TestLabel:SetText(\"testtest testtest test test test\");
 TestLabel:Show();
 
 
+
 function OnGlobalEvent(event, arg1)
-	if (event == "EVENT_GLOBAL_LOG") then
-		TestLabel:SetText(arg1);
-	end
+	x, y = GetPlayerPosition();
+	TestLabel:SetText(x .. \"\\n\" .. y);
 end
 
 SetEventHandler(OnGlobalEvent);
-RegisterEvent("EVENT_GLOBAL_LOG");
+RegisterEvent(\"EVENT_GLOBAL_LOG\");
 
 
 

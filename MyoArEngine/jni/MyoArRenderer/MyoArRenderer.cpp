@@ -59,6 +59,23 @@ void MyoArRenderer::InitializePerspective(float *rotationMatrix)
 	glLoadMatrixf(rotationMatrix);
 }
 
+
+void MyoArRenderer::UpdateState(
+/*player position:*/float x, float y, float z,
+	float *rotationMatrix,
+	float *myoRotationMatrix)
+{
+	float width = 1.0f;
+
+	if (x < _zombieUnit->GetX() + width && x > _zombieUnit->GetX() - width &&
+			y < _zombieUnit->GetY() + width && y > _zombieUnit->GetY() - width)
+	{
+		_zombieUnit->Kill();
+	}
+
+	_scripting->PostLogEvent("REDRAW");
+}
+
 void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix)
 {
 	glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
@@ -69,7 +86,7 @@ void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float
 	DrawSkyBox();
 
 	glPushMatrix();
-	glTranslatef(x, y, z);
+	glTranslatef(-x, -y, -z);
 	DrawWorld();
 
 	_unitRenderer->Render(_zombieUnit);

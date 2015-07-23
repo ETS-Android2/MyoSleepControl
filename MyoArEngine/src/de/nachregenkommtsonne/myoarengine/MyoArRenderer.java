@@ -102,7 +102,7 @@ public class MyoArRenderer implements Renderer
 				xVector, yVector, zVector);
 
 		if (delta.isValid())
-			_position = _position.add(delta);
+			_position = _position.sub(delta);
 
 		_nativeMyoArRenderer.draw(
 				_position.getX(), _position.getY(), _position.getZ(),
