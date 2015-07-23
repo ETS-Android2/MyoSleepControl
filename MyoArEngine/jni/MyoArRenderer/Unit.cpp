@@ -8,6 +8,8 @@ Unit::Unit(Model *model, float posX, float posY, float posZ)
 	_positionX = posX;
 	_positionY = posY;
 	_positionZ = posZ;
+
+	_alive = true;
 }
 
 Unit::~Unit()
@@ -32,4 +34,14 @@ float Unit::GetY()
 float Unit::GetZ()
 {
 	return _positionZ;
+}
+
+void Unit::Kill()
+{
+	_alive = false;
+}
+
+bool Unit::IsAlive()
+{
+	return _alive;
 }

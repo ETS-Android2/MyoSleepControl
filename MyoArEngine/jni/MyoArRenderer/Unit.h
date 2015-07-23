@@ -10,6 +10,8 @@ private:
 	float _positionY;
 	float _positionZ;
 
+	bool _alive;
+
 public:
 	Unit(Model *model, float posX, float posY, float posZ);
 	virtual ~Unit();
@@ -18,4 +20,7 @@ public:
 	float GetX();
 	float GetY();
 	float GetZ();
+
+	void Kill();
+	bool IsAlive();
 };

@@ -14,6 +14,9 @@ UnitRenderer::~UnitRenderer()
 
 void UnitRenderer::Render(Unit *unit)
 {
+	if (!unit->IsAlive())
+		return;
+
 	glPushMatrix();
 	{
 		glTranslatef(unit->GetX(), unit->GetY(), unit->GetZ());
