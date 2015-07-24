@@ -67,8 +67,14 @@ void MyoArRenderer::UpdateState(
 {
 	float width = 1.0f;
 
-	if (x < _zombieUnit->GetX() + width && x > _zombieUnit->GetX() - width &&
-			y < _zombieUnit->GetY() + width && y > _zombieUnit->GetY() - width)
+	float unitX = _zombieUnit->GetX();
+	float unitY = _zombieUnit->GetY();
+
+	float weaponX = x + myoRotationMatrix[0];
+	float weaponY = y + myoRotationMatrix[1];
+
+	if (weaponX < unitX + width && weaponX > unitX - width &&
+			weaponY < unitY + width && weaponY > unitY - width)
 	{
 		_zombieUnit->Kill();
 	}
