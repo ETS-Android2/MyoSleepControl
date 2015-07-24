@@ -12,5 +12,5 @@ public:
 	MyoWeaponRenderer(ModelRenderer *modelRenderer);
 	virtual ~MyoWeaponRenderer();
 
-	void Render(Model *model, float *myoRotationMatrix);
+	void Render(Model *model, float *myoRotationMatrix, bool inverse);
 };

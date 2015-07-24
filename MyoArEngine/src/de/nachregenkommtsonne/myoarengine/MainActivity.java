@@ -80,8 +80,8 @@ public class MainActivity extends Activity
 				//Toast.makeText(MainActivity.this, "onPose", Toast.LENGTH_SHORT).show();
 			}
 
-			public void onOrientationData(Myo arg0, long arg1, Quaternion q) {
-				_myoArRenderView.orientationData(q);
+			public void onOrientationData(Myo myo, long arg1, Quaternion q) {
+				_myoArRenderView.orientationData(q, myo.getXDirection() == XDirection.TOWARD_WRIST);
 			}
 
 			public void onLock(Myo arg0, long arg1) {

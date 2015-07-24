@@ -60,30 +60,34 @@ Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 	jfloat r5, jfloat r6, jfloat r7, jfloat r8,
 	jfloat r9, jfloat r10, jfloat r11, jfloat r12,
 	jfloat r13, jfloat r14, jfloat r15, jfloat r16,
-	jfloat qx, jfloat qy, jfloat qz, jfloat qw)
+	jfloat qx, jfloat qy, jfloat qz, jfloat qw,
+	jboolean inverse)
 {
 	float rotationMatrix[] = {r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16};
 
-	qx = -qx;
-	qy = -qy;
+	qx = qx;
+	qy = qy;
+	qz = qz;
 
-	 float myoRotationMatrix[] = {
+	float m = inverse? 1.0f : -1.0f;
 
-	        1 - 2 * (qy * qy + qz * qz),
-	        2 * (qx * qy + qz * qw),
-	        2 * (qx * qz - qy * qw),
+	float myoRotationMatrix[] = {
+
+			m * (1 - 2 * (qy * qy + qz * qz)),
+			m * 2 * (qx * qy + qz * qw),
+			m * 2 * (qx * qz - qy * qw),
 	        0.0f,
 
 	        // Second Column
-	        2 * (qx * qy - qz * qw),
-	        1 - 2 * (qx * qx + qz * qz),
-	        2 * (qz * qy + qx * qw),
+	        m * 2 * (qx * qy - qz * qw),
+	        m * (1 - 2 * (qx * qx + qz * qz)),
+	        m * 2 * (qz * qy + qx * qw),
 	        0.0f,
 
 	        // Third Column
-	        2 * (qx * qz + qy * qw),
-	        2 * (qy * qz - qx * qw),
-	        1 - 2 * (qx * qx + qy * qy),
+	        m * 2 * (qx * qz + qy * qw),
+	        m * 2 * (qy * qz - qx * qw),
+	        m * (1 - 2 * (qx * qx + qy * qy)),
 	        0.0f,
 
 	        // Fourth Column
@@ -97,5 +101,5 @@ Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 	 _playerY = y;
 
 	 _myoArRenderer->UpdateState(x, y, z, rotationMatrix, myoRotationMatrix);
-	 _myoArRenderer->Draw(x, y, z, rotationMatrix, myoRotationMatrix);
+	 _myoArRenderer->Draw(x, y, z, rotationMatrix, myoRotationMatrix, inverse);
 }

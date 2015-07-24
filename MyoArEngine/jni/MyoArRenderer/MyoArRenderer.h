@@ -35,5 +35,5 @@ public:
 
 	void InitializeViewport(SIZE size);
 	void UpdateState(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix);
-	void Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix);
+	void Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix, bool inverse);
 };

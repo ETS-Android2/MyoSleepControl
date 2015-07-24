@@ -20,5 +20,6 @@ extern "C"
 		jfloat r5, jfloat r6, jfloat r7, jfloat r8,
 		jfloat r9, jfloat r10, jfloat r11, jfloat r12,
 		jfloat r13, jfloat r14, jfloat r15, jfloat r16,
-		jfloat qx, jfloat qy, jfloat qz, jfloat qw);
+		jfloat qx, jfloat qy, jfloat qz, jfloat qw,
+		jboolean inverse);
 }

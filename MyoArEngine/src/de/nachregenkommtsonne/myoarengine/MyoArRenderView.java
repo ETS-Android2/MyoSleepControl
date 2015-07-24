@@ -90,7 +90,7 @@ public class MyoArRenderView extends GLSurfaceView {
 		return super.onTouchEvent(event);
 	}
 
-	public void orientationData(Quaternion q) {
-		_myoArRenderer.orientationData(q);
+	public void orientationData(Quaternion q, boolean inverse) {
+		_myoArRenderer.orientationData(q, inverse);
 	}
 }

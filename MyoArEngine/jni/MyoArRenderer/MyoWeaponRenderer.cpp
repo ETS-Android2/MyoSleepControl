@@ -10,7 +10,8 @@ MyoWeaponRenderer::MyoWeaponRenderer(ModelRenderer *modelRenderer) {
 MyoWeaponRenderer::~MyoWeaponRenderer() {
 }
 
-void MyoWeaponRenderer::Render(Model *model, float *myoRotationMatrix) {
+void MyoWeaponRenderer::Render(Model *model, float *myoRotationMatrix, bool inverse) {
+
 
 	glMultMatrixf(myoRotationMatrix);
 
