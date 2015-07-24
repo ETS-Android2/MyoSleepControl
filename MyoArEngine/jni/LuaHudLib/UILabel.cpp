@@ -64,7 +64,9 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 
 		GlHelper *glHelper = new GlHelper();
 
+		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 	    glHelper->DrawQuad(&dim);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 		glClear(GL_STENCIL_BUFFER_BIT);
 		glEnable(GL_STENCIL_TEST);
@@ -79,7 +81,7 @@ int LUA_FUNCTION UILabel::GetText(lua_State *L)
 		glStencilFunc(GL_EQUAL, 1, 1);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
-		glHelper->DrawText((const unsigned char *)_str.c_str(), dim.x, dim.y + dim.height - 37);
+		glHelper->DrawText((const unsigned char *)_str.c_str(), dim.x+5, dim.y + dim.height - 37 - 5);
 
 		glDisable(GL_STENCIL_TEST);
 

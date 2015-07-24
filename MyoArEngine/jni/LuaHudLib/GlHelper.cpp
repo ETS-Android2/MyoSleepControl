@@ -74,7 +74,8 @@ void GlHelper::DrawText(const unsigned char *text, int posx, int posy)
 		if (n == '\n')
 		{
 			j++;
-			k = 0;
+			k = -1;
+			continue;
 		}
 		if (k % 60 == 59)
 		{

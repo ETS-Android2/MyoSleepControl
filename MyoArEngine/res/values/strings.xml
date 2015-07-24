@@ -6,16 +6,14 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_main">Myology</string>
     <string name="hello_world">Hello world!</string>
-    <string name="script">
-        
+    <string name="script"><![CDATA[
+       
 TestLabel = CreateLabel();
 TestLabel:SetSize(450, 200);
 TestLabel:SetPosition(10, 10);
 TestLabel:SetAnchor(\"ANCHOR_BOTTOM_LEFT\", \"ANCHOR_BOTTOM_LEFT\");
 TestLabel:SetText(\"testtest testtest test test test\");
 TestLabel:Show();
-
-
 
 function OnGlobalEvent(event, arg1)
 	x, y = GetPlayerPosition();
@@ -26,7 +24,7 @@ SetEventHandler(OnGlobalEvent);
 RegisterEvent(\"EVENT_GLOBAL_LOG\");
 
 
-
+]]>
 </string>
 
 </resources>
