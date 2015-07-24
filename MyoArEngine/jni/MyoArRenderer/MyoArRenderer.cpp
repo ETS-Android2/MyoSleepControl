@@ -82,7 +82,7 @@ void MyoArRenderer::UpdateState(
 	_scripting->PostLogEvent("REDRAW");
 }
 
-void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix, bool inverse)
+void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float *myoRotationMatrix)
 {
 	glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -98,7 +98,7 @@ void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float
 	_unitRenderer->Render(_zombieUnit);
 	glPopMatrix();
 
-	_myoWeaponRenderer->Render(_weaponModel, myoRotationMatrix, inverse);
+	_myoWeaponRenderer->Render(_weaponModel, myoRotationMatrix);
 
 	InitializeHudPerspective();
 	_scripting->RenderHUD();

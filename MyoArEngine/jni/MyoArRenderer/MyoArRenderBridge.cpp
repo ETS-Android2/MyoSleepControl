@@ -65,10 +65,6 @@ Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 {
 	float rotationMatrix[] = {r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16};
 
-	qx = qx;
-	qy = qy;
-	qz = qz;
-
 	float m = inverse? 1.0f : -1.0f;
 
 	float myoRotationMatrix[] = {
@@ -101,5 +97,5 @@ Java_de_nachregenkommtsonne_myoarengine_MyoArRenderBridge_draw(
 	 _playerY = y;
 
 	 _myoArRenderer->UpdateState(x, y, z, rotationMatrix, myoRotationMatrix);
-	 _myoArRenderer->Draw(x, y, z, rotationMatrix, myoRotationMatrix, inverse);
+	 _myoArRenderer->Draw(x, y, z, rotationMatrix, myoRotationMatrix);
 }
