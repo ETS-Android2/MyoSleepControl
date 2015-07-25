@@ -9,6 +9,8 @@
 #include "Unit.h"
 #include "UnitRenderer.h"
 
+#include <stdlib.h>
+
 MyoArRenderer::MyoArRenderer(ModelFactory *modelFactory, Scripting *scripting) {
 	_scripting = scripting;
 
@@ -21,10 +23,17 @@ MyoArRenderer::MyoArRenderer(ModelFactory *modelFactory, Scripting *scripting) {
 	_zombieModel = modelFactory->CreateZombieModel();
 	_weaponModel = modelFactory->CreateWeaponModel();
 
-	_zombieUnit = new Unit(_zombieModel, 5.0f, 5.0f, 0.0f);
+	_units = new Unit *[NUM_UNITS];
+
+	for (int i = 0; i < NUM_UNITS; i++)
+	{
+		int x = rand() % (2*UNITS_AREA) - UNITS_AREA;
+		int y = rand() % (2*UNITS_AREA) - UNITS_AREA;
+		_units[i] = new Unit(_zombieModel, x, y, 0.0f);
+	}
 
 
-	//TODO: 3 Waffen: Schwert, Zauberstab, Feuerwaffe
+	//TODO: 3 Waffen: _Schwert_, Zauberstab, Feuerwaffe
 	//Mehr Einheiten
 	//Highscore
 }
@@ -37,6 +46,10 @@ void MyoArRenderer::InitializeViewport(SIZE size)
 	_size = size;
 
 	glViewport(0, 0, _size.cx, _size.cy);
+
+	int z = size.cy;
+	size.cy = size.cx;
+	size.cx = z;
 
 	_scripting->SetUiSize(size);
 }
@@ -67,16 +80,19 @@ void MyoArRenderer::UpdateState(
 {
 	float width = 1.0f;
 
-	float unitX = _zombieUnit->GetX();
-	float unitY = _zombieUnit->GetY();
-
 	float weaponX = x + myoRotationMatrix[0];
 	float weaponY = y + myoRotationMatrix[1];
 
-	if (weaponX < unitX + width && weaponX > unitX - width &&
-			weaponY < unitY + width && weaponY > unitY - width)
+	for (int i = 0; i < NUM_UNITS; i++)
 	{
-		_zombieUnit->Kill();
+		float unitX = _units[i]->GetX();
+		float unitY = _units[i]->GetY();
+
+		if (weaponX < unitX + width && weaponX > unitX - width &&
+				weaponY < unitY + width && weaponY > unitY - width)
+		{
+			_units[i]->Kill();
+		}
 	}
 
 	_scripting->PostLogEvent("REDRAW");
@@ -95,10 +111,18 @@ void MyoArRenderer::Draw(float x, float y, float z, float *rotationMatrix, float
 	glTranslatef(-x, -y, -z);
 	DrawWorld();
 
-	_unitRenderer->Render(_zombieUnit);
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+	for (int i = 0; i < NUM_UNITS; i++)
+	{
+		_unitRenderer->Render(_units[i]);
+	}
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
 	glPopMatrix();
 
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 	_myoWeaponRenderer->Render(_weaponModel, myoRotationMatrix);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	InitializeHudPerspective();
 	_scripting->RenderHUD();

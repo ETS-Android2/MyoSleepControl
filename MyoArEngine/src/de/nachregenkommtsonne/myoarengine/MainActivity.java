@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 import de.nachregenkommtsonne.myoarengine.utility.SettingsEditor;
 
 public class MainActivity extends Activity
@@ -50,7 +51,6 @@ public class MainActivity extends Activity
 							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 							| View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 		}
-
 	}
 
 	private void makeWindowFixedFullscreen() {
@@ -69,52 +69,29 @@ public class MainActivity extends Activity
 
 		hub.setSendUsageData(false);
 		hub.addListener(new DeviceListener() {
-			public void onUnlock(Myo arg0, long arg1) {
-				//Toast.makeText(MainActivity.this, "onUnlock", Toast.LENGTH_SHORT).show();
-			}
-
-			public void onRssi(Myo arg0, long arg1, int arg2) {
-			}
-
-			public void onPose(Myo arg0, long arg1, Pose arg2) {
-				//Toast.makeText(MainActivity.this, "onPose", Toast.LENGTH_SHORT).show();
-			}
-
-			public void onOrientationData(Myo myo, long arg1, Quaternion q) {
-				_myoArRenderView.orientationData(q, myo.getXDirection() == XDirection.TOWARD_WRIST);
-			}
-
-			public void onLock(Myo arg0, long arg1) {
-				//Toast.makeText(MainActivity.this, "onLock", Toast.LENGTH_SHORT).show();
-			}
-
-			public void onGyroscopeData(Myo arg0, long arg1, Vector3 arg2) {
-			}
-
-			public void onDisconnect(Myo arg0, long arg1) {
-			}
-
-			public void onDetach(Myo arg0, long arg1) {
-			}
-
 			public void onConnect(Myo arg0, long arg1) {
 				_settingsEditor.saveMac(arg0.getMacAddress());
 			}
+			public void onDisconnect(Myo myo, long arg1) {}
 
-			public void onAttach(Myo arg0, long arg1) {
-				//Toast.makeText(MainActivity.this, "onAttach", Toast.LENGTH_SHORT).show();
-			}
+			public void onUnlock(Myo arg0, long arg1) {}
+			public void onPose(Myo arg0, long arg1, Pose arg2) {}
+			public void onLock(Myo arg0, long arg1) {}
 
-			public void onArmUnsync(Myo arg0, long arg1) {
-				//Toast.makeText(MainActivity.this, "onArmUnsync", Toast.LENGTH_SHORT).show();
-			}
+			public void onDetach(Myo arg0, long arg1) {}
+			public void onAttach(Myo arg0, long arg1) {}
+			public void onArmUnsync(Myo arg0, long arg1) {}
 
 			public void onArmSync(Myo arg0, long arg1, Arm arg2, XDirection arg3) {
-				//Toast.makeText(MainActivity.this, "onArmSync", Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainActivity.this, "onArmSync " + arg3 + " " + arg2, Toast.LENGTH_SHORT).show();
 			}
 
-			public void onAccelerometerData(Myo arg0, long arg1, Vector3 arg2) {
+			public void onAccelerometerData(Myo arg0, long arg1, Vector3 arg2) {}
+			public void onGyroscopeData(Myo arg0, long arg1, Vector3 arg2) {}
+			public void onOrientationData(Myo myo, long arg1, Quaternion q) {
+				_myoArRenderView.orientationData(q, myo.getXDirection() == XDirection.TOWARD_WRIST);
 			}
+			public void onRssi(Myo arg0, long arg1, int arg2) {}
 		});
 
 		String macAddress = _settingsEditor.getMac();

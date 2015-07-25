@@ -158,5 +158,5 @@ Model *ModelFactory::CreateWeaponModel()
 	};
 
 
-	return new Model(_texIDRasen, vertices, textures, indices, 36);
+	return new Model(0, vertices, textures, indices, 36);
 }

@@ -8,6 +8,9 @@
 #include "UnitRenderer.h"
 #include "MyoWeaponRenderer.h"
 
+#define NUM_UNITS 1000
+#define UNITS_AREA 200
+
 class MyoArRenderer {
 private:
 	SIZE _size;
@@ -22,7 +25,7 @@ private:
 	Model *_zombieModel;
 	Model *_weaponModel;
 
-	Unit *_zombieUnit;
+	Unit **_units;
 
 	void DrawSkyBox();
 	void InitializePerspective(float *rotationMatrix);
