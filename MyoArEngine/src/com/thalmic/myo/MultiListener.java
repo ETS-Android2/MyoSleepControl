@@ -64,9 +64,9 @@ implements DeviceListener {
     }
 
     @Override
-    public void onArmSync(Myo myo, long timestamp, Arm arm, XDirection xDirection) {
+    public void onArmSync(Myo myo, long timestamp, Arm arm, XDirection xDirection, float rotation, WarmupState warmupState) {
         for (int i = 0; i < this.mListeners.size(); ++i) {
-            this.mListeners.get(i).onArmSync(myo, timestamp, arm, xDirection);
+            this.mListeners.get(i).onArmSync(myo, timestamp, arm, xDirection, rotation, warmupState);
         }
     }
 
@@ -123,6 +123,13 @@ implements DeviceListener {
     public void onRssi(Myo myo, long timestamp, int rssi) {
         for (int i = 0; i < this.mListeners.size(); ++i) {
             this.mListeners.get(i).onRssi(myo, timestamp, rssi);
+        }
+    }
+    
+    @Override
+    public void onWarmupComplete(Myo myo, long timestamp, WarmupResult warmupResult) {
+        for (int i = 0; i < this.mListeners.size(); ++i) {
+            this.mListeners.get(i).onWarmupComplete(myo, timestamp, warmupResult);
         }
     }
 }

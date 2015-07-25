@@ -8,6 +8,8 @@ import com.thalmic.myo.MyoUpdateParser;
 import com.thalmic.myo.Pose;
 import com.thalmic.myo.XDirection;
 
+import android.util.Log;
+
 class ClassifierEvent {
     static final int EXPECTED_BYTE_LENGTH = 3;
     private static final byte TYPE_ARM_SYNCED = 1;
@@ -30,7 +32,9 @@ class ClassifierEvent {
     private Arm mArm;
     private XDirection mXDirection;
     private Pose mPose;
-
+    private WarmupState mWarmupState;
+    private WarmupResult mWarmupResult;
+    
     ClassifierEvent(byte[] data) throws IllegalArgumentException {
         this.parseData(data);
     }
@@ -50,20 +54,35 @@ class ClassifierEvent {
     public Pose getPose() {
         return this.mPose;
     }
+    
+    public WarmupResult getWarmupResult() {
+        return this.mWarmupResult;
+    }
+
+    public WarmupState getWarmupState() {
+        return this.mWarmupState;
+    }
 
     public String toString() {
         return "ClassifierEvent{mType=" + (Object)this.mType + ", mArm=" + (Object)this.mArm + ", mXDirection=" + (Object)this.mXDirection + ", mPose=" + (Object)this.mPose + '}';
     }
 
     private void parseData(byte[] data) throws IllegalArgumentException {
+    	Log.e("myo info", "parsing: [" + data.length + "]" + data[0] + " " + data[1] + " " + data[2]+ " " + data[3] + " " + data[4] + " " + data[5]);
         if (data.length < 3) {
             throw new IllegalArgumentException("bad classifier event data length: " + data.length);
         }
         byte type = data[ClassifierEventFormat.EVENT_TYPE.ordinal()];
         if (type == 1) {
-            this.mType = Type.ARM_SYNCED;
+        	this.mType = Type.ARM_SYNCED;
+        	// type 1
+        	// arm 1
+        	// direction 2
+        	// warmup 1 : warming up, 2 warm
+        	// 2 byte rotation
             this.mArm = this.readArm(data);
             this.mXDirection = this.readXDirection(data);
+            this.mWarmupState = this.readWarmupState(data);
         } else if (type == 2) {
             this.mType = Type.ARM_UNSYNCED;
         } else if (type == 3) {
@@ -73,6 +92,11 @@ class ClassifierEvent {
             this.mType = Type.UNLOCKED;
         } else if (type == 5) {
             this.mType = Type.LOCKED;
+        } else if (type == 7) {
+        	// 7 1 0 0 0 0
+        	//Warmup Complete
+            this.mType = Type.WARMUP_COMPLETE;
+            this.mWarmupResult = this.readWarmupResult(data);
         } else {
             throw new IllegalArgumentException("unknown classifier type value: " + type);
         }
@@ -132,6 +156,36 @@ class ClassifierEvent {
         throw new IllegalArgumentException("unknown pose value: " + classifierPose);
     }
 
+    private WarmupState readWarmupState(byte[] data)
+    {
+    	byte warmupSate = data[3];
+        if (warmupSate == 0) {
+            return WarmupState.UNKNOWN;
+        }
+        if (warmupSate == 1) {
+            return WarmupState.COLD;
+        }
+        if (warmupSate == 2) {
+            return WarmupState.WARM;
+        }
+        throw new IllegalArgumentException("unknown warmupState value: " + warmupSate);
+    }
+    
+    private WarmupResult readWarmupResult(byte[] data)
+    {
+    	byte warmupResult = data[ClassifierEventFormat.DATA_1.ordinal()];
+        if (warmupResult == 0) {
+            return WarmupResult.UNKNOWN;
+        }
+        if (warmupResult == 1) {
+            return WarmupResult.SUCCESS;
+        }
+        if (warmupResult == 2) {
+            return WarmupResult.FAILED_TIMEOUT;
+        }
+        throw new IllegalArgumentException("unknown warmupResult value: " + warmupResult);
+    }
+    
     static int classifierPoseFromPose(Pose pose) {
         switch (pose) {
             case REST: {
@@ -174,12 +228,8 @@ class ClassifierEvent {
         ARM_UNSYNCED,
         POSE,
         UNLOCKED,
-        LOCKED;
-        
-
-        private Type() {
-        }
+        LOCKED,
+        WARMUP_COMPLETE
     }
-
 }
 

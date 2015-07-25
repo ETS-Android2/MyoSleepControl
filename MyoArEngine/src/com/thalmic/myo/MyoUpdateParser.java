@@ -131,6 +131,9 @@ implements GattCallback.UpdateParser {
                     myo.setUnlocked(false);
                     this.mListener.onLock(myo, this.mHub.now());
                 }
+                case WARMUP_COMPLETE: {
+                	this.mListener.onWarmupComplete(myo, this.mHub.now(), classifierEvent.getWarmupResult());
+                }
             }
         }
         catch (IllegalArgumentException e) {
@@ -142,7 +145,7 @@ implements GattCallback.UpdateParser {
         long now = this.mHub.now();
         myo.setCurrentArm(classifierEvent.getArm());
         myo.setCurrentXDirection(classifierEvent.getXDirection());
-        this.mListener.onArmSync(myo, now, myo.getArm(), myo.getXDirection());
+        this.mListener.onArmSync(myo, now, myo.getArm(), myo.getXDirection(), 0.0f, classifierEvent.getWarmupState());
         this.mReporter.sendMyoEvent(this.mHub.getApplicationIdentifier(), this.mHub.getInstallUuid(), "SyncedMyo", myo);
     }
 

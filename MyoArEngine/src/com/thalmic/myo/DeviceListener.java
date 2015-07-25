@@ -19,7 +19,7 @@ public interface DeviceListener {
 
     public void onDisconnect(Myo var1, long var2);
 
-    public void onArmSync(Myo var1, long var2, Arm var4, XDirection var5);
+    public void onArmSync(Myo var1, long var2, Arm var4, XDirection var5, float rotation, WarmupState var6);
 
     public void onArmUnsync(Myo var1, long var2);
 
@@ -36,5 +36,7 @@ public interface DeviceListener {
     public void onGyroscopeData(Myo var1, long var2, Vector3 var4);
 
     public void onRssi(Myo var1, long var2, int var4);
+    
+    public void onWarmupComplete(Myo var1, long var2, WarmupResult var3);
 }
 

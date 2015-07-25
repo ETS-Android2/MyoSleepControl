@@ -30,7 +30,7 @@ implements DeviceListener {
     }
 
     @Override
-    public void onArmSync(Myo myo, long timestamp, Arm arm, XDirection xDirection) {
+    public void onArmSync(Myo myo, long timestamp, Arm arm, XDirection xDirection, float rotation, WarmupState warmupState) {
     }
 
     @Override
@@ -63,6 +63,10 @@ implements DeviceListener {
 
     @Override
     public void onRssi(Myo myo, long timestamp, int rssi) {
+    }
+    
+    @Override
+    public void onWarmupComplete(Myo myo, long timestamp, WarmupResult warmupResult) {
     }
 }
 

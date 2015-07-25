@@ -1,5 +1,6 @@
 package de.nachregenkommtsonne.myoarengine;
 
+import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.Arm;
 import com.thalmic.myo.DeviceListener;
 import com.thalmic.myo.Hub;
@@ -7,6 +8,8 @@ import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
 import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.Vector3;
+import com.thalmic.myo.WarmupResult;
+import com.thalmic.myo.WarmupState;
 import com.thalmic.myo.XDirection;
 
 import android.app.Activity;
@@ -68,30 +71,24 @@ public class MainActivity extends Activity
 		}
 
 		hub.setSendUsageData(false);
-		hub.addListener(new DeviceListener() {
+		hub.addListener(new AbstractDeviceListener() {
 			public void onConnect(Myo arg0, long arg1) {
 				_settingsEditor.saveMac(arg0.getMacAddress());
 			}
-			public void onDisconnect(Myo myo, long arg1) {}
 
-			public void onUnlock(Myo arg0, long arg1) {}
-			public void onPose(Myo arg0, long arg1, Pose arg2) {}
-			public void onLock(Myo arg0, long arg1) {}
-
-			public void onDetach(Myo arg0, long arg1) {}
-			public void onAttach(Myo arg0, long arg1) {}
-			public void onArmUnsync(Myo arg0, long arg1) {}
-
-			public void onArmSync(Myo arg0, long arg1, Arm arg2, XDirection arg3) {
-				Toast.makeText(MainActivity.this, "onArmSync " + arg3 + " " + arg2, Toast.LENGTH_SHORT).show();
+			public void onArmSync(Myo arg0, long arg1, Arm arg2, XDirection arg3, float rotation, WarmupState warmupState) {
+				Toast.makeText(MainActivity.this, "onArmSync " + arg3 + " " + warmupState, Toast.LENGTH_SHORT).show();
 			}
-
-			public void onAccelerometerData(Myo arg0, long arg1, Vector3 arg2) {}
-			public void onGyroscopeData(Myo arg0, long arg1, Vector3 arg2) {}
+			
 			public void onOrientationData(Myo myo, long arg1, Quaternion q) {
 				_myoArRenderView.orientationData(q, myo.getXDirection() == XDirection.TOWARD_WRIST);
 			}
-			public void onRssi(Myo arg0, long arg1, int arg2) {}
+
+			@Override
+			public void onWarmupComplete(Myo myo, long timestamp, WarmupResult warmupResult) {
+				Toast.makeText(MainActivity.this, "onWarmupComplete " + warmupResult, Toast.LENGTH_SHORT).show();
+						
+			}
 		});
 
 		String macAddress = _settingsEditor.getMac();

@@ -47,7 +47,7 @@ abstract class ControlCommand {
 
     private static byte[] createForSetMode(byte emgMode, byte imuMode, byte classifierMode) {
         byte[] controlCommand = new byte[SetMode.values().length];
-        controlCommand[SetMode.COMMAND_TYPE.ordinal()] = 1;
+        controlCommand[SetMode.COMMAND_TYPE.ordinal()] = COMMAND_SET_MODE;
         controlCommand[SetMode.PAYLOAD_SIZE.ordinal()] = (byte)(controlCommand.length - 2);
         controlCommand[SetMode.EMG_MODE.ordinal()] = emgMode;
         controlCommand[SetMode.IMU_MODE.ordinal()] = imuMode;
@@ -57,7 +57,7 @@ abstract class ControlCommand {
 
     static byte[] createForVibrate(Myo.VibrationType vibrationType) {
         byte[] command = new byte[Vibration.values().length];
-        command[Vibration.COMMAND_TYPE.ordinal()] = 3;
+        command[Vibration.COMMAND_TYPE.ordinal()] = COMMAND_VIBRATION;
         command[Vibration.PAYLOAD_SIZE.ordinal()] = 1;
         command[Vibration.VIBRATION_TYPE.ordinal()] = ControlCommand.getVibrationType(vibrationType);
         return command;
@@ -80,7 +80,7 @@ abstract class ControlCommand {
 
     static byte[] createForUnlock(Myo.UnlockType unlockType) {
         byte[] command = new byte[Unlock.values().length];
-        command[Unlock.COMMAND_TYPE.ordinal()] = 10;
+        command[Unlock.COMMAND_TYPE.ordinal()] = COMMAND_UNLOCK;
         command[Unlock.PAYLOAD_SIZE.ordinal()] = 1;
         command[Unlock.UNLOCK_TYPE.ordinal()] = ControlCommand.getUnlockTypeType(unlockType);
         return command;
@@ -103,7 +103,7 @@ abstract class ControlCommand {
 
     static byte[] createForUserAction() {
         byte[] command = new byte[Unlock.values().length];
-        command[UserAction.COMMAND_TYPE.ordinal()] = 11;
+        command[UserAction.COMMAND_TYPE.ordinal()] = COMMAND_USER_ACTION;
         command[UserAction.PAYLOAD_SIZE.ordinal()] = 1;
         command[UserAction.USER_ACTION.ordinal()] = 0;
         return command;
