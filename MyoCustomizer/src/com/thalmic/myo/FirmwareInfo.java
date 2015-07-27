@@ -7,7 +7,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 class FirmwareInfo {
-    static final int EXPECTED_BYTE_LENGTH = 8;
    
 
     FirmwareInfo(byte[] array) {

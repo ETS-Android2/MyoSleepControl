@@ -7,9 +7,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 public class FirmwareVersion {
-    public static final int REQUIRED_FIRMWARE_VERSION_MAJOR = 1;
-    public static final int MINIMUM_FIRMWARE_VERSION_MINOR = 1;
-    static final int EXPECTED_BYTE_LENGTH = 8;
     public final int major;
     public final int minor;
     public final int patch;
@@ -27,12 +24,6 @@ public class FirmwareVersion {
         this.hardwareRev = buffer.getShort();
     }
 
-    FirmwareVersion(int major, int minor, int patch, int hardwareRev) {
-        this.major = major;
-        this.minor = minor;
-        this.patch = patch;
-        this.hardwareRev = hardwareRev;
-    }
 
     FirmwareVersion() {
         this.major = 0;

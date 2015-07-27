@@ -38,10 +38,6 @@ public abstract class ControlCommand
   }
 
 
-  public static enum EmgMode
-  {
-    DISABLED, FV, EMG
-  }
 
   public static enum SleepMode
   {

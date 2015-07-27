@@ -20,9 +20,6 @@ class GattConstants {
     static final UUID FV_DATA_CHAR_UUID = UUID.fromString("d5060104-a904-deb9-4748-2c7f4a124842");
     static final UUID EMG_SERVICE_UUID = UUID.fromString("d5060005-a904-deb9-4748-2c7f4a124842");
     static final UUID EMG0_DATA_CHAR_UUID = UUID.fromString("d5060105-a904-deb9-4748-2c7f4a124842");
-    static final UUID EMG1_DATA_CHAR_UUID = UUID.fromString("d5060205-a904-deb9-4748-2c7f4a124842");
-    static final UUID EMG2_DATA_CHAR_UUID = UUID.fromString("d5060305-a904-deb9-4748-2c7f4a124842");
-    static final UUID EMG3_DATA_CHAR_UUID = UUID.fromString("d5060405-a904-deb9-4748-2c7f4a124842");
 
     private GattConstants() {
     }

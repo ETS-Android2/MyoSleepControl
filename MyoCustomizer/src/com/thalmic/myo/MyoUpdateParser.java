@@ -17,7 +17,6 @@ import java.nio.ByteOrder;
 class MyoUpdateParser
 implements GattCallback.UpdateParser {
     private static final String TAG = "MyoUpdateParser";
-    static final int IMU_EXPECTED_BYTE_LENGTH = 20;
     private static final double ORIENTATION_CONVERSION_CONSTANT = 16384.0;
     private static final double ACCELERATION_CONVERSION_CONSTANT = 2048.0;
     private static final double GYRO_CONVERSION_CONSTANT = 16.0;

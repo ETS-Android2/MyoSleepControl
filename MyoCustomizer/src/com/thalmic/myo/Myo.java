@@ -111,15 +111,6 @@ public class Myo {
         DISCONNECTED
     }
 
-    public static enum UnlockType {
-        TIMED,
-        HOLD
-    }
 
-    public static enum VibrationType {
-        SHORT,
-        MEDIUM,
-        LONG
-    }
 }
 

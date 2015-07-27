@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
 
         <EditText
             android:id="@+id/green"
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
 
         <EditText
             android:id="@+id/blue"
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
 
         <EditText
             android:id="@+id/red2"
@@ -44,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
 
         <EditText
             android:id="@+id/green2"
@@ -52,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
 
         <EditText
             android:id="@+id/blue2"
@@ -60,7 +65,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="0" />
 
     </LinearLayout>
 
