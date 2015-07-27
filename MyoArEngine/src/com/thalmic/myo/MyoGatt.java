@@ -78,8 +78,23 @@ class MyoGatt {
         byte[] command = ControlCommand.createForUserAction();
         this.writeControlCommand(address, command);
     }
+    
+	public void turnOffForTransport(String address) {
+        byte[] command = ControlCommand.createForTurnOffForTransport();
+        this.writeControlCommand(address, command);
+	}
 
-    private void writeControlCommand(String address, byte[] controlCommand) {
+	public void setLightsColors(String address, int red, int green, int blue, int red2, int green2, int blue2) {
+        byte[] command = ControlCommand.createForSetLightsColors();
+        this.writeControlCommand(address, command);
+	}
+
+	public void setSleepMode(String address, int i) {
+        byte[] command = ControlCommand.createForSetSleepMode();
+        this.writeControlCommand(address, command);
+	}
+
+	private void writeControlCommand(String address, byte[] controlCommand) {
         UUID serviceUuid = GattConstants.CONTROL_SERVICE_UUID;
         UUID charUuid = GattConstants.COMMAND_CHAR_UUID;
         this.mBleManager.getBleGatt().writeCharacteristic(address, serviceUuid, charUuid, controlCommand);

@@ -5,6 +5,8 @@ package com.thalmic.myo;
 
 import com.thalmic.myo.Myo;
 
+import android.util.Log;
+
 abstract class ControlCommand {
     private static final byte COMMAND_SET_MODE = 1;
     private static final byte COMMAND_VIBRATION = 3;
@@ -109,6 +111,22 @@ abstract class ControlCommand {
         return command;
     }
 
+    /*static byte[] createForBatteryLevelRequest() {
+    	Log.e("myo info", "send request");
+    	byte[] command = new byte[5];
+        command[UserAction.COMMAND_TYPE.ordinal()] = 3;
+        command[UserAction.PAYLOAD_SIZE.ordinal()] = 3;
+        command[2] = 3;
+        command[3] = 1;
+        command[4] = 3;
+//        command[5] = 0x19;
+        command[6] = 3;
+        command[7] = 3;
+        command[8] = 1;
+        command[9] = 3;
+        return command;
+    }*/
+    
     private static enum UserAction {
         COMMAND_TYPE,
         PAYLOAD_SIZE,

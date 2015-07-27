@@ -77,7 +77,20 @@ public class Myo {
     public void notifyUserAction() {
         this.mMyoGatt.notifyUserAction(this.mAddress);
     }
-
+    
+    public void turnOffForTransport() {
+    	this.mMyoGatt.turnOffForTransport(this.mAddress);
+    }
+    
+    public void setLightsColors(){
+    	// int red, int green, int blue, int red2, int green2, int blue2
+    	this.mMyoGatt.setLightsColors(this.mAddress, 0,0,0,0,0,0);
+    }
+    
+    public void setSleepMode(){
+    	this.mMyoGatt.setSleepMode(this.mAddress, 0);
+    }
+    
     public boolean isFirmwareVersionSupported() {
         if (this.mFirmwareVersion == null) {
             return true;

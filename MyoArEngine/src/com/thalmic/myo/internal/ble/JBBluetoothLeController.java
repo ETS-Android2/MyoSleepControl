@@ -86,11 +86,22 @@ implements BleGatt {
 
 		        @Override
 		        public void run() {
+		        	byte[] data = characteristic.getValue();
+		        	if (data.length < 20){
+		        		final StringBuilder stringBuilder = new StringBuilder(data.length);
+		                for(byte byteChar : data)
+		                    stringBuilder.append(String.format("%02X ", byteChar));
+
+		                
+		                Log.e("character", "onCharacteristicChanged: " + characteristic.getValue().length + " " +  stringBuilder.toString());
+		        	}
 		            JBBluetoothLeController.this.mExternalCallback.onCharacteristicChanged(GattCallback.this.addressOf(gatt), characteristic.getUuid(), characteristic.getValue());
 		        }
 		    });
 		}
 
+		
+		
 		public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, final int status) {
 		    this.onOperationFinished();
 		    JBBluetoothLeController.this.mCallbackHandler.post(new Runnable(){
@@ -103,6 +114,15 @@ implements BleGatt {
 		            if (!success) {
 		                Log.e((String)"JBBluetoothLeController", (String)("Received error status=" + status + " for onCharacteristicRead of " + characteristic.getUuid() + " on address=" + address));
 		            }
+		            byte[] data = characteristic.getValue();
+		        	if (data.length < 20){
+		        		final StringBuilder stringBuilder = new StringBuilder(data.length);
+		                for(byte byteChar : data)
+		                    stringBuilder.append(String.format("%02X ", byteChar));
+
+		                
+		                Log.e("character", "onCharacteristicChanged: " + characteristic.getValue().length + " " +  stringBuilder.toString());
+		        	}
 		            JBBluetoothLeController.this.mExternalCallback.onCharacteristicRead(address, characteristic.getUuid(), characteristic.getValue(), success);
 		        }
 		    });
@@ -126,7 +146,8 @@ implements BleGatt {
 		}
 
 		public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-		    this.onOperationFinished();
+		    Log.e("desc", "descriptor:" + descriptor.getValue().length);
+			this.onOperationFinished();
 		}
 
 		public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
@@ -384,6 +405,5 @@ implements BleGatt {
             Log.w((String)"JBBluetoothLeController", (String)"Wait for operation completion timed out.");
         }
     }
-
 }
 

@@ -15,6 +15,7 @@ import com.thalmic.myo.XDirection;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -43,6 +44,7 @@ public class MainActivity extends Activity
 		setContentView(_myoArRenderView);
 
 		initMyo();
+		
 	}
 
 	@Override
@@ -74,6 +76,8 @@ public class MainActivity extends Activity
 		hub.addListener(new AbstractDeviceListener() {
 			public void onConnect(Myo arg0, long arg1) {
 				_settingsEditor.saveMac(arg0.getMacAddress());
+				//arg0.requestBatteryLevel();
+				//arg0.lock();
 			}
 
 			public void onArmSync(Myo arg0, long arg1, Arm arg2, XDirection arg3, float rotation, WarmupState warmupState) {

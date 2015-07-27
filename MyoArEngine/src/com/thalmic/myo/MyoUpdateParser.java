@@ -98,6 +98,8 @@ implements GattCallback.UpdateParser {
             this.notifyMotionData(myo, value);
         } else if (GattConstants.CLASSIFIER_EVENT_CHAR_UUID.equals(uuid)) {
             this.onClassifierEventData(myo, value);
+        } else {
+        	Log.e("myo info", "something else");
         }
     }
 
@@ -130,9 +132,11 @@ implements GattCallback.UpdateParser {
                 case LOCKED: {
                     myo.setUnlocked(false);
                     this.mListener.onLock(myo, this.mHub.now());
-                }
+                    break;
+                                }
                 case WARMUP_COMPLETE: {
                 	this.mListener.onWarmupComplete(myo, this.mHub.now(), classifierEvent.getWarmupResult());
+                    break;
                 }
             }
         }
@@ -167,6 +171,7 @@ implements GattCallback.UpdateParser {
     }
 
     private void notifyMotionData(Myo myo, byte[] imuData) {
+    	Log.e("myo info", "notifyMotionData: " + imuData.length);
         if (imuData.length >= 20) {
             Quaternion rotation = MyoUpdateParser.readQuaternion(imuData);
             Vector3 accel = MyoUpdateParser.readAcceleration(imuData);
