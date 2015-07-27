@@ -16,20 +16,12 @@ import java.nio.ByteOrder;
 
 class MyoUpdateParser
 implements GattCallback.UpdateParser {
-    private static final String TAG = "MyoUpdateParser";
-    private static final double ORIENTATION_CONVERSION_CONSTANT = 16384.0;
-    private static final double ACCELERATION_CONVERSION_CONSTANT = 2048.0;
-    private static final double GYRO_CONVERSION_CONSTANT = 16.0;
     private Hub mHub;
     private DeviceListener mListener;
     private Scanner mScanner;
 
     MyoUpdateParser(Hub hub, DeviceListener listener) {
         this.mHub = hub;
-        this.mListener = listener;
-    }
-
-    void setListener(DeviceListener listener) {
         this.mListener = listener;
     }
 
@@ -71,12 +63,6 @@ implements GattCallback.UpdateParser {
     }
 
 
-
-    static short getShort(byte[] array, int offset) {
-        ByteBuffer buffer = ByteBuffer.wrap(array);
-        buffer.order(ByteOrder.LITTLE_ENDIAN);
-        return buffer.getShort(offset);
-    }
 
 }
 

@@ -49,7 +49,6 @@ import com.thalmic.myo.scanner.Scanner;
 public class ScanFragment
 extends Fragment
 implements Scanner.OnScanningStartedListener {
-    private static final int REQUEST_ENABLE_BT = 1;
     private Scanner mScanner;
     private ListView mListView;
 

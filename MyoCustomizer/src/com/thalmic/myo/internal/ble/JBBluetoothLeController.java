@@ -180,7 +180,6 @@ implements BleGatt {
 		}
 	}
 
-	private static final String TAG = "JBBluetoothLeController";
     private static final UUID CLIENT_CHARACTERISTIC_CONFIG = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
     private Context mContext;
     private BluetoothAdapter mBluetoothAdapter;

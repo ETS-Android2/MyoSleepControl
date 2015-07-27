@@ -11,7 +11,6 @@ implements Scanner.OnScanningStartedListener,
 Scanner.OnMyoScannedListener {
     private static final String TAG = "ScanListener";
     private static final int MINIMUM_ADJACENT_RSSI = -39;
-    private static final long ADJACENT_SCAN_INTERVAL = 500;
     private final Hub mHub;
     private AttachMode mAttachMode = AttachMode.NONE;
     private int mAttachCount;

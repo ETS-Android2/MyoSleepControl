@@ -13,7 +13,6 @@ import com.thalmic.myo.internal.ble.BleManager;
 import com.thalmic.myo.internal.ble.JBBleManager;
 
 public abstract class BleFactory {
-    private static final String TAG = "BleFactory";
 
     private BleFactory() {
     }

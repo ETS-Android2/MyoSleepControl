@@ -9,7 +9,6 @@ package com.thalmic.myo;
 
 import android.util.Log;
 import android.util.Pair;
-import com.thalmic.myo.ControlCommand;
 import com.thalmic.myo.FirmwareInfo;
 import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.GattConstants;
@@ -27,7 +26,6 @@ import java.util.UUID;
 
 class GattCallback
 extends BleGattCallback {
-    private static final String TAG = "GattCallback";
     private Hub mHub;
     private BleGatt mBleGatt;
     private MyoGatt mMyoGatt;

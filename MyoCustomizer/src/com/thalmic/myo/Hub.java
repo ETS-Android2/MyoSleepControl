@@ -40,10 +40,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Hub {
-    private static final String TAG = "Hub";
-    private static final String PREF_INSTALL_UUID_KEY = "INSTALL_UUID";
-    private static final String PREF_FILE_NAME = "com.thalmic.myosdk";
-    private static final int MAX_APPLICATION_IDENTIFIER_LENGTH = 255;
     private String mApplicationIdentifier;
     private String mInstallUuid;
     private BleManager mBleManager;
@@ -193,10 +189,6 @@ public class Hub {
                 }
             }
         });
-    }
-
-    public void removeListener(DeviceListener listener) {
-        this.mListeners.remove(listener);
     }
 
     public void attachToAdjacentMyo() {
