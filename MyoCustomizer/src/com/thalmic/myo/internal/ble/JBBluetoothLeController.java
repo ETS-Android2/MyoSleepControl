@@ -327,23 +327,6 @@ implements BleGatt {
         });
     }
 
-    @Override
-    public void readRemoteRssi(final String address) {
-        this.submitTask(new Runnable(){
-
-            @Override
-            public void run() {
-                BluetoothGatt gatt = (BluetoothGatt)JBBluetoothLeController.this.mGattConnections.get(address);
-                if (gatt.readRemoteRssi()) {
-                    JBBluetoothLeController.this.mOperationPending = true;
-                    JBBluetoothLeController.this.waitForOperationCompletion();
-                } else {
-                    Log.e((String)"JBBluetoothLeController", (String)"Failed reading remote rssi");
-                }
-            }
-        });
-    }
-
     private Future<?> submitTask(Runnable task) {
         if (this.mOperationExecutor.isShutdown()) {
             Log.w((String)"JBBluetoothLeController", (String)"Could not submit task. Executor shutdown.");

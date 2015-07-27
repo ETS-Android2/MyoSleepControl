@@ -16,7 +16,5 @@ public interface BleGatt {
     public void writeCharacteristic(String var1, UUID var2, UUID var3, byte[] var4);
 
     public void setCharacteristicNotification(String var1, UUID var2, UUID var3, boolean var4, boolean var5);
-
-    public void readRemoteRssi(String var1);
 }
 

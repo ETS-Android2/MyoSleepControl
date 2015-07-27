@@ -33,13 +33,6 @@ Scanner.OnMyoScannedListener {
         this.getScanner().startScanning(0, 500);
     }
 
-    public void attachByMacAddress(String targetAddress) {
-        this.mAttachMode = AttachMode.ADDRESS;
-        this.mAttachCount = 1;
-        this.mTargetAddress = new Address(targetAddress);
-        this.getScanner().startScanning(0);
-    }
-
     @Override
     public void onScanningStarted() {
         Scanner.ScanListAdapter adapter = this.mHub.getScanner().getScanListAdapter();

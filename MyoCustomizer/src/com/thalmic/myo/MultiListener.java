@@ -18,10 +18,6 @@ implements DeviceListener {
         this.mListeners.add(listener);
     }
 
-    public void remove(DeviceListener listener) {
-        this.mListeners.remove(listener);
-    }
-
     public boolean contains(DeviceListener listener) {
         return this.mListeners.contains(listener);
     }

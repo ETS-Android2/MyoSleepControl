@@ -92,15 +92,6 @@ public class Myo {
     }
 
 
-
-
-    void setUnlocked(boolean unlocked) {
-        this.mUnlocked = unlocked;
-    }
-
- 
-
-
     void setFirmwareVersion(FirmwareVersion firmwareVersion) {
         this.mFirmwareVersion = firmwareVersion;
     }

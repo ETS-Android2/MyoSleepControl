@@ -142,14 +142,6 @@ public class Hub {
         }
     }
 
-    String getApplicationIdentifier() {
-        return this.mApplicationIdentifier;
-    }
-
-    String getInstallUuid() {
-        return this.mInstallUuid;
-    }
-
     MyoGatt getMyoGatt() {
         return this.mMyoGatt;
     }
@@ -207,15 +199,6 @@ public class Hub {
         this.mScanListener.attachToAdjacent(count);
     }
 
-    public void detach(String macAddress) {
-        Myo myo = this.getDevice(macAddress);
-        if (myo != null && myo.isAttached()) {
-            this.mMyoGatt.disconnect(myo.getMacAddress());
-        } else {
-            Log.w((String)"Hub", (String)("No attached Myo at address=" + macAddress + ". Nothing to detach."));
-        }
-    }
-
     public long now() {
         return SystemClock.elapsedRealtime();
     }
@@ -243,10 +226,6 @@ public class Hub {
             ++count;
         }
         return count;
-    }
-
-    boolean isInitialized() {
-        return this.mBleManager != null;
     }
 
 
