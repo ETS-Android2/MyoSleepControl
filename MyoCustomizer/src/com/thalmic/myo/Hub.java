@@ -62,10 +62,6 @@ public class Hub {
         return InstanceHolder.INSTANCE;
     }
 
-    static Hub createInstanceForTests(BleManager bleManager, Handler handler, Scanner scanner, ScanListener scanListener, MultiListener listeners, MyoUpdateParser parser, GattCallback gattCallback, MyoGatt myoGatt) {
-        return new Hub(bleManager, handler, scanner, scanListener, listeners, parser, gattCallback, myoGatt);
-    }
-
     private Hub() {
         this.mListeners = new MultiListener();
         this.mParser = new MyoUpdateParser(this, this.mListeners);
@@ -74,18 +70,6 @@ public class Hub {
         this.mScanListener = new ScanListener(this);
         this.mGattCallback.setUpdateParser(this.mParser);
         this.mGattCallback.setMyoGatt(this.mMyoGatt);
-    }
-
-    private Hub(BleManager bleManager, Handler handler, Scanner scanner, ScanListener scanListener, MultiListener listeners, MyoUpdateParser parser, GattCallback gattCallback, MyoGatt myoGatt) {
-        this.mBleManager = bleManager;
-        this.mHandler = handler;
-        this.mScanner = scanner;
-        this.mScanListener = scanListener;
-        this.mListeners = listeners;
-        this.mParser = parser;
-        this.mGattCallback = gattCallback;
-        this.mMyoGatt = myoGatt;
-        this.setMyoAttachAllowance(1);
     }
 
     public boolean init(Context context) {
@@ -229,20 +213,6 @@ public class Hub {
             return;
         }
         this.mScanListener.attachToAdjacent(count);
-    }
-
-    public void attachByMacAddress(String macAddress) {
-        int numAttachedDevices = this.getMyoAttachCount();
-        if (numAttachedDevices >= this.mMyoAttachAllowance) {
-            Log.w((String)"Hub", (String)String.format("Myo attach allowance is set to %d. There are currently %dattached Myo. Ignoring attach request.", this.mMyoAttachAllowance, numAttachedDevices));
-            return;
-        }
-        Myo myo = this.getDevice(macAddress);
-        if (myo != null && myo.isConnected()) {
-            Log.w((String)"Hub", (String)("Already attached to the Myo at address=" + macAddress + ". Ignoring attach request."));
-        } else {
-            this.mScanListener.attachByMacAddress(macAddress);
-        }
     }
 
     public void detach(String macAddress) {
