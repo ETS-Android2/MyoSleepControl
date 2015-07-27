@@ -145,13 +145,11 @@ public class Scanner {
 
     static boolean isMyo(UUID serviceUuid) {
         if (sAdvertisedUuid == null) {
-            byte[] uuidBytes = Scanner.getServiceInfoUuidBytes();
-            sAdvertisedUuid = ByteUtil.getUuidFromBytes(uuidBytes, 0);
+            sAdvertisedUuid = UUID.fromString("4248124a-7f2c-4847-b9de-04a9010006d5");
         }
         return sAdvertisedUuid.equals(serviceUuid);
     }
 
-    private static native byte[] getServiceInfoUuidBytes();
 
     private static boolean isDalvikVm() {
         return "Dalvik".equals(System.getProperty("java.vm.name"));
@@ -160,7 +158,7 @@ public class Scanner {
     static {
         block2 : {
             try {
-                System.loadLibrary("gesture-classifier");
+                
             }
             catch (UnsatisfiedLinkError e) {
                 if (!Scanner.isDalvikVm()) break block2;
