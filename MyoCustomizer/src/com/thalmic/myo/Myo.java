@@ -3,7 +3,6 @@
  */
 package com.thalmic.myo;
 
-import com.thalmic.myo.Arm;
 import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.Hub;
@@ -17,7 +16,6 @@ public class Myo {
     private boolean mAttached;
     private ConnectionState mConnState = ConnectionState.DISCONNECTED;
     private FirmwareVersion mFirmwareVersion;
-     private Arm mCurrentArm = Arm.UNKNOWN;
    private boolean mUnlocked;
  
     Myo(Hub hub, Address address) {
@@ -42,31 +40,7 @@ public class Myo {
         return this.mUnlocked;
     }
 
-    public Arm getArm() {
-        return this.mCurrentArm;
-    }
 
-
-
-    public void requestRssi() {
-        this.mMyoGatt.requestRssi(this.mAddress);
-    }
-
-    public void vibrate(VibrationType vibrationType) {
-        this.mMyoGatt.vibrate(this.mAddress, vibrationType);
-    }
-
-    public void unlock(UnlockType unlockType) {
-        this.mMyoGatt.unlock(this.mAddress, unlockType);
-    }
-
-    public void lock() {
-        this.mMyoGatt.unlock(this.mAddress, null);
-    }
-
-    public void notifyUserAction() {
-        this.mMyoGatt.notifyUserAction(this.mAddress);
-    }
     
     public void turnOffForTransport() {
     	this.mMyoGatt.turnOffForTransport(this.mAddress);
@@ -117,10 +91,6 @@ public class Myo {
         this.mConnState = state;
     }
 
-
-    void setCurrentArm(Arm arm) {
-        this.mCurrentArm = arm;
-    }
 
 
 

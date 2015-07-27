@@ -29,16 +29,13 @@ import com.thalmic.myo.MultiListener;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.MyoGatt;
 import com.thalmic.myo.MyoUpdateParser;
-import com.thalmic.myo.Reporter;
 import com.thalmic.myo.ScanListener;
 import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.internal.ble.BleFactory;
 import com.thalmic.myo.internal.ble.BleGatt;
-import com.thalmic.myo.internal.ble.BleGattCallback;
 import com.thalmic.myo.internal.ble.BleManager;
 import com.thalmic.myo.scanner.Scanner;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -60,7 +57,6 @@ public class Hub {
     private final MyoUpdateParser mParser;
     private final GattCallback mGattCallback;
     private final MyoGatt mMyoGatt;
-    private final Reporter mReporter = new Reporter();
 
     public static Hub getInstance() {
         return InstanceHolder.INSTANCE;
@@ -76,7 +72,6 @@ public class Hub {
         this.mGattCallback = new GattCallback(this);
         this.mMyoGatt = new MyoGatt(this);
         this.mScanListener = new ScanListener(this);
-        this.mParser.setReporter(this.mReporter);
         this.mGattCallback.setUpdateParser(this.mParser);
         this.mGattCallback.setMyoGatt(this.mMyoGatt);
     }
@@ -151,19 +146,11 @@ public class Hub {
         return true;
     }
 
-    public void setSendUsageData(boolean sendUsageData) {
-        this.mReporter.setSendUsageData(sendUsageData);
-    }
-
-    public boolean isSendingUsageData() {
-        return this.mReporter.isSendingUsageData();
-    }
 
     public void shutdown() {
         if (Build.VERSION.SDK_INT >= 21) {
             for (Myo myo : this.mKnownDevices.values()) {
                 if (!myo.isConnected()) continue;
-                this.mMyoGatt.configureDataAcquisition(myo.getMacAddress(), ControlCommand.EmgMode.DISABLED, false, true);
             }
         }
         this.mBleManager.dispose();

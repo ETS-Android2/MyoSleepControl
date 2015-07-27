@@ -117,7 +117,6 @@ public class MainActivity extends Activity
       Hub hub = Hub.getInstance();
       
       hub.init(this.getActivity());
-      hub.setSendUsageData(false);
       hub.attachToAdjacentMyo();
       hub.setLockingPolicy(LockingPolicy.NONE);
       

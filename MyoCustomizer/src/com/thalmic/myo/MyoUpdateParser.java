@@ -6,20 +6,13 @@
  */
 package com.thalmic.myo;
 
-import android.util.Log;
-import com.thalmic.myo.Arm;
 import com.thalmic.myo.DeviceListener;
 import com.thalmic.myo.GattCallback;
-import com.thalmic.myo.GattConstants;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
-import com.thalmic.myo.MyoGatt;
-import com.thalmic.myo.Reporter;
-import com.thalmic.myo.Vector3;
 import com.thalmic.myo.scanner.Scanner;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.UUID;
 
 class MyoUpdateParser
 implements GattCallback.UpdateParser {
@@ -31,7 +24,6 @@ implements GattCallback.UpdateParser {
     private Hub mHub;
     private DeviceListener mListener;
     private Scanner mScanner;
-    private Reporter mReporter;
 
     MyoUpdateParser(Hub hub, DeviceListener listener) {
         this.mHub = hub;
@@ -46,9 +38,6 @@ implements GattCallback.UpdateParser {
         this.mScanner = scanner;
     }
 
-    void setReporter(Reporter reporter) {
-        this.mReporter = reporter;
-    }
 
     @Override
     public void onMyoConnected(Myo myo) {
@@ -56,7 +45,7 @@ implements GattCallback.UpdateParser {
         if (!myo.isAttached()) {
             myo.setAttached(true);
             
-            this.mReporter.sendMyoEvent(this.mHub.getApplicationIdentifier(), this.mHub.getInstallUuid(), "AttachedMyo", myo);
+            
         }
         this.setMyoConnectionState(myo, Myo.ConnectionState.CONNECTED);
         this.mListener.onConnect(myo, now);

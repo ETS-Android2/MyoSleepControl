@@ -20,9 +20,7 @@ import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.internal.ble.BleGatt;
 import com.thalmic.myo.internal.ble.BleGattCallback;
 import com.thalmic.myo.internal.util.ByteUtil;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.UUID;
@@ -174,7 +172,6 @@ extends BleGattCallback {
         this.mBleGatt.setCharacteristicNotification(addressString, GattConstants.FV_SERVICE_UUID, GattConstants.FV_DATA_CHAR_UUID, true, false);
         this.mBleGatt.setCharacteristicNotification(addressString, GattConstants.IMU_SERVICE_UUID, GattConstants.IMU_DATA_CHAR_UUID, true, false);
         this.mBleGatt.setCharacteristicNotification(addressString, GattConstants.CLASSIFIER_SERVICE_UUID, GattConstants.CLASSIFIER_EVENT_CHAR_UUID, true, true);
-        this.mMyoGatt.configureDataAcquisition(addressString, ControlCommand.EmgMode.DISABLED, true, true);
         this.mParser.onMyoConnected(myo);
     }
 

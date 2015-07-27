@@ -3,11 +3,8 @@
  */
 package com.thalmic.myo;
 
-import com.thalmic.myo.Hub;
-import com.thalmic.myo.Myo;
 import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.scanner.Scanner;
-import java.util.ArrayList;
 
 class ScanListener
 implements Scanner.OnScanningStartedListener,

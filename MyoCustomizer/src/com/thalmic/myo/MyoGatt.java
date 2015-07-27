@@ -13,9 +13,7 @@ import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.GattConstants;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
-import com.thalmic.myo.internal.ble.BleGatt;
 import com.thalmic.myo.internal.ble.BleManager;
-import com.thalmic.myo.scanner.Scanner;
 import java.util.UUID;
 
 class MyoGatt {
@@ -44,9 +42,6 @@ class MyoGatt {
     }
 
     public void disconnect(String address) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            this.configureDataAcquisition(address, ControlCommand.EmgMode.DISABLED, false, true);
-        }
         this.mBleManager.disconnect(address);
         Myo myo = this.mHub.getDevice(address);
         if (myo.getConnectionState() == Myo.ConnectionState.CONNECTING) {
@@ -56,29 +51,10 @@ class MyoGatt {
         myo.setAttached(false);
     }
 
-    public void configureDataAcquisition(String address, ControlCommand.EmgMode streamEmg, boolean streamImu, boolean enableClassifier) {
-        byte[] enableCommand = ControlCommand.createForSetMode(streamEmg, streamImu, enableClassifier);
-        this.writeControlCommand(address, enableCommand);
-    }
 
-    public void requestRssi(String address) {
-        this.mBleManager.getBleGatt().readRemoteRssi(address);
-    }
 
-    public void vibrate(String address, Myo.VibrationType vibrationType) {
-        byte[] vibrateCommand = ControlCommand.createForVibrate(vibrationType);
-        this.writeControlCommand(address, vibrateCommand);
-    }
 
-    public void unlock(String address, Myo.UnlockType unlockType) {
-        byte[] unlockCommand = ControlCommand.createForUnlock(unlockType);
-        this.writeControlCommand(address, unlockCommand);
-    }
 
-    public void notifyUserAction(String address) {
-        byte[] command = ControlCommand.createForUserAction();
-        this.writeControlCommand(address, command);
-    }
     
 	public void turnOffForTransport(String address) {
         byte[] command = ControlCommand.createForTurnOffForTransport();
