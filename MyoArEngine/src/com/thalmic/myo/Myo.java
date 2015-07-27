@@ -4,6 +4,7 @@
 package com.thalmic.myo;
 
 import com.thalmic.myo.Arm;
+import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.MyoGatt;
@@ -82,13 +83,12 @@ public class Myo {
     	this.mMyoGatt.turnOffForTransport(this.mAddress);
     }
     
-    public void setLightsColors(){
-    	// int red, int green, int blue, int red2, int green2, int blue2
-    	this.mMyoGatt.setLightsColors(this.mAddress, 0,0,0,0,0,0);
+    public void setLightsColors(int red, int green, int blue, int red2, int green2, int blue2){
+    	this.mMyoGatt.setLightsColors(this.mAddress, red, green, blue, red2, green2, blue2);
     }
     
-    public void setSleepMode(){
-    	this.mMyoGatt.setSleepMode(this.mAddress, 0);
+    public void setSleepMode(SleepMode sleepMode){
+    	this.mMyoGatt.setSleepMode(this.mAddress, sleepMode);
     }
     
     public boolean isFirmwareVersionSupported() {
@@ -159,31 +159,18 @@ public class Myo {
     public static enum ConnectionState {
         CONNECTED,
         CONNECTING,
-        DISCONNECTED;
-        
-
-        private ConnectionState() {
-        }
+        DISCONNECTED
     }
 
     public static enum UnlockType {
         TIMED,
-        HOLD;
-        
-
-        private UnlockType() {
-        }
+        HOLD
     }
 
     public static enum VibrationType {
         SHORT,
         MEDIUM,
-        LONG;
-        
-
-        private VibrationType() {
-        }
+        LONG
     }
-
 }
 

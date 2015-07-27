@@ -9,6 +9,7 @@ package com.thalmic.myo;
 
 import android.os.Build;
 import com.thalmic.myo.ControlCommand;
+import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.GattConstants;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
@@ -85,12 +86,12 @@ class MyoGatt {
 	}
 
 	public void setLightsColors(String address, int red, int green, int blue, int red2, int green2, int blue2) {
-        byte[] command = ControlCommand.createForSetLightsColors();
+        byte[] command = ControlCommand.createForSetLightsColors(red, green, blue, red2, green2, blue2);
         this.writeControlCommand(address, command);
 	}
 
-	public void setSleepMode(String address, int i) {
-        byte[] command = ControlCommand.createForSetSleepMode();
+	public void setSleepMode(String address, SleepMode i) {
+        byte[] command = ControlCommand.createForSetSleepMode(i);
         this.writeControlCommand(address, command);
 	}
 
@@ -100,4 +101,3 @@ class MyoGatt {
         this.mBleManager.getBleGatt().writeCharacteristic(address, serviceUuid, charUuid, controlCommand);
     }
 }
-
