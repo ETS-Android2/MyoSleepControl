@@ -22,9 +22,9 @@ public abstract class BleGattCallback {
     public void onCharacteristicRead(Address address, UUID uuid, byte[] value, boolean success) {
     }
 
-    public void onCharacteristicWrite(Address address, UUID uuid, boolean success) {
+    void onCharacteristicWrite(Address address, UUID uuid, boolean success) {
     }
 
-    public void onCharacteristicChanged(Address address, UUID uuid, byte[] value) {
+    void onCharacteristicChanged(Address address, UUID uuid, byte[] value) {
     }
 }

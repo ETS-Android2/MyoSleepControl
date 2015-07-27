@@ -122,7 +122,7 @@ implements BleManager {
         return uuids;
     }
 
-    static class LeScanCallback
+    private static class LeScanCallback
     implements BluetoothAdapter.LeScanCallback {
         private BleManager.BleScanCallback mCallback;
 

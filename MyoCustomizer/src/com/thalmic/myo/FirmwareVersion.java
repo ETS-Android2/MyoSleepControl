@@ -7,10 +7,10 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 public class FirmwareVersion {
-    public final int major;
-    public final int minor;
-    public final int patch;
-    public final int hardwareRev;
+    final int major;
+    final int minor;
+    private final int patch;
+    private final int hardwareRev;
 
     FirmwareVersion(byte[] array) {
         if (array.length < 8) {

@@ -11,7 +11,7 @@ import android.bluetooth.BluetoothAdapter;
 public class Address {
     private String mAddress;
 
-    public Address(String address) {
+    Address(String address) {
         if (!BluetoothAdapter.checkBluetoothAddress((String)address)) {
             throw new IllegalArgumentException("Cannot create Address for invalid address " + address);
         }
