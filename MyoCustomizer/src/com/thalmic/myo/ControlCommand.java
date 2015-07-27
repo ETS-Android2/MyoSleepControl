@@ -6,7 +6,7 @@ package com.thalmic.myo;
 public abstract class ControlCommand
 {
 
-  public static byte[] createForTurnOffForTransport()
+  static byte[] createForTurnOffForTransport()
   {
     byte[] command = new byte[2];
     command[0] = 4;
@@ -14,7 +14,7 @@ public abstract class ControlCommand
     return command;
   }
 
-  public static byte[] createForSetLightsColors(int red, int green, int blue, int red2, int green2, int blue2)
+  static byte[] createForSetLightsColors(int red, int green, int blue, int red2, int green2, int blue2)
   {
     byte[] command = new byte[8];
     command[0] = 6;
@@ -28,7 +28,7 @@ public abstract class ControlCommand
     return command;
   }
 
-  public static byte[] createForSetSleepMode(SleepMode i)
+  static byte[] createForSetSleepMode(SleepMode i)
   {
     byte[] command = new byte[3];
     command[0] = 9;

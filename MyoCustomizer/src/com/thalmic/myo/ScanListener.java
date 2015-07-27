@@ -9,8 +9,6 @@ import com.thalmic.myo.scanner.Scanner;
 class ScanListener
 implements Scanner.OnScanningStartedListener,
 Scanner.OnMyoScannedListener {
-    private static final String TAG = "ScanListener";
-    private static final int MINIMUM_ADJACENT_RSSI = -39;
     private final Hub mHub;
     private AttachMode mAttachMode = AttachMode.NONE;
     private int mAttachCount;

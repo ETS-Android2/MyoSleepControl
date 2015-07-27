@@ -72,7 +72,7 @@ implements BleGatt {
 		        public void run() {
 		            boolean success;
 		            Address address = GattCallback.this.addressOf(gatt);
-		            boolean bl = success = status == 0;
+		             success = status == 0;
 		            if (!success) {
 		                Log.e((String)"JBBluetoothLeController", (String)("Received error status=" + status + " for onServicesDiscovered on address=" + address));
 		            }
@@ -110,7 +110,7 @@ implements BleGatt {
 		        public void run() {
 		            boolean success;
 		            Address address = GattCallback.this.addressOf(gatt);
-		            boolean bl = success = status == 0;
+		            success = status == 0;
 		            if (!success) {
 		                Log.e((String)"JBBluetoothLeController", (String)("Received error status=" + status + " for onCharacteristicRead of " + characteristic.getUuid() + " on address=" + address));
 		            }
@@ -136,7 +136,7 @@ implements BleGatt {
 		        public void run() {
 		            boolean success;
 		            Address address = GattCallback.this.addressOf(gatt);
-		            boolean bl = success = status == 0;
+		            success = status == 0;
 		            if (!success) {
 		                Log.e((String)"JBBluetoothLeController", (String)("Received error status=" + status + " for onCharacteristicWrite of " + characteristic.getUuid() + " on address=" + address));
 		            }
@@ -154,22 +154,7 @@ implements BleGatt {
 		    this.onOperationFinished();
 		}
 
-		public void onReadRemoteRssi(final BluetoothGatt gatt, final int rssi, final int status) {
-		    this.onOperationFinished();
-		    JBBluetoothLeController.this.mCallbackHandler.post(new Runnable(){
 
-		        @Override
-		        public void run() {
-		            boolean success;
-		            Address address = GattCallback.this.addressOf(gatt);
-		            boolean bl = success = status == 0;
-		            if (!success) {
-		                Log.e((String)"JBBluetoothLeController", (String)("Received error status=" + status + " for onReadRemoteRssi on address=" + address));
-		            }
-		            JBBluetoothLeController.this.mExternalCallback.onReadRemoteRssi(address, rssi, success);
-		        }
-		    });
-		}
 
 		private void onOperationFinished() {
 		    JBBluetoothLeController.this.mOperationPending = false;
@@ -372,8 +357,7 @@ implements BleGatt {
 
     private void waitForOperationCompletion() {
         long t;
-        long timeout = 1000;
-        long interval = 10;
+
         for (t = 1000; t > 0 && this.mOperationPending; t-=10) {
             try {
                 Thread.sleep(10);

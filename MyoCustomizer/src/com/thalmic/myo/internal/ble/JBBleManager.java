@@ -17,7 +17,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.internal.ble.BleGatt;
 import com.thalmic.myo.internal.ble.BleManager;
@@ -91,7 +90,7 @@ implements BleManager {
         return new LeScanCallback(callback);
     }
 
-    static List<UUID> parseServiceUuids(byte[] adv_data) {
+    private static List<UUID> parseServiceUuids(byte[] adv_data) {
         int len;
         ArrayList<UUID> uuids = new ArrayList<UUID>();
         block4 : for (int offset = 0; offset < adv_data.length - 2; offset+=len - 1) {

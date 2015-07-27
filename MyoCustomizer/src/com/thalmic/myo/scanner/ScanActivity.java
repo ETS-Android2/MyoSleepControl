@@ -13,11 +13,8 @@
  */
 package com.thalmic.myo.scanner;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Window;
 import de.nachregenkommtsonne.myocustomizer.R;
 
 

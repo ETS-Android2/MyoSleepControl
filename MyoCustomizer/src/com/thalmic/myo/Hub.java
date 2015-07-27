@@ -22,7 +22,6 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import com.thalmic.myo.AbstractDeviceListener;
-import com.thalmic.myo.ControlCommand;
 import com.thalmic.myo.DeviceListener;
 import com.thalmic.myo.GattCallback;
 import com.thalmic.myo.MultiListener;
@@ -40,7 +39,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Hub {
-    private String mApplicationIdentifier;
     private String mInstallUuid;
     private BleManager mBleManager;
     private Handler mHandler;
@@ -72,11 +70,11 @@ public class Hub {
         return this.init(context, "");
     }
 
-    public boolean init(Context context, String applicationIdentifier) throws IllegalArgumentException {
+    private boolean init(Context context, String applicationIdentifier) throws IllegalArgumentException {
         if (!this.isValidApplicationIdentifier(applicationIdentifier)) {
             throw new IllegalArgumentException("Invalid application identifier");
         }
-        this.mApplicationIdentifier = applicationIdentifier;
+
         if (this.mBleManager == null) {
             this.mBleManager = BleFactory.createBleManager(context.getApplicationContext());
         }
@@ -187,7 +185,7 @@ public class Hub {
         this.attachToAdjacentMyos(1);
     }
 
-    public void attachToAdjacentMyos(int count) {
+    private void attachToAdjacentMyos(int count) {
         if (count < 1) {
             throw new IllegalArgumentException("The number of Myos to attach must be greater than 0.");
         }
@@ -199,7 +197,7 @@ public class Hub {
         this.mScanListener.attachToAdjacent(count);
     }
 
-    public long now() {
+    long now() {
         return SystemClock.elapsedRealtime();
     }
 
@@ -219,7 +217,7 @@ public class Hub {
         this.mMyoAttachAllowance = myoAttachAllowance;
     }
 
-    int getMyoAttachCount() {
+    private int getMyoAttachCount() {
         int count = 0;
         for (Myo myo : this.mKnownDevices.values()) {
             if (!myo.isAttached()) continue;
@@ -266,7 +264,7 @@ public class Hub {
         }
     }
 
-    void disconnectFromScannedMyo(String address) {
+    private void disconnectFromScannedMyo(String address) {
         this.mMyoGatt.disconnect(address);
         this.mScanner.getScanListAdapter().notifyDeviceChanged();
     }

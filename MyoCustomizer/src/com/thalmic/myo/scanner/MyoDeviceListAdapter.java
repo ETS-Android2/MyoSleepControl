@@ -26,7 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import de.nachregenkommtsonne.myocustomizer.R;
 
-import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.scanner.Scanner;
 import java.util.ArrayList;

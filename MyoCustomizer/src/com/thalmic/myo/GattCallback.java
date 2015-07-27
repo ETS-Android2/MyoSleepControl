@@ -9,7 +9,6 @@ package com.thalmic.myo;
 
 import android.util.Log;
 import android.util.Pair;
-import com.thalmic.myo.FirmwareInfo;
 import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.GattConstants;
 import com.thalmic.myo.Hub;
@@ -136,7 +135,7 @@ extends BleGattCallback {
         return true;
     }
 
-    boolean onFirmwareVersionRead(Myo myo, byte[] value) {
+    private boolean onFirmwareVersionRead(Myo myo, byte[] value) {
         FirmwareVersion fwVersion;
         try {
             fwVersion = new FirmwareVersion(value);
@@ -154,9 +153,9 @@ extends BleGattCallback {
         return true;
     }
 
-    void onFirmwareInfoRead(Myo myo, byte[] value) {
+    private void onFirmwareInfoRead(Myo myo, byte[] value) {
         try {
-            FirmwareInfo fwInfo = new FirmwareInfo(value);
+           
          }
         catch (IllegalArgumentException e) {
             Log.e((String)"GattCallback", (String)"Problem reading FirmwareInfo.", (Throwable)e);

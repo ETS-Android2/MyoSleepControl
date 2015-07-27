@@ -12,15 +12,12 @@ import android.util.Log;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.internal.ble.BleManager;
-import com.thalmic.myo.internal.util.ByteUtil;
 import com.thalmic.myo.scanner.MyoDeviceListAdapter;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Scanner {
-    private static final String TAG = "Scanner";
     private static UUID sAdvertisedUuid;
-    private static final long SCAN_PERIOD = 5000;
     private BleManager mBleManager;
     private Handler mHandler;
     private boolean mScanning;
@@ -64,11 +61,11 @@ public class Scanner {
         this.mBleManager = bleManager;
     }
 
-    public void startScanning() {
+    void startScanning() {
         this.startScanning(5000);
     }
 
-    public void startScanning(long scanPeriod) {
+    private void startScanning(long scanPeriod) {
         this.startScanning(scanPeriod, 0);
     }
 
@@ -127,7 +124,7 @@ public class Scanner {
         }
     }
 
-    public void removeOnScanningStartedListener(OnScanningStartedListener listener) {
+    void removeOnScanningStartedListener(OnScanningStartedListener listener) {
         this.mScanningStartedListeners.remove(listener);
     }
 
@@ -143,7 +140,7 @@ public class Scanner {
         return this.mListAdapter;
     }
 
-    static boolean isMyo(UUID serviceUuid) {
+    private static boolean isMyo(UUID serviceUuid) {
         if (sAdvertisedUuid == null) {
             sAdvertisedUuid = UUID.fromString("4248124a-7f2c-4847-b9de-04a9010006d5");
         }

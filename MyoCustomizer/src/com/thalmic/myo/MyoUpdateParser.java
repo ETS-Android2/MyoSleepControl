@@ -11,8 +11,6 @@ import com.thalmic.myo.GattCallback;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.scanner.Scanner;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 class MyoUpdateParser
 implements GattCallback.UpdateParser {

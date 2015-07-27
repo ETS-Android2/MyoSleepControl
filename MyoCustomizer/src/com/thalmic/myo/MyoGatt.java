@@ -7,7 +7,6 @@
  */
 package com.thalmic.myo;
 
-import android.os.Build;
 import com.thalmic.myo.ControlCommand;
 import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.GattConstants;
@@ -32,7 +31,7 @@ class MyoGatt {
         return this.connect(address, false);
     }
 
-    public boolean connect(String address, boolean autoConnect) {
+    private boolean connect(String address, boolean autoConnect) {
         boolean connecting = this.mBleManager.connect(address, autoConnect);
         if (connecting) {
             Myo myo = this.mHub.getDevice(address);

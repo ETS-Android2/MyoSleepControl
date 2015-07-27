@@ -25,7 +25,6 @@
  */
 package com.thalmic.myo.scanner;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -145,7 +144,7 @@ implements Scanner.OnScanningStartedListener {
         this.getActivity().invalidateOptionsMenu();
     }
 
-    protected void onBluetoothNotEnabled() {
+    private void onBluetoothNotEnabled() {
         this.getActivity().finish();
     }
 

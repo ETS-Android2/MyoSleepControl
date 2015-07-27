@@ -27,8 +27,4 @@ public abstract class BleGattCallback {
 
     public void onCharacteristicChanged(Address address, UUID uuid, byte[] value) {
     }
-
-    public void onReadRemoteRssi(Address address, int rssi, boolean success) {
-    }
 }
-
