@@ -3,14 +3,12 @@
  */
 package com.thalmic.myo;
 
-import com.thalmic.myo.ClassifierEvent;
-import com.thalmic.myo.Pose;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 class FirmwareInfo {
     static final int EXPECTED_BYTE_LENGTH = 8;
-    public Pose unlockPose;
+   
 
     FirmwareInfo(byte[] array) {
         if (array.length < 8) {
@@ -18,33 +16,14 @@ class FirmwareInfo {
         }
         ByteBuffer buffer = ByteBuffer.wrap(array);
         buffer.order(ByteOrder.LITTLE_ENDIAN);
-        int unlockPoseValue = buffer.getShort(6) & 65535;
-        this.unlockPose = ClassifierEvent.poseFromClassifierPose(unlockPoseValue);
+        
+        
     }
 
-    FirmwareInfo(Pose pose) {
-        if (pose == null) {
-            throw new IllegalArgumentException("pose cannot be null");
-        }
-        this.unlockPose = pose;
+    FirmwareInfo() {
+
+
     }
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || this.getClass() != o.getClass()) {
-            return false;
-        }
-        FirmwareInfo that = (FirmwareInfo)o;
-        if (this.unlockPose != that.unlockPose) {
-            return false;
-        }
-        return true;
-    }
-
-    public int hashCode() {
-        return this.unlockPose.hashCode();
-    }
 }
 

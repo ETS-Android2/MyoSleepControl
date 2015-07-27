@@ -216,7 +216,7 @@ public class Hub {
                 long timestamp = Hub.this.now();
                 for (Myo myo : Hub.this.mKnownDevices.values()) {
                     if (!myo.isAttached()) continue;
-                    listener.onAttach(myo, timestamp);
+                    
                     if (myo.getConnectionState() != Myo.ConnectionState.CONNECTED) continue;
                     listener.onConnect(myo, timestamp);
                 }
@@ -300,9 +300,6 @@ public class Hub {
         return this.mBleManager != null;
     }
 
-    void addGattValueListener(GattCallback.ValueListener listener) {
-        this.mGattCallback.addValueListener(listener);
-    }
 
     Myo addKnownDevice(Address address) {
         Myo myo = this.mKnownDevices.get(address.toString());

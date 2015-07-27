@@ -8,8 +8,6 @@ import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.MyoGatt;
-import com.thalmic.myo.Pose;
-import com.thalmic.myo.XDirection;
 import com.thalmic.myo.internal.ble.Address;
 
 public class Myo {
@@ -19,12 +17,9 @@ public class Myo {
     private boolean mAttached;
     private ConnectionState mConnState = ConnectionState.DISCONNECTED;
     private FirmwareVersion mFirmwareVersion;
-    private Pose mCurrentPose = Pose.UNKNOWN;
-    private Arm mCurrentArm = Arm.UNKNOWN;
-    private XDirection mCurrentXDirection = XDirection.UNKNOWN;
-    private boolean mUnlocked;
-    private Pose mUnlockPose = Pose.UNKNOWN;
-
+     private Arm mCurrentArm = Arm.UNKNOWN;
+   private boolean mUnlocked;
+ 
     Myo(Hub hub, Address address) {
         this.mMyoGatt = hub.getMyoGatt();
         this.mName = "";
@@ -51,13 +46,7 @@ public class Myo {
         return this.mCurrentArm;
     }
 
-    public XDirection getXDirection() {
-        return this.mCurrentXDirection;
-    }
 
-    public Pose getPose() {
-        return this.mCurrentPose;
-    }
 
     public void requestRssi() {
         this.mMyoGatt.requestRssi(this.mAddress);
@@ -128,29 +117,19 @@ public class Myo {
         this.mConnState = state;
     }
 
-    void setCurrentPose(Pose pose) {
-        this.mCurrentPose = pose;
-    }
 
     void setCurrentArm(Arm arm) {
         this.mCurrentArm = arm;
     }
 
-    void setCurrentXDirection(XDirection xDirection) {
-        this.mCurrentXDirection = xDirection;
-    }
+
 
     void setUnlocked(boolean unlocked) {
         this.mUnlocked = unlocked;
     }
 
-    Pose getUnlockPose() {
-        return this.mUnlockPose;
-    }
+ 
 
-    void setUnlockPose(Pose unlockPose) {
-        this.mUnlockPose = unlockPose;
-    }
 
     void setFirmwareVersion(FirmwareVersion firmwareVersion) {
         this.mFirmwareVersion = firmwareVersion;

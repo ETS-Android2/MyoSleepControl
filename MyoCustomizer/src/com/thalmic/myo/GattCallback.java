@@ -16,7 +16,6 @@ import com.thalmic.myo.GattConstants;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.MyoGatt;
-import com.thalmic.myo.Pose;
 import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.internal.ble.BleGatt;
 import com.thalmic.myo.internal.ble.BleGattCallback;
@@ -36,7 +35,6 @@ extends BleGattCallback {
     private MyoGatt mMyoGatt;
     private UpdateParser mParser;
     private HashMap<Address, LinkedHashMap<UUID, InitReadChar>> mInitializingMyos = new HashMap();
-    private HashSet<ValueListener> mListeners = new HashSet();
 
     public GattCallback(Hub hub) {
         this.mHub = hub;
@@ -52,14 +50,6 @@ extends BleGattCallback {
 
     void setUpdateParser(UpdateParser updateParser) {
         this.mParser = updateParser;
-    }
-
-    void addValueListener(ValueListener listener) {
-        this.mListeners.add(listener);
-    }
-
-    void removeValueListener(ValueListener listener) {
-        this.mListeners.remove(listener);
     }
 
     @Override
@@ -124,23 +114,6 @@ extends BleGattCallback {
         }
     }
 
-    @Override
-    public void onCharacteristicChanged(Address address, UUID uuid, byte[] value) {
-        Myo myo = this.getMyoDevice(address);
-        this.mParser.onCharacteristicChanged(myo, uuid, value);
-        for (ValueListener listener : this.mListeners) {
-            listener.onCharacteristicChanged(myo, uuid, value);
-        }
-    }
-
-    @Override
-    public void onReadRemoteRssi(Address address, int rssi, boolean success) {
-        if (!success) {
-            return;
-        }
-        Myo myo = this.getMyoDevice(address);
-        this.mParser.onReadRemoteRssi(myo, rssi);
-    }
 
     private Myo getMyoDevice(Address address) {
         Myo device = this.mHub.getDevice(address.toString());
@@ -188,8 +161,7 @@ extends BleGattCallback {
     void onFirmwareInfoRead(Myo myo, byte[] value) {
         try {
             FirmwareInfo fwInfo = new FirmwareInfo(value);
-            myo.setUnlockPose(fwInfo.unlockPose);
-        }
+         }
         catch (IllegalArgumentException e) {
             Log.e((String)"GattCallback", (String)"Problem reading FirmwareInfo.", (Throwable)e);
         }
@@ -212,17 +184,14 @@ extends BleGattCallback {
     }
 
     static interface UpdateParser
-    extends ValueListener {
+     {
         public void onMyoConnected(Myo var1);
 
         public void onMyoDisconnected(Myo var1);
 
-        public void onReadRemoteRssi(Myo var1, int var2);
     }
 
-    static interface ValueListener {
-        public void onCharacteristicChanged(Myo var1, UUID var2, byte[] var3);
-    }
+
 
     private static class InitReadChar extends Pair<UUID, UUID>
     {
