@@ -2,14 +2,6 @@
 <resources>
 
     <string name="app_name">Myo Customizer</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="myosdk__title_activity_scan">Choose a Myo</string>
-    <string name="myosdk__action_scan">Scan</string>
-    <string name="myosdk__action_stop_scan">Stop Scan</string>
-    <string name="myosdk__unknown_myo">Unknown Myo</string>
-    <string name="myosdk__firmware_version_format">Version: %s</string>
-    <string name="myosdk__firmware_required_format">Required: %s or newer</string>
     
     
     <string name="pref_key_connection">pref_key_connection</string>
