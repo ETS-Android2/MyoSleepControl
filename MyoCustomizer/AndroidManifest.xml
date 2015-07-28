@@ -25,6 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+                <activity
+            android:name="com.thalmic.myo.scanner.ScanActivity"
+            android:label="@string/myosdk__title_activity_scan"
+            android:theme="@style/myosdk__ScanActivityTheme" />
+        
     </application>
 
 </manifest>

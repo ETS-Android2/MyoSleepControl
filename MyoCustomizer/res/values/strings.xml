@@ -11,4 +11,15 @@
     <string name="myosdk__firmware_version_format">Version: %s</string>
     <string name="myosdk__firmware_required_format">Required: %s or newer</string>
     
+    
+    <string name="pref_key_connection">pref_key_connection</string>
+    <string name="pref_key_connection_connect_adjacent">pref_key_connection_connect_adjacent</string>
+    <string name="pref_key_connection_connect_dialog">pref_key_connection_connect_dialog</string>
+    <string name="pref_key_connection_disconnect">pref_key_connection_disconnect</string>
+    <string name="pref_key_options">pref_key_options</string>
+    <string name="pref_key_options_pick_color_status">pref_key_options_pick_color_status</string>
+    <string name="pref_key_options_pick_color_connection">pref_key_options_pick_color_connection</string>
+    <string name="pref_key_options_set_color">pref_key_options_set_color</string>
+    <string name="pref_key_options_autosleep">pref_key_options_autosleep</string>
+    <string name="pref_key_options_transport">pref_key_options_transport</string>
 </resources>

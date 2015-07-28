@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="@string/pref_key_connection"
+        android:title="Connection">
+        
+        <Preference 
+            android:defaultValue="true"
+            android:key="@string/pref_key_connection_connect_adjacent"
+            android:summary="Connect"
+            android:title="Connect to nearby Myo" />
+        
+        <Preference
+            android:defaultValue="true"
+            android:key="@string/pref_key_connection_connect_dialog"
+            android:summary="Connect Dialog"
+            android:title="Connect to specific Myo" />
+                
+        <Preference
+            android:defaultValue="true"
+            android:key="@string/pref_key_connection_disconnect"
+            android:summary="Disconnect"
+            android:title="Disconnect" />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:key="@string/pref_key_options"
+        android:title="Myo Options">
+
+        <Preference
+            android:defaultValue="true"
+            android:key="@string/pref_key_options_transport"
+            android:summary="Turn Off for Transport"
+            android:title="Power down for Transport" />
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_options_pick_color_status"
+            android:summary="Color"
+            android:title="Pick color for status light" />
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_options_pick_color_connection"
+            android:summary="Color2"
+            android:title="Pick color for connection light" />
+        
+        <Preference
+            android:defaultValue="true"
+            android:key="@string/pref_key_options_set_color"
+            android:summary="SetColor"
+            android:title="Set Myo colors" />
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_options_autosleep"
+            android:summary="Off"
+            android:title="Disable autosleep" />
+        
+    </PreferenceCategory>
+</PreferenceScreen>
