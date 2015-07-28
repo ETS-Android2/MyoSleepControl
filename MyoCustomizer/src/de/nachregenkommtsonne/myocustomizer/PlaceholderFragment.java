@@ -26,8 +26,8 @@ import android.util.Log;
 
 public class PlaceholderFragment extends PreferenceFragment
 {
-  Myo _myo;
-  BleGatt _bleGatt;
+  private Myo _myo;
+  private BleGatt _bleGatt;
   private Preference _connection_connect_dialog;
   private Preference _connection_disconnect;
   private Preference _options;
