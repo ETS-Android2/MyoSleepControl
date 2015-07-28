@@ -51,7 +51,6 @@ class MyoGatt
     if (myo.getConnectionState() == Myo.ConnectionState.CONNECTING)
     {
       myo.setConnectionState(Myo.ConnectionState.DISCONNECTED);
-      this.mHub.getScanner().getScanListAdapter().notifyDeviceChanged();
     }
     myo.setAttached(false);
   }

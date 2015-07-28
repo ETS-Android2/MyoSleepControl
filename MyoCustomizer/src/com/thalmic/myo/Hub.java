@@ -100,21 +100,18 @@ public class Hub {
                 this.mInstallUuid = UUID.randomUUID().toString();
             }
             this.mHandler = new Handler();
-            this.mScanner = new Scanner(this.mBleManager, this.mScanListener, null);
+            this.mScanner = new Scanner(this.mBleManager, this.mScanListener);
             this.mScanner.addOnScanningStartedListener(this.mScanListener);
             this.addListener(new AbstractDeviceListener(){
 
                 @Override
                 public void onConnect(Myo myo, long timestamp) {
-                    Hub.this.mScanner.getScanListAdapter().notifyDeviceChanged();
                 }
 
                 @Override
                 public void onDisconnect(Myo myo, long timestamp) {
-                    Hub.this.mScanner.getScanListAdapter().notifyDeviceChanged();
                 }
             });
-            this.mParser.setScanner(this.mScanner);
         }
         BleGatt bleGatt = this.mBleManager.getBleGatt();
         bleGatt.setBleGattCallback(this.mGattCallback);
@@ -257,10 +254,7 @@ public class Hub {
         if (!Hub.allowedToConnectToMyo(this, address)) {
             return;
         }
-        boolean connecting = this.mMyoGatt.connect(address);
-        if (connecting) {
-            this.mScanner.getScanListAdapter().notifyDeviceChanged();
-        }
+        this.mMyoGatt.connect(address);
     }
 
     private boolean isValidApplicationIdentifier(String applicationIdentifier) {

@@ -12,7 +12,6 @@ import android.util.Log;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.internal.ble.Address;
 import com.thalmic.myo.internal.ble.BleManager;
-import com.thalmic.myo.scanner.MyoDeviceListAdapter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -26,10 +25,9 @@ public class Scanner {
     private final Runnable mRestartRunnable;
     private ArrayList<OnScanningStartedListener> mScanningStartedListeners;
     private OnMyoScannedListener mMyoScannedListener;
-    private MyoDeviceListAdapter mListAdapter;
     private BleManager.BleScanCallback mBleScanCallback;
 
-    public Scanner(BleManager bleManager, OnMyoScannedListener scannedListener, OnMyoClickedListener clickedListener) {
+    public Scanner(BleManager bleManager, OnMyoScannedListener scannedListener) {
         this.mStopRunnable = new Runnable(){
 
             @Override
@@ -48,7 +46,6 @@ public class Scanner {
             }
         };
         this.mScanningStartedListeners = new ArrayList();
-        this.mListAdapter = new MyoDeviceListAdapter();
         this.mBleScanCallback = new ScanCallback();
         this.mBleManager = bleManager;
         this.mMyoScannedListener = scannedListener;
@@ -113,25 +110,13 @@ public class Scanner {
         }
     }
 
-    public ScanListAdapter getScanListAdapter() {
-        return this.mListAdapter;
-    }
+
 
     private static boolean isMyo(UUID serviceUuid) {
         if (sAdvertisedUuid == null) {
             sAdvertisedUuid = UUID.fromString("4248124a-7f2c-4847-b9de-04a9010006d5");
         }
         return sAdvertisedUuid.equals(serviceUuid);
-    }
-
-    public static interface ScanListAdapter {
-        public void addDevice(Myo var1, int var2);
-
-        public void notifyDeviceChanged();
-    }
-
-    public static interface OnMyoClickedListener {
-        
     }
 
     public static interface OnMyoScannedListener {
@@ -156,7 +141,7 @@ public class Scanner {
                 @Override
                 public void run() {
                     if (Scanner.isMyo(serviceUuid)) {
-                        Myo myo = Scanner.this.mMyoScannedListener.onMyoScanned(address, name, rssi);
+                        Scanner.this.mMyoScannedListener.onMyoScanned(address, name, rssi);
                     }
                 }
             });

@@ -33,15 +33,7 @@ Scanner.OnMyoScannedListener {
 
     @Override
     public void onScanningStarted() {
-        Scanner.ScanListAdapter adapter = this.mHub.getScanner().getScanListAdapter();
-        for (Myo myo : this.mHub.getKnownDevices()) {
-            switch (myo.getConnectionState()) {
-                case CONNECTED: 
-                case CONNECTING: {
-                    adapter.addDevice(myo, 0);
-                }
-            }
-        }
+
     }
 
     @Override

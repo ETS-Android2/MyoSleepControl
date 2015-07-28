@@ -10,21 +10,15 @@ import com.thalmic.myo.DeviceListener;
 import com.thalmic.myo.GattCallback;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
-import com.thalmic.myo.scanner.Scanner;
 
 class MyoUpdateParser
 implements GattCallback.UpdateParser {
     private Hub mHub;
     private DeviceListener mListener;
-    private Scanner mScanner;
 
     MyoUpdateParser(Hub hub, DeviceListener listener) {
         this.mHub = hub;
         this.mListener = listener;
-    }
-
-    void setScanner(Scanner scanner) {
-        this.mScanner = scanner;
     }
 
     @Override
@@ -47,9 +41,6 @@ implements GattCallback.UpdateParser {
 
     private void setMyoConnectionState(Myo myo, Myo.ConnectionState connectionState) {
         myo.setConnectionState(connectionState);
-        if (this.mScanner != null) {
-            this.mScanner.getScanListAdapter().notifyDeviceChanged();
-        }
     }
 }
 
