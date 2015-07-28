@@ -100,7 +100,7 @@ public class Hub {
                 this.mInstallUuid = UUID.randomUUID().toString();
             }
             this.mHandler = new Handler();
-            this.mScanner = new Scanner(this.mBleManager, this.mScanListener, new ScanItemClickListener());
+            this.mScanner = new Scanner(this.mBleManager, this.mScanListener, null);
             this.mScanner.addOnScanningStartedListener(this.mScanListener);
             this.addListener(new AbstractDeviceListener(){
 
@@ -226,7 +226,6 @@ public class Hub {
         return count;
     }
 
-
     Myo addKnownDevice(Address address) {
         Myo myo = this.mKnownDevices.get(address.toString());
         if (myo == null) {
@@ -264,11 +263,6 @@ public class Hub {
         }
     }
 
-    private void disconnectFromScannedMyo(String address) {
-        this.mMyoGatt.disconnect(address);
-        this.mScanner.getScanListAdapter().notifyDeviceChanged();
-    }
-
     private boolean isValidApplicationIdentifier(String applicationIdentifier) {
         if (applicationIdentifier == null) {
             return false;
@@ -304,26 +298,6 @@ public class Hub {
             return false;
         }
         return true;
-    }
-
-    private class ScanItemClickListener
-    implements Scanner.OnMyoClickedListener {
-        private ScanItemClickListener() {
-        }
-
-        @Override
-        public void onMyoClicked(Myo myo) {
-            switch (myo.getConnectionState()) {
-                case CONNECTED: 
-                case CONNECTING: {
-                    Hub.this.disconnectFromScannedMyo(myo.getMacAddress());
-                    break;
-                }
-                case DISCONNECTED: {
-                    Hub.this.connectToScannedMyo(myo.getMacAddress());
-                }
-            }
-        }
     }
 
     private static class InstanceHolder {

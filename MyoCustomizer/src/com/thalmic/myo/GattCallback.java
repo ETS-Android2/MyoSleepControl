@@ -154,12 +154,7 @@ extends BleGattCallback {
     }
 
     private void onFirmwareInfoRead(Myo myo, byte[] value) {
-        try {
-           
-         }
-        catch (IllegalArgumentException e) {
-            Log.e((String)"GattCallback", (String)"Problem reading FirmwareInfo.", (Throwable)e);
-        }
+
     }
 
     private void onMyoInitializationSucceeded(Address address) {

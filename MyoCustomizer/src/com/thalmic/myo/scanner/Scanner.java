@@ -26,7 +26,6 @@ public class Scanner {
     private final Runnable mRestartRunnable;
     private ArrayList<OnScanningStartedListener> mScanningStartedListeners;
     private OnMyoScannedListener mMyoScannedListener;
-    private OnMyoClickedListener mMyoClickedListener;
     private MyoDeviceListAdapter mListAdapter;
     private BleManager.BleScanCallback mBleScanCallback;
 
@@ -53,20 +52,11 @@ public class Scanner {
         this.mBleScanCallback = new ScanCallback();
         this.mBleManager = bleManager;
         this.mMyoScannedListener = scannedListener;
-        this.mMyoClickedListener = clickedListener;
         this.mHandler = new Handler();
     }
 
     public void setBleManager(BleManager bleManager) {
         this.mBleManager = bleManager;
-    }
-
-    void startScanning() {
-        this.startScanning(5000);
-    }
-
-    private void startScanning(long scanPeriod) {
-        this.startScanning(scanPeriod, 0);
     }
 
     public void startScanning(long scanPeriod, long restartInterval) {
@@ -86,7 +76,6 @@ public class Scanner {
         boolean started = this.mBleManager.startBleScan(this.mBleScanCallback);
         if (started) {
             this.mScanning = true;
-            this.mListAdapter.clear();
             for (OnScanningStartedListener listener : this.mScanningStartedListeners) {
                 listener.onScanningStarted();
             }
@@ -124,19 +113,7 @@ public class Scanner {
         }
     }
 
-    void removeOnScanningStartedListener(OnScanningStartedListener listener) {
-        this.mScanningStartedListeners.remove(listener);
-    }
-
-    OnMyoClickedListener getOnMyoClickedListener() {
-        return this.mMyoClickedListener;
-    }
-
     public ScanListAdapter getScanListAdapter() {
-        return this.mListAdapter;
-    }
-
-    MyoDeviceListAdapter getAdapter() {
         return this.mListAdapter;
     }
 
@@ -147,23 +124,6 @@ public class Scanner {
         return sAdvertisedUuid.equals(serviceUuid);
     }
 
-
-    private static boolean isDalvikVm() {
-        return "Dalvik".equals(System.getProperty("java.vm.name"));
-    }
-
-    static {
-        block2 : {
-            try {
-                
-            }
-            catch (UnsatisfiedLinkError e) {
-                if (!Scanner.isDalvikVm()) break block2;
-                throw e;
-            }
-        }
-    }
-
     public static interface ScanListAdapter {
         public void addDevice(Myo var1, int var2);
 
@@ -171,7 +131,7 @@ public class Scanner {
     }
 
     public static interface OnMyoClickedListener {
-        public void onMyoClicked(Myo var1);
+        
     }
 
     public static interface OnMyoScannedListener {
@@ -197,7 +157,6 @@ public class Scanner {
                 public void run() {
                     if (Scanner.isMyo(serviceUuid)) {
                         Myo myo = Scanner.this.mMyoScannedListener.onMyoScanned(address, name, rssi);
-                        Scanner.this.mListAdapter.addDevice(myo, rssi);
                     }
                 }
             });
