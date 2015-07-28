@@ -53,10 +53,6 @@ implements Scanner.ScanListAdapter {
         this.notifyDataSetChanged();
     }
 
-    public Myo getMyo(int position) {
-        return this.mItems.get((int)position).myo;
-    }
-
     public void clear() {
         this.mItems.clear();
         this.notifyDataSetChanged();

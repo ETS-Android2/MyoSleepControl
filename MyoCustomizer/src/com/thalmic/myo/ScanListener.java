@@ -78,12 +78,7 @@ Scanner.OnMyoScannedListener {
     private static enum AttachMode {
         NONE,
         ADJACENT,
-        ADDRESS;
-        
-
-        private AttachMode() {
-        }
+        ADDRESS
     }
-
 }
 

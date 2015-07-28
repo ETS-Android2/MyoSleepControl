@@ -3,9 +3,9 @@ package de.nachregenkommtsonne.myocustomizer;
 import android.app.Activity;
 
 import com.thalmic.myo.AbstractDeviceListener;
-import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
+import com.thalmic.myo.SleepMode;
 
 import android.app.Fragment;
 import android.os.Bundle;

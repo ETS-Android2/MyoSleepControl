@@ -27,14 +27,11 @@ implements GattCallback.UpdateParser {
         this.mScanner = scanner;
     }
 
-
     @Override
     public void onMyoConnected(Myo myo) {
         long now = this.mHub.now();
         if (!myo.isAttached()) {
             myo.setAttached(true);
-            
-            
         }
         this.setMyoConnectionState(myo, Myo.ConnectionState.CONNECTED);
         this.mListener.onConnect(myo, now);
@@ -46,12 +43,7 @@ implements GattCallback.UpdateParser {
         this.setMyoConnectionState(myo, Myo.ConnectionState.DISCONNECTED);
         
         this.mListener.onDisconnect(myo, now);
-        
     }
-
- 
-
-
 
     private void setMyoConnectionState(Myo myo, Myo.ConnectionState connectionState) {
         myo.setConnectionState(connectionState);
@@ -59,8 +51,5 @@ implements GattCallback.UpdateParser {
             this.mScanner.getScanListAdapter().notifyDeviceChanged();
         }
     }
-
-
-
 }
 

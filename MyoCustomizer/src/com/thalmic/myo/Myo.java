@@ -3,7 +3,6 @@
  */
 package com.thalmic.myo;
 
-import com.thalmic.myo.ControlCommand.SleepMode;
 import com.thalmic.myo.FirmwareVersion;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.MyoGatt;
@@ -16,7 +15,7 @@ public class Myo {
     private boolean mAttached;
     private ConnectionState mConnState = ConnectionState.DISCONNECTED;
     private FirmwareVersion mFirmwareVersion;
-   private boolean mUnlocked;
+    private boolean mUnlocked;
  
     Myo(Hub hub, Address address) {
         this.mMyoGatt = hub.getMyoGatt();
@@ -40,8 +39,6 @@ public class Myo {
         return this.mUnlocked;
     }
 
-
-    
     public void turnOffForTransport() {
     	this.mMyoGatt.turnOffForTransport(this.mAddress);
     }
@@ -91,7 +88,6 @@ public class Myo {
         this.mConnState = state;
     }
 
-
     void setFirmwareVersion(FirmwareVersion firmwareVersion) {
         this.mFirmwareVersion = firmwareVersion;
     }
@@ -101,7 +97,5 @@ public class Myo {
         CONNECTING,
         DISCONNECTED
     }
-
-
 }
 
