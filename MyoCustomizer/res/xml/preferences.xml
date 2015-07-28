@@ -30,13 +30,13 @@
             android:title="Power down for transport" />
         
         <afzkl.development.colorpickerview.preference.ColorPreference
-            android:defaultValue="0xFF000000"
+            android:defaultValue="0xFFFF0000"
             android:key="@string/pref_key_options_pick_color_status"
             android:summary="Pick a color for status LED."
             android:title="Status LED color" />
         
         <afzkl.development.colorpickerview.preference.ColorPreference
-            android:defaultValue="0xFF000000"
+            android:defaultValue="0xFFFF0000"
             android:key="@string/pref_key_options_pick_color_connection"
             android:summary="Pick a color for connection LED."
             android:title="Connection LED color" />

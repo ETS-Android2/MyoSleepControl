@@ -15,7 +15,6 @@ import afzkl.development.colorpickerview.preference.ColorPreference;
 import afzkl.development.colorpickerview.preference.ColorPreference.OnShowDialogListener;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -184,10 +183,6 @@ public class PlaceholderFragment extends PreferenceFragment
 
   private void disableAutoSleep()
   {
-/*    Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-    editor.putBoolean(getString(R.string.pref_key_options_autosleep), false);
-    editor.commit();*/
-    
     ((CheckBoxPreference)_options_autosleep).setChecked(false);
   }
   

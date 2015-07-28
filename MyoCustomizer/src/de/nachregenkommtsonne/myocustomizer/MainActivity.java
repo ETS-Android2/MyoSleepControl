@@ -4,8 +4,6 @@ import afzkl.development.colorpickerview.dialog.ColorPickerDialogFragment.ColorP
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class MainActivity extends Activity implements ColorPickerDialogListener
 {
@@ -23,29 +21,6 @@ public class MainActivity extends Activity implements ColorPickerDialogListener
     }
     
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    
-    return false;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    int id = item.getItemId();
-    if (id == R.id.action_settings)
-    {
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
-  public enum SleepMode
-  {
-    NORMAL, NEVER_SLEEP
   }
 
   @Override
