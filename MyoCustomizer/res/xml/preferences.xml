@@ -5,22 +5,16 @@
         android:key="@string/pref_key_connection"
         android:title="Connection">
         
-        <Preference 
-            android:defaultValue="true"
-            android:key="@string/pref_key_connection_connect_adjacent"
-            android:summary="Connect"
-            android:title="Connect to nearby Myo" />
-        
         <Preference
             android:defaultValue="true"
             android:key="@string/pref_key_connection_connect_dialog"
-            android:summary="Connect Dialog"
-            android:title="Connect to specific Myo" />
+            android:summary="Opens the connecttion dialog."
+            android:title="Connect to Myo" />
                 
         <Preference
             android:defaultValue="true"
             android:key="@string/pref_key_connection_disconnect"
-            android:summary="Disconnect"
+            android:summary="Disconnects the connected Myo."
             android:title="Disconnect" />
         
     </PreferenceCategory>
@@ -32,31 +26,32 @@
         <Preference
             android:defaultValue="true"
             android:key="@string/pref_key_options_transport"
-            android:summary="Turn Off for Transport"
-            android:title="Power down for Transport" />
+            android:summary="The Myo can only be reactivated by connecting it to a power source."
+            android:title="Power down for transport" />
         
-        <CheckBoxPreference
-            android:defaultValue="true"
+        <afzkl.development.colorpickerview.preference.ColorPreference
+            android:defaultValue="0xFF000000"
             android:key="@string/pref_key_options_pick_color_status"
-            android:summary="Color"
-            android:title="Pick color for status light" />
+            android:summary="Pick a color for status LED."
+            android:title="Status LED color" />
         
-        <CheckBoxPreference
-            android:defaultValue="true"
+        <afzkl.development.colorpickerview.preference.ColorPreference
+            android:defaultValue="0xFF000000"
             android:key="@string/pref_key_options_pick_color_connection"
-            android:summary="Color2"
-            android:title="Pick color for connection light" />
+            android:summary="Pick a color for connection LED."
+            android:title="Connection LED color" />
         
         <Preference
             android:defaultValue="true"
             android:key="@string/pref_key_options_set_color"
-            android:summary="SetColor"
-            android:title="Set Myo colors" />
+            android:summary="Transfers the selected colors to the connected Myo."
+            android:title="Set color" />
         
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/pref_key_options_autosleep"
-            android:summary="Off"
+            android:summaryOff="Myo will not turn off until the battery is drained."
+            android:summaryOn="Click to re-enable autosleep."
             android:title="Disable autosleep" />
         
     </PreferenceCategory>
