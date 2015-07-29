@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-
+  
     <PreferenceCategory
         android:key="@string/pref_key_connection"
         android:title="Connection">
         
         <Preference
-            android:defaultValue="true"
             android:key="@string/pref_key_connection_connect_dialog"
             android:summary="Opens the connecttion dialog."
-            android:title="Connect to Myo" />
+            android:title="Connect to Myo..." />
                 
         <Preference
-            android:defaultValue="true"
             android:key="@string/pref_key_connection_disconnect"
             android:summary="Disconnects the connected Myo."
             android:title="Disconnect" />
@@ -24,7 +22,6 @@
         android:title="Myo Options">
 
         <Preference
-            android:defaultValue="true"
             android:key="@string/pref_key_options_transport"
             android:summary="The Myo can only be reactivated by connecting it to a power source."
             android:title="Power down for transport" />
@@ -42,7 +39,6 @@
             android:title="Connection LED color" />
         
         <Preference
-            android:defaultValue="true"
             android:key="@string/pref_key_options_set_color"
             android:summary="Transfers the selected colors to the connected Myo."
             android:title="Set color" />
@@ -53,6 +49,18 @@
             android:summaryOff="Myo will not turn off until the battery is drained."
             android:summaryOn="Click to re-enable autosleep."
             android:title="Disable autosleep" />
-        
+   
     </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:key="@string/pref_key_about"
+        android:title="About this APP">
+        
+        <Preference
+            android:key="@string/pref_key_about_info"
+            android:summary="Copyright, License and other stuff."
+            android:title="Info..." />
+    
+    </PreferenceCategory>
+    
 </PreferenceScreen>

@@ -15,6 +15,7 @@ import afzkl.development.colorpickerview.preference.ColorPreference;
 import afzkl.development.colorpickerview.preference.ColorPreference.OnShowDialogListener;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -36,6 +37,7 @@ public class PlaceholderFragment extends PreferenceFragment
   private Preference _options_autosleep;
   private ColorPreference _options_pick_color_status;
   private ColorPreference _options_pick_color_connection;
+  private Preference _about_info;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -45,7 +47,7 @@ public class PlaceholderFragment extends PreferenceFragment
     initMyo();
 
     addPreferencesFromResource(R.xml.preferences);
-
+    
     _connection_connect_dialog = findPreference(getString(R.string.pref_key_connection_connect_dialog));
     _connection_connect_dialog.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
@@ -54,6 +56,7 @@ public class PlaceholderFragment extends PreferenceFragment
         Activity activity = getActivity();
         Intent intent = new Intent(activity, ScanActivity.class);
         activity.startActivity(intent);
+        
         return true;
       }
     });
@@ -177,6 +180,20 @@ public class PlaceholderFragment extends PreferenceFragment
 
     _options = findPreference(getString(R.string.pref_key_options));
 
+    _about_info = findPreference(getString(R.string.pref_key_about_info));
+    _about_info.setOnPreferenceClickListener(new OnPreferenceClickListener()
+    {
+      public boolean onPreferenceClick(Preference preference)
+      {
+    	  Activity activity = getActivity();
+          Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+          browserIntent.setData(Uri.parse("http://www.nachregenkommtsonne.de/myo"));
+          activity.startActivity(browserIntent);
+        
+        return true;
+      }
+    });
+    
     updateEnabledState();
     disableAutoSleep();
  }

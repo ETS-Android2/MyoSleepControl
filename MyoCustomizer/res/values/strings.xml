@@ -13,4 +13,6 @@
     <string name="pref_key_options_set_color">pref_key_options_set_color</string>
     <string name="pref_key_options_autosleep">pref_key_options_autosleep</string>
     <string name="pref_key_options_transport">pref_key_options_transport</string>
+    <string name="pref_key_about">pref_key_about</string>
+    <string name="pref_key_about_info">pref_key_about_info</string>
 </resources>
